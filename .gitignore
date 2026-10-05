@@ -4,6 +4,8 @@ composer.lock
 
 # Frontend Assets
 /node_modules
+/build
+/docs/public/build
 
 # Logs
 npm-debug.log

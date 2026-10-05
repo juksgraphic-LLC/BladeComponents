@@ -1,48 +1,59 @@
 {
-    "name": ":vendor_slug/:package_slug",
-    "description": ":package_description",
+    "name": "juksgraphic/bladecomponents",
+    "description": "Composants Blade (Tailwind, Alpine, Penguin UI) pour Laravel et BladeOne.",
     "keywords": [
-        ":vendor_name",
-        ":package_slug"
+        "Juksgraphic",
+        "bladecomponents",
+        "blade",
+        "bladeone",
+        "tailwind",
+        "alpine"
     ],
-    "homepage": "https://github.com/:vendor_slug/:package_slug",
+    "homepage": "https://github.com/juksgraphic/bladecomponents",
     "license": "MIT",
     "authors": [
         {
-            "name": ":author_name",
-            "email": "author@domain.com",
+            "name": "Kingsley",
+            "email": "kingsleyguillaume77@gmail.com",
             "role": "Developer"
         }
     ],
     "require": {
-        "php": "^8.4"
+        "php": "^8.2"
     },
     "require-dev": {
-        :require_dev_testing,
-        :require_dev_codestyle,
-        "spatie/ray": "^1.28"
+        "eftec/bladeone": "^5.0",
+        "flightphp/core": "^3.19",
+        "friendsofphp/php-cs-fixer": "^3.21.1",
+        "pestphp/pest": "^4.0"
+    },
+    "suggest": {
+        "eftec/bladeone": "Pour utiliser les composants hors Laravel (Flight, etc.)"
     },
     "autoload": {
         "psr-4": {
-            "VendorName\\Skeleton\\": "src"
+            "Juksgraphic\\BladeComponents\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "VendorName\\Skeleton\\Tests\\": "tests"
+            "Juksgraphic\\BladeComponents\\Tests\\": "tests/",
+            "Docs\\": "docs/app/"
         }
     },
     "scripts": {
-        :scripts_testing,
-        :scripts_codestyle
+        "docs": "php -S localhost:8000 -t docs/public docs/public/index.php",
+        "docs:build": "npm run build",
+        "test": "vendor/bin/pest",
+        "test-coverage": "vendor/bin/pest --coverage",
+        "format": "vendor/bin/php-cs-fixer fix --config=.php-cs-fixer.dist.php --allow-risky=yes"
     },
     "config": {
         "sort-packages": true,
         "allow-plugins": {
-            :plugins_testing,
-            "phpstan/extension-installer": true
+            "pestphp/pest-plugin": true
         }
     },
-    "minimum-stability": "dev",
+    "minimum-stability": "stable",
     "prefer-stable": true
 }
