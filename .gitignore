@@ -5,6 +5,7 @@ composer.lock
 # Frontend Assets
 /node_modules
 /build
+/docs/app/cache
 /docs/public/build
 
 # Logs
@@ -31,5 +32,4 @@ phpunit.xml
 phpstan.neon
 psalm.xml
 testbench.yaml
-/docs
 /coverage

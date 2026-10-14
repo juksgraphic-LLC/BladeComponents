@@ -1,0 +1,341 @@
+@extends('layout')
+
+@section('content')
+
+    @php
+        $rows = [
+            [
+                'Configuration',
+                [
+                    [
+                        'variant',
+                        'string',
+                        'info',
+                        'Color variant of the toast: <code>info</code>, <code>success</code>, <code>warning</code>, <code>danger</code>, <code>secondary</code>, <code>dark</code>.',
+                    ],
+                    [
+                        'type',
+                        'string',
+                        "'default'",
+                        'Layout type: <code>default</code>, <code>bordered</code>, or <code>message</code>.',
+                    ],
+                    ['title', 'string|null', 'null', 'Main heading of the toast notification. Escaped for security.'],
+                    ['message', 'string', "''", 'Body content message of the toast. Rendered as raw HTML.'],
+                    [
+                        'time',
+                        'string|null',
+                        'null',
+                        'Timestamp or relative time string displayed in header (e.g. <code>2m ago</code>).',
+                    ],
+                    ['senderName', 'string|null', 'null', 'Sender name for message-type toasts.'],
+                    ['senderAvatar', 'string|null', 'null', 'Avatar image URL for message-type toasts.'],
+                    ['translucent', 'bool', 'false', 'Applies a glassmorphism translucent background effect.'],
+                    ['dismissible', 'bool', 'true', 'Adds a close button to dismiss the toast.'],
+                    ['live', 'bool', 'false', 'Keeps the toast hidden until an event triggers it.'],
+                    ['duration', 'int|null', 'null', 'Auto-dismiss delay in milliseconds.'],
+                    ['id', 'string|null', 'null', 'Unique HTML ID for live event targeting.'],
+                ],
+            ],
+            [
+                'Événements',
+                [
+                    [
+                        'jkc-notify',
+                        'CustomEvent',
+                        '-',
+                        'Global stack manager event to push floating notifications dynamically.',
+                    ],
+                    ['jkc-toast-show', 'CustomEvent', '-', 'Alternative global stack manager notification trigger.'],
+                    ['jkc-on-toast-close', 'CustomEvent', '-', 'Fired on window when a toast is closed.'],
+                ],
+            ],
+        ];
+    @endphp
+
+    {{-- ══════════════════════════════════════════════════════════
+         DEUX COLONNES CÔTE À CÔTE
+         Gauche : Utilisations (2/3)  |  Droite : Props + Source (1/3)
+    ══════════════════════════════════════════════════════════ --}}
+    <div class="grid grid-cols-1 gap-8 lg:grid-cols-3"
+        x-on:jkc-on-toast-close.window="console.log('Toast closed:', $event.detail.id)"
+        x-on:jkc-on-notify.window="console.log('Notification triggered via jkc-on-notify:', $event.detail.notification)"
+        x-on:jkc-on-toast-show.window="console.log('Toast shown via jkc-on-toast-show:', $event.detail.notification)">
+
+        {{-- Include global notifications stack manager --}}
+        @include('jkc.feedbacks.notification')
+
+        {{-- ── COLONNE GAUCHE : UTILISATIONS (2/3) ──────────────── --}}
+        <section id="utilisations" class="scroll-mt-6 lg:col-span-2">
+
+            {{-- ── En-tête ─────────────────────────────────────────────── --}}
+            <header class="mb-10">
+                <p class="font-code text-xs uppercase tracking-wide text-primary dark:text-primary-dark">
+                    Feedbacks
+                </p>
+                <h1 class="mt-1 font-title text-3xl font-semibold text-on-surface-strong dark:text-on-surface-dark-strong">
+                    Toast & Notifications
+                </h1>
+                <p class="mt-2 max-w-2xl font-paragraph text-on-surface/70 dark:text-on-surface-dark/70">
+                    Push notifications and short alert messages to your users with support for multiple variants, layouts,
+                    avatars, and live event triggers
+                </p>
+                <div class="mt-4 flex flex-wrap items-center gap-2">
+                    <span
+                        class="rounded-full border border-primary/30 bg-primary/10 px-3 py-1 font-code text-xs text-primary dark:border-primary-dark/30 dark:bg-primary-dark/10 dark:text-primary-dark">Stack
+                        Manager</span>
+                    <span
+                        class="rounded-full border border-primary/30 bg-primary/10 px-3 py-1 font-code text-xs text-primary dark:border-primary-dark/30 dark:bg-primary-dark/10 dark:text-primary-dark">3
+                        layouts</span>
+                    <span
+                        class="rounded-full border border-outline bg-surface-alt px-3 py-1 font-code text-xs text-on-surface dark:border-outline-dark dark:bg-surface-dark-alt dark:text-on-surface-dark">Alpine.js
+                        requis</span>
+                </div>
+            </header>
+
+            <h2 class="font-title text-2xl font-semibold text-on-surface-strong dark:text-on-surface-dark-strong">
+                Utilisations
+            </h2>
+            <p class="mt-2 font-paragraph text-on-surface/70 dark:text-on-surface-dark/70">
+                Explore component implementations: global notification stack, variants, message boxes with avatars, and
+                event-driven toasts.
+            </p>
+
+            <div class="mt-6 grid grid-cols-1 gap-6">
+
+                {{-- 1. Global Notifications Stack Manager --}}
+                @component('partials.section', [
+                    'title' => 'Global Notification Stack Manager',
+                    'description' =>
+                        'Dispatch events to push floating toast notifications dynamically onto the screen. Listens to <code>jkc-notify</code> and <code>jkc-toast-show</code>[cite: 4].',
+                ])
+                    @component('partials.example')
+                        @verbatim
+                            <div class="flex flex-wrap gap-3">
+                                <div class="flex flex-wrap items-center gap-3">
+
+                                    {{-- Success --}}
+                                    <button type="button"
+                                        x-on:click="$dispatch('jkc-notify', { variant: 'success', title: 'Success Profile', message: 'Your settings have been updated successfully.' })"
+                                        class="inline-flex items-center gap-2 rounded-radius border border-success bg-success px-4 py-2 text-xs font-medium text-on-success transition hover:opacity-90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-success active:opacity-100">
+                                        Trigger Success Notify
+                                    </button>
+
+                                    {{-- Danger --}}
+                                    <button type="button"
+                                        x-on:click="$dispatch('jkc-notify', { variant: 'danger', title: 'Error Occurred', message: 'Failed to connect to database server.' })"
+                                        class="inline-flex items-center gap-2 rounded-radius border border-danger bg-danger px-4 py-2 text-xs font-medium text-on-danger transition hover:opacity-90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-danger active:opacity-100">
+                                        Trigger Danger Notify
+                                    </button>
+
+                                    {{-- Warning (toast) --}}
+                                    <button type="button"
+                                        x-on:click="$dispatch('jkc-toast-show', { type: 'warning', message: 'System Warning', description: 'CPU usage is exceeding 90% threshold.' })"
+                                        class="inline-flex items-center gap-2 rounded-radius border border-warning bg-warning px-4 py-2 text-xs font-medium text-on-warning transition hover:opacity-90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-warning active:opacity-100">
+                                        Trigger Toast Show Event
+                                    </button>
+
+                                </div>
+                            </div>
+                        @endverbatim
+                    @endcomponent
+                @endcomponent
+
+                {{-- 2. Toast Variants --}}
+                @component('partials.section', [
+                    'title' => 'Toast Variants',
+                    'description' => 'Bordered layout toasts with different color variants (info, success, warning)[cite: 4].',
+                ])
+                    @component('partials.example')
+                        @verbatim
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                                @include('jkc.feedbacks.toast', [
+                                    'variant' => 'info',
+                                    'type' => 'bordered',
+                                    'title' => 'Update Available',
+                                    'message' => 'A new version of the app is ready to install.',
+                                ])
+                                @include('jkc.feedbacks.toast', [
+                                    'variant' => 'success',
+                                    'type' => 'bordered',
+                                    'title' => 'Changes Saved',
+                                    'message' => 'Your profile updates were saved successfully.',
+                                ])
+                                @include('jkc.feedbacks.toast', [
+                                    'variant' => 'warning',
+                                    'type' => 'bordered',
+                                    'title' => 'Storage Warning',
+                                    'message' => 'You are running low on cloud database space.',
+                                ])
+                            </div>
+                        @endverbatim
+                    @endcomponent
+                @endcomponent
+
+                {{-- 3. Message Toasts with Avatars --}}
+                @component('partials.section', [
+                    'title' => 'Message Toasts',
+                    'description' => 'Ideal for chat messages or user notifications featuring sender avatars[cite: 4].',
+                ])
+                    @component('partials.example')
+                        @verbatim
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                                @include('jkc.feedbacks.toast', [
+                                    'type' => 'message',
+                                    'senderName' => 'Frantzia Fevry',
+                                    'senderAvatar' =>
+                                        'https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=200&auto=format&fit=crop',
+                                    'message' =>
+                                        'Hey Kingsley, are we deploying the course streaming updates today?',
+                                ])
+                                @include('jkc.feedbacks.toast', [
+                                    'type' => 'message',
+                                    'senderName' => 'Darbysson',
+                                    'senderAvatar' =>
+                                        'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=200&auto=format&fit=crop',
+                                    'message' => 'Contract details for Lambi Connect have been adjusted.',
+                                ])
+                                @include('jkc.feedbacks.toast', [
+                                    'type' => 'message',
+                                    'senderName' => 'Cia System',
+                                    'senderAvatar' =>
+                                        'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=200&auto=format&fit=crop',
+                                    'message' => 'New student registration confirmed for the academy course.',
+                                ])
+                            </div>
+                        @endverbatim
+                    @endcomponent
+                @endcomponent
+
+                {{-- 4. Classic & Translucent Toasts --}}
+                @component('partials.section', [
+                    'title' => 'Classic & Translucent Toasts',
+                    'description' => 'Standard cards with timestamp headers or translucent glassmorphism effect[cite: 4].',
+                ])
+                    @component('partials.example')
+                        @verbatim
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                                @include('jkc.feedbacks.toast', [
+                                    'type' => 'default',
+                                    'title' => 'System Notice',
+                                    'time' => '2m ago',
+                                    'message' => 'Scheduled maintenance will occur tonight at midnight.',
+                                ])
+                                @include('jkc.feedbacks.toast', [
+                                    'type' => 'default',
+                                    'translucent' => true,
+                                    'title' => 'Glassmorphism',
+                                    'time' => '5m ago',
+                                    'message' => 'This toast uses a translucent background overlay.',
+                                ])
+                                @include('jkc.feedbacks.toast', [
+                                    'type' => 'default',
+                                    'variant' => 'danger',
+                                    'title' => 'Security Alert',
+                                    'time' => 'Just now',
+                                    'message' => 'Unrecognized login attempt blocked from external IP.',
+                                ])
+                            </div>
+                        @endverbatim
+                    @endcomponent
+                @endcomponent
+
+                {{-- 5. Live / Event Triggered Toasts --}}
+                @component('partials.section', [
+                    'title' => 'Live Toasts (Event Triggered)',
+                    'description' => 'Toasts that appear dynamically when an event is dispatched[cite: 4].',
+                ])
+                    @component('partials.example')
+                        @verbatim
+                            <div class="space-y-4 max-w-md">
+                                <button type="button"
+                                    onclick="window.dispatchEvent(new CustomEvent('jkc-open-toast', { detail: 'toast-live-demo' }))"
+                                    class="px-4 py-2 text-xs font-medium text-on-primary bg-primary hover:bg-primary/90 rounded-radius transition">
+                                    Trigger Live Toast
+                                </button>
+
+                                @include('jkc.feedbacks.toast', [
+                                    'id' => 'toast-live-demo',
+                                    'variant' => 'success',
+                                    'type' => 'bordered',
+                                    'live' => true,
+                                    'duration' => 4000,
+                                    'title' => 'Live Action Executed',
+                                    'message' =>
+                                        'This toast was triggered via event and auto-dismisses in 4 seconds.',
+                                ])
+                            </div>
+                        @endverbatim
+                    @endcomponent
+                @endcomponent
+
+            </div>
+        </section>
+
+        {{-- ── COLONNE DROITE : PROPS + SOURCE (1/3) ────────────── --}}
+        <aside id="proprietes" class="scroll-mt-6 lg:col-span-1">
+            <h2 class="font-title text-2xl font-semibold text-on-surface-strong dark:text-on-surface-dark-strong">
+                Properties
+            </h2>
+            <p class="mt-2 font-paragraph text-on-surface/70 dark:text-on-surface-dark/70">
+                All props of the component, followed by the full source code.
+            </p>
+
+            <div x-data="{ query: '' }" class="mt-6">
+                {{-- Filtre --}}
+                <div class="relative mb-4">
+                    <svg class="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-on-surface/40 dark:text-on-surface-dark/40"
+                        xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                        stroke-width="2" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M21 21l-4.35-4.35M17 10.5a6.5 6.5 0 11-13 0 6.5 6.5 0 0113 0z" />
+                    </svg>
+                    <input type="search" x-model="query" placeholder="Filter theProperties…"
+                        aria-label="Filter theProperties"
+                        class="w-full rounded-radius border border-outline bg-surface py-2 pl-9 pr-3 font-paragraph text-sm text-on-surface placeholder:text-on-surface/40 focus:border-primary focus:outline-none dark:border-outline-dark dark:bg-surface-dark dark:text-on-surface-dark dark:placeholder:text-on-surface-dark/40 dark:focus:border-primary-dark">
+                </div>
+
+                @foreach ($rows as $group)
+                    <div
+                        class="mb-6 overflow-hidden rounded-radius border border-outline last:mb-0 dark:border-outline-dark">
+                        <h3
+                            class="border-b border-outline bg-surface-alt px-4 py-2.5 font-title text-sm font-semibold uppercase tracking-wide text-on-surface-strong dark:border-outline-dark dark:bg-surface-dark-alt dark:text-on-surface-dark-strong">
+                            {{ $group[0] }}
+                        </h3>
+                        <div>
+                            @foreach ($group[1] as $row)
+                                <div x-show="'{{ strtolower($row[0]) }} {{ strtolower(strip_tags($row[3])) }}'.includes(query.toLowerCase())"
+                                    x-transition.opacity.duration.100ms
+                                    class="border-b border-outline px-4 py-3 last:border-b-0 dark:border-outline-dark">
+                                    {{-- Ligne 1 : prop + type + défaut --}}
+                                    <div class="flex flex-wrap items-center gap-2">
+                                        <code
+                                            class="rounded bg-primary/10 px-2 py-0.5 font-code text-xs font-semibold text-primary dark:bg-primary-dark/10 dark:text-primary-dark">{{ $row[0] }}</code>
+                                        <span
+                                            class="font-code text-xs text-on-surface/50 dark:text-on-surface-dark/50">{{ $row[1] }}</span>
+                                        <code
+                                            class="ml-auto rounded bg-surface-alt px-2 py-0.5 font-code text-xs text-on-surface/60 dark:bg-surface-dark-alt dark:text-on-surface-dark/60">{{ $row[2] }}</code>
+                                    </div>
+                                    {{-- Ligne 2 : description --}}
+                                    <p
+                                        class="mt-1.5 font-paragraph text-xs leading-relaxed text-on-surface/70 dark:text-on-surface-dark/70">
+                                        {!! $row[3] !!}</p>
+                                </div>
+                            @endforeach
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+
+            {{-- Code source du composant --}}
+            <div id="source" class="mt-8 scroll-mt-6">
+                @component('partials.section', [
+                    'title' => 'Code source',
+                    'description' => 'Full source of the jkc.feedbacks.toast component view.',
+                ])
+                    @include('partials.source', ['view' => 'jkc.feedbacks.toast'])
+                @endcomponent
+            </div>
+        </aside>
+
+    </div>
+@endsection

@@ -1,0 +1,95 @@
+@php
+    $json = json_encode(
+        array_map(fn($c, $i) => ['id' => 'c' . $i] + $c, $components, array_keys($components)),
+        JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP,
+    );
+@endphp
+
+<article>
+    <div x-data="{
+        searchTerm: '',
+        components: {{ $json }},
+        get hasQuery() { return this.searchTerm.trim().length > 0; },
+        get filteredComponents() {
+            const q = this.searchTerm.toLowerCase().trim();
+            if (!q) return [];
+            return this.components.filter(c =>
+                c.title.toLowerCase().includes(q) || c.description.toLowerCase().includes(q));
+        },
+        onOpen() {
+            this.searchTerm = '';
+            setTimeout(() => document.getElementById('site-search-input')?.focus(), 50);
+        }
+    }" x-on:open-command-palette.window="$dispatch('jkc-open-modal', 'site-search-modal')"
+        x-on:keydown.window.ctrl.k.prevent="$dispatch('jkc-open-modal', 'site-search-modal')"
+        x-on:keydown.window.meta.k.prevent="$dispatch('jkc-open-modal', 'site-search-modal')"
+        x-on:keydown.window.escape="$dispatch('jkc-close-modal', 'site-search-modal')"
+        x-on:jkc-on-open-modal="if ($event.detail.id === 'site-search-modal') onOpen()">
+
+        @component('jkc.modals.modal', [
+            'id' => 'site-search-modal',
+            'size' => 'lg',
+            'animation' => 'zoom',
+            'showClose' => false,
+        ])
+            @slot('header')
+                <div class="flex w-full items-center gap-3">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        class="shrink-0 text-primary dark:text-primary-dark">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <path d="m21 21-4.3-4.3"></path>
+                    </svg>
+                    <input id="site-search-input" type="text" x-model="searchTerm"
+                        x-on:keydown.enter.prevent="document.querySelector('#site-search-results a')?.click()"
+                        placeholder="Tapez le nom d'un composant (ex: Modal, Carousel, Alert)..."
+                        class="flex-1 bg-transparent text-sm text-on-surface outline-none placeholder:text-on-surface/40 dark:text-on-surface-dark dark:placeholder:text-on-surface-dark/40"
+                        autocomplete="off" spellcheck="false">
+                </div>
+            @endslot
+
+            @slot('body')
+                <div x-show="!hasQuery" class="py-8 text-center">
+                    <i class="bx bx-search mb-2 text-3xl text-on-surface/30 dark:text-on-surface-dark/30"></i>
+                    <p class="text-xs text-on-surface/60 dark:text-on-surface-dark/60">Commencez à taper pour rechercher un
+                        composant</p>
+                </div>
+
+                <div id="site-search-results" x-show="hasQuery" class="max-h-[50vh] space-y-4 overflow-y-auto py-1">
+                    <template x-for="comp in filteredComponents" :key="comp.id">
+                        <a :href="comp.url" x-on:click="$dispatch('jkc-close-modal', 'site-search-modal')"
+                            class="group flex items-center gap-2">
+                            <div
+                                class="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary dark:bg-primary-dark/10 dark:text-primary-dark">
+                                <i :class="comp.icon" class="text-lg"></i>
+                            </div>
+                            <div class="min-w-0 flex-1">
+                                <h4 class="truncate text-sm font-semibold text-on-surface group-hover:text-primary dark:text-on-surface-dark dark:group-hover:text-primary-dark"
+                                    x-text="comp.title"></h4>
+                                <p class="mt-0.5 line-clamp-1 text-xs text-on-surface/70 dark:text-on-surface-dark/70"
+                                    x-text="comp.description"></p>
+                            </div>
+                        </a>
+                    </template>
+
+                    <div x-show="filteredComponents.length === 0" class="py-8 text-center">
+                        <i class="bx bx-folder-open mb-2 text-3xl text-on-surface/30 dark:text-on-surface-dark/30"></i>
+                        <p class="text-xs text-on-surface/60 dark:text-on-surface-dark/60">
+                            Aucun composant trouvé pour "<span x-text="searchTerm"
+                                class="font-semibold text-on-surface dark:text-on-surface-dark"></span>"
+                        </p>
+                    </div>
+                </div>
+            @endslot
+
+            @slot('footer')
+                <div
+                    class="flex w-full items-center justify-between text-[11px] text-on-surface/50 dark:text-on-surface-dark/50">
+                    <span>Entrée pour ouvrir le premier résultat · Échap pour fermer</span>
+                    <span x-show="hasQuery" class="font-code" x-text="filteredComponents.length + ' résultats'"></span>
+                </div>
+            @endslot
+        @endcomponent
+    </div>
+
+</article>

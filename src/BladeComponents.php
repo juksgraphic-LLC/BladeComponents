@@ -30,7 +30,7 @@ final class BladeComponents
      */
     public static function all(): array
     {
-        $files = glob(self::path() . '/bc/*.blade.php') ?: [];
+        $files = glob(self::path() . '/jkc/*.blade.php') ?: [];
         $names = array_map(fn (string $f) => basename($f, '.blade.php'), $files);
         sort($names);
 

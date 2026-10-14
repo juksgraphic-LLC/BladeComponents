@@ -1,0 +1,7 @@
+@extends('layout')
+
+@section('content')
+    <h1 class="font-title text-3xl mb-4">Juksgraphic Components</h1>
+    <p class="mb-6 opacity-80">Composants Blade (Tailwind, Alpine, Penguin UI) compatibles Laravel et BladeOne.</p>
+    <pre class="p-4 text-xs rounded-radius bg-surface dark:bg-surface-dark overflow-x-auto"><code>composer require juksgraphic/bladecomponents</code></pre>
+@endsection

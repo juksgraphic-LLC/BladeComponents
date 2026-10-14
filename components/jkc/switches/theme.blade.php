@@ -1,0 +1,135 @@
+@php
+/**
+ * Theme switch component — Juksgraphic
+ *
+ * Dark / light switch built with Tailwind CSS and Alpine.js.
+ * Works with Laravel Blade and BladeOne.
+ *
+ * @param string      $size        Switch size: sm|md|lg. Default: 'md'.
+ * @param bool        $initialDark Initial state when nothing is saved in localStorage. Default: false.
+ * @param string|null $storageKey  localStorage key used to save/restore the state. Default: null.
+ * @param string      $label       Accessible label of the switch. Default: 'Toggle dark mode'.
+ * @param string|null $id          HTML id. Default: null.
+ * @param string      $class       Extra CSS classes. Default: ''.
+ * @param string      $attrs       Extra HTML attributes. Default: ''.
+ */
+
+/** @var string $size */
+$size = (string) ($size ?? 'md');
+
+/** @var bool $initialDark */
+$initialDark = (bool) ($initialDark ?? false);
+
+/** @var string|null $storageKey */
+$storageKey = $storageKey ?? null;
+
+/** @var string $label */
+$label = (string) ($label ?? 'Toggle dark mode');
+
+/** @var string|null $id */
+$id = $id ?? null;
+
+/** @var string $class */
+$class = $class ?? '';
+
+/** @var string $attrs */
+$attrs = $attrs ?? '';
+
+/** @var array<string, array<string, string>> $sizes */
+$sizes = [
+    'sm' => ['track' => 'h-7 w-14', 'knob' => 'size-5', 'shift' => 'group-aria-checked:translate-x-7', 'icon' => 'size-3.5'],
+    'md' => ['track' => 'h-8 w-16', 'knob' => 'size-6', 'shift' => 'group-aria-checked:translate-x-8', 'icon' => 'size-4'],
+    'lg' => ['track' => 'h-10 w-20', 'knob' => 'size-8', 'shift' => 'group-aria-checked:translate-x-10', 'icon' => 'size-5'],
+];
+
+/** @var array<string, string> $s */
+$s = $sizes[$size] ?? $sizes['md'];
+
+/** @var string|null $safeKey */
+$safeKey = is_string($storageKey) ? preg_replace('/[^A-Za-z0-9_.-]/', '', $storageKey) : null;
+
+/** @var string|null $safeId */
+$safeId = $id ? preg_replace('/[^A-Za-z0-9_-]/', '', (string) $id) : null;
+
+/** @var string $sunPath */
+$sunPath = 'M12 3v2.25m6.364.386-1.591 1.591M21 12h-2.25m-.386 6.364-1.591-1.591M12 18.75V21m-4.773-4.227-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z';
+
+/** @var string $moonPath */
+$moonPath = 'M21.752 15.002A9.72 9.72 0 0 1 18 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 0 0 3 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 0 0 9.002-5.998Z';
+
+/** @var string $iconBase */
+$iconBase = 'absolute duration-300 group-data-[ready=true]:transition-all motion-reduce:transition-none';
+
+/** @var string $sunState */
+$sunState = 'rotate-0 scale-100 opacity-100 group-aria-checked:-rotate-90 group-aria-checked:scale-50 group-aria-checked:opacity-0';
+
+/** @var string $moonState */
+$moonState = 'rotate-90 scale-50 opacity-0 group-aria-checked:rotate-0 group-aria-checked:scale-100 group-aria-checked:opacity-100';
+
+/** @var string $classes */
+$classes = trim("group relative inline-flex shrink-0 cursor-pointer items-center justify-between rounded-full border p-[3px] {$s['track']} border-outline bg-surface-alt transition-colors motion-reduce:transition-none dark:border-outline-dark dark:bg-surface-dark-alt focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary dark:focus-visible:outline-primary-dark {$class}");
+@endphp
+
+{{-- Switch Button Element with Inline Alpine Data using single quotes --}}
+<button
+    @if($safeId) id="{{ $safeId }}" @endif
+    type="button"
+    role="switch"
+    aria-checked="{{ $initialDark ? 'true' : 'false' }}"
+    aria-label="{{ htmlspecialchars($label, ENT_QUOTES, 'UTF-8') }}"
+    data-ready="false"
+    x-cloak
+    x-data='{
+        isDark: {{ $initialDark ? 'true' : 'false' }},
+        storageKey: {!! json_encode($safeKey, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP) !!},
+        ready: false,
+        init() {
+            if (this.storageKey) {
+                try {
+                    const saved = localStorage.getItem(this.storageKey);
+                    if (saved !== null) { this.isDark = (saved === "1"); }
+                } catch (e) {}
+            }
+            requestAnimationFrame(() => requestAnimationFrame(() => { this.ready = true; }));
+        },
+        toggle() {
+            this.isDark = !this.isDark;
+            if (this.storageKey) {
+                try { localStorage.setItem(this.storageKey, this.isDark ? "1" : "0"); } catch (e) {}
+            }
+            const detail = { isDark: this.isDark, theme: this.isDark ? "dark" : "light" };
+            this.$dispatch(this.isDark ? "jkc-theme-dark" : "jkc-theme-light", detail);
+            this.$dispatch("jkc-theme-change", detail);
+        }
+    }'
+    x-on:click="toggle()"
+    x-bind:aria-checked="isDark.toString()"
+    x-bind:data-ready="ready"
+    x-on:jkc-theme-change.window="isDark = $event.detail.isDark"
+    class="{{ $classes }}"
+    {!! $attrs !!}
+>
+    {{-- Sun track icon (left side background) --}}
+    <span class="flex {{ $s['knob'] }} items-center justify-center text-on-surface opacity-60 dark:text-on-surface-dark" aria-hidden="true">
+        <svg class="{{ $s['icon'] }}" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="{{ $sunPath }}" />
+        </svg>
+    </span>
+
+    {{-- Moon track icon (right side background) --}}
+    <span class="flex {{ $s['knob'] }} items-center justify-center text-on-surface opacity-60 dark:text-on-surface-dark" aria-hidden="true">
+        <svg class="{{ $s['icon'] }}" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="{{ $moonPath }}" />
+        </svg>
+    </span>
+
+    {{-- Sliding knob with crossfading icons --}}
+    <span class="pointer-events-none absolute left-[3px] top-[3px] flex {{ $s['knob'] }} translate-x-0 {{ $s['shift'] }} items-center justify-center rounded-full bg-primary text-on-primary shadow-sm duration-300 ease-out group-data-[ready=true]:transition-transform motion-reduce:transition-none dark:bg-primary-dark dark:text-on-primary-dark" aria-hidden="true">
+        <svg class="{{ $iconBase }} {{ $s['icon'] }} {{ $sunState }}" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="{{ $sunPath }}" />
+        </svg>
+        <svg class="{{ $iconBase }} {{ $s['icon'] }} {{ $moonState }}" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="{{ $moonPath }}" />
+        </svg>
+    </span>
+</button>

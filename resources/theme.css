@@ -1,8 +1,8 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
-  --font-title: "Bricolage Grotesque", sans-serif;
-  --font-paragraph: "Bricolage Grotesque", sans-serif;
+  --font-title: "Google Sans", sans-serif;
+  --font-paragraph: "Google Sans", sans-serif;
 
   --color-brand-50: #f6fbea;
   --color-brand-100: #eaf6d1;
@@ -47,5 +47,5 @@
   --color-danger: var(--color-red-500);
   --color-on-danger: var(--color-white);
 
-  --radius-radius: var(--radius-3xl);
+  --radius-radius: var(--radius-0);
 }
