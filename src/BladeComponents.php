@@ -26,14 +26,36 @@ final class BladeComponents
 
     /**
      * Components name available ( without extension )
+     * 
      * @return string[]
      */
     public static function all(): array
     {
-        $files = glob(self::path() . '/jkc/*.blade.php') ?: [];
-        $names = array_map(fn (string $f) => basename($f, '.blade.php'), $files);
-        sort($names);
+        $path = self::path() . '/jkc';
 
-        return $names;
+        if (!is_dir($path)) {
+            return [];
+        }
+
+        $iterator = new \RecursiveIteratorIterator(
+            new \RecursiveDirectoryIterator(
+                $path,
+                \RecursiveDirectoryIterator::SKIP_DOTS
+            )
+        );
+
+        $names = [];
+
+        foreach ($iterator as $file) {
+            if (
+                $file->isFile() && $file->getExtension() === 'php'
+                && str_ends_with($file->getFilename(), '.blade.php')
+            ) {
+                $names[] = basename($file->getFilename(), '.blade.php');
+            }
+        }
+
+        sort($names);
+        return array_unique($names);
     }
 }

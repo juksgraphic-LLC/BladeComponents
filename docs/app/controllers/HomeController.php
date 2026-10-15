@@ -3,6 +3,7 @@
 namespace Docs\controllers;
 
 use flight\Engine;
+use Juksgraphic\BladeComponents\BladeComponents;
 
 class HomeController
 {
@@ -33,7 +34,8 @@ class HomeController
     }
 
 
-    public function components(string $component){
+    public function components(string $component)
+    {
         $this->app->render("components.{$component}");
     }
 }
