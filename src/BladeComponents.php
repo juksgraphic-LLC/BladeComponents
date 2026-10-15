@@ -26,14 +26,14 @@ final class BladeComponents
 
     /**
      * Components name available ( without extension )
-     * 
+     *
      * @return string[]
      */
     public static function all(): array
     {
         $path = self::path() . '/jkc';
 
-        if (!is_dir($path)) {
+        if (! is_dir($path)) {
             return [];
         }
 
@@ -56,6 +56,7 @@ final class BladeComponents
         }
 
         sort($names);
+
         return array_unique($names);
     }
 }
