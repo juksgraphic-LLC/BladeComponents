@@ -22,7 +22,7 @@
 --}}
 @php
     $items = $items ?? [];
-    $logo = trim($logo ?? '') !== '' ? $logo : 'Juksgraphic<span class="text-primary dark:text-primary-dark">.</span>';
+    $logo = trim($logo ?? '') !== '' ? $logo : 'Juksgraphic <span class="text-primary dark:text-primary-dark">.</span>';
     $current = parse_url($_SERVER['REQUEST_URI'] ?? '/', PHP_URL_PATH) ?: '/';
     $search = $search ?? true;
     $searchLabel = $searchLabel ?? 'Search';
@@ -71,7 +71,7 @@
     @endif
 
     {{-- Links --}}
-    <div class="flex flex-1 flex-col gap-2 overflow-y-auto pb-6">
+    <div class="flex flex-1 flex-col gap-2 mt-5 overflow-y-auto pb-6">
         @foreach ($items as $i => $item)
             {{-- Section title --}}
             @if (isset($item['heading']))

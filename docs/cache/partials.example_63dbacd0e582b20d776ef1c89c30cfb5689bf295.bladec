@@ -15,7 +15,7 @@
  }
  ?>
 <div x-data="{ tab: 'preview' }"
- class="mt-5 overflow-hidden rounded-radius border border-outline dark:border-outline-dark">
+ class="mt-5 rounded-radius border border-outline dark:border-outline-dark">
 
  <?php /* Onglets */ ?>
  <div class="border-b border-outline bg-surface px-3 py-2 dark:border-outline-dark dark:bg-surface-dark">

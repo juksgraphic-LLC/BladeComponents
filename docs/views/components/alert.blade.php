@@ -134,7 +134,7 @@
 
             
             <h2 class="font-title text-2xl font-semibold text-on-surface-strong dark:text-on-surface-dark-strong">
-                Utilisations
+                Usage
             </h2>
             <p class="mt-2 font-paragraph text-on-surface/70 dark:text-on-surface-dark/70">
                 The component in action: basic usage, the eight types, the nine styles, and the two Alpine.js interactions.
@@ -142,10 +142,10 @@
 
             <div class="mt-6 grid grid-cols-1 gap-6 md:grid-cols-2">
 
-                {{-- Usage de base — pleine largeur --}}
+                {{-- Basic Usage — pleine largeur --}}
                 <div class="md:col-span-2">
                     @component('partials.section', [
-                        'title' => 'Usage de base',
+                        'title' => 'Basic Usage',
                         'description' => 'Include the view and pass the props as an array.',
                     ])
                         @component('partials.example')

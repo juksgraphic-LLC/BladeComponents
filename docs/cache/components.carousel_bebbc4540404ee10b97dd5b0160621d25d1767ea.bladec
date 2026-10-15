@@ -95,7 +95,7 @@
  </header>
 
  <h2 class="font-title text-2xl font-semibold text-on-surface-strong dark:text-on-surface-dark-strong">
- Utilisations
+ Usage
  </h2>
  <p class="mt-2 font-paragraph text-on-surface/70 dark:text-on-surface-dark/70">
  Explore the component implementations: basic slides, controls, indicators, captions, fade transitions, and 3D effects displayed side by side.
@@ -103,7 +103,7 @@
 
  <div class="mt-6 grid grid-cols-1 gap-6">
 
- <?php /* 1. Usage de base & Captions */ ?>
+ <?php /* 1. Basic Usage & Captions */ ?>
  <?php  $this->startComponent('partials.section', [
  'title' => 'Controls & Captions',
  'description' => 'Full-featured carousels with navigation arrows, pagination dots, and caption overlays displayed side by side.',

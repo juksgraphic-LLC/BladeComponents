@@ -42,7 +42,7 @@
                     </svg>
                     <input id="site-search-input" type="text" x-model="searchTerm"
                         x-on:keydown.enter.prevent="document.querySelector('#site-search-results a')?.click()"
-                        placeholder="Tapez le nom d'un composant (ex: Modal, Carousel, Alert)..."
+                        placeholder="Write the component name (ex: Modal, Carousel, Alert)..."
                         class="flex-1 bg-transparent text-sm text-on-surface outline-none placeholder:text-on-surface/40 dark:text-on-surface-dark dark:placeholder:text-on-surface-dark/40"
                         autocomplete="off" spellcheck="false">
                 </div>
@@ -51,8 +51,7 @@
             @slot('body')
                 <div x-show="!hasQuery" class="py-8 text-center">
                     <i class="bx bx-search mb-2 text-3xl text-on-surface/30 dark:text-on-surface-dark/30"></i>
-                    <p class="text-xs text-on-surface/60 dark:text-on-surface-dark/60">Commencez à taper pour rechercher un
-                        composant</p>
+                    <p class="text-xs text-on-surface/60 dark:text-on-surface-dark/60">Start typing to find a component..</p>
                 </div>
 
                 <div id="site-search-results" x-show="hasQuery" class="max-h-[50vh] space-y-4 overflow-y-auto py-1">
@@ -75,7 +74,7 @@
                     <div x-show="filteredComponents.length === 0" class="py-8 text-center">
                         <i class="bx bx-folder-open mb-2 text-3xl text-on-surface/30 dark:text-on-surface-dark/30"></i>
                         <p class="text-xs text-on-surface/60 dark:text-on-surface-dark/60">
-                            Aucun composant trouvé pour "<span x-text="searchTerm"
+                           No component found for "<span x-text="searchTerm"
                                 class="font-semibold text-on-surface dark:text-on-surface-dark"></span>"
                         </p>
                     </div>
@@ -85,8 +84,8 @@
             @slot('footer')
                 <div
                     class="flex w-full items-center justify-between text-[11px] text-on-surface/50 dark:text-on-surface-dark/50">
-                    <span>Entrée pour ouvrir le premier résultat · Échap pour fermer</span>
-                    <span x-show="hasQuery" class="font-code" x-text="filteredComponents.length + ' résultats'"></span>
+                    <span>Enter to open the first result · Escape to close</span>
+                    <span x-show="hasQuery" class="font-code" x-text="filteredComponents.length + ' results'"></span>
                 </div>
             @endslot
         @endcomponent

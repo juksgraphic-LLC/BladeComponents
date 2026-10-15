@@ -87,7 +87,7 @@
             </header>
 
             <h2 class="font-title text-2xl font-semibold text-on-surface-strong dark:text-on-surface-dark-strong">
-                Utilisations
+                Usage
             </h2>
             <p class="mt-2 font-paragraph text-on-surface/70 dark:text-on-surface-dark/70">
                 Explore component implementations: standard summary cards, blog post cards with cover images, profile containers, and metrics analytics layouts.
