@@ -1,22 +1,14 @@
-# This is my package bladecomponents
+# Juksgraphic Blade Components
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/juksgraphic/bladecomponents.svg?style=flat-square)](https://packagist.org/packages/juksgraphic/bladecomponents)
-[![Tests](https://github.com/spatie/package-skeleton-php/actions/workflows/run-tests-pest.yml/badge.svg)](https://github.com/juksgraphic/bladecomponents/actions/workflows/run-tests.yml)
 [![Total Downloads](https://img.shields.io/packagist/dt/juksgraphic/bladecomponents.svg?style=flat-square)](https://packagist.org/packages/juksgraphic/bladecomponents)
+[![License](https://img.shields.io/packagist/l/juksgraphic/bladecomponents.svg?style=flat-square)](LICENSE.md)
 
-This is where your description should go. Try and limit it to a paragraph or two. Consider adding a small example.
-
-## Support us
-
-[<img src="https://github-ads.s3.eu-central-1.amazonaws.com/BladeComponents.jpg?t=1" width="419px" />](https://spatie.be/github-ad-click/BladeComponents)
-
-We invest a lot of resources into creating [best in class open source packages](https://spatie.be/open-source). You can support us by [buying one of our paid products](https://spatie.be/open-source/support-us).
-
-We highly appreciate you sending us a postcard from your hometown, mentioning which of our package(s) you are using. You'll find our address on [our contact page](https://spatie.be/about-us). We publish all received postcards on [our virtual postcard wall](https://spatie.be/open-source/postcards).
+**Juksgraphic Blade Components** is a robust, cross-framework UI component library built with Tailwind CSS, Alpine.js, and Penguin UI principles. It is engineered to work seamlessly in native Laravel applications or lightweight standalone PHP projects using BladeOne.
 
 ## Installation
 
-You can install the package via composer:
+You can install the package via Composer:
 
 ```bash
 composer require juksgraphic/bladecomponents
@@ -24,12 +16,35 @@ composer require juksgraphic/bladecomponents
 
 ## Usage
 
+You can easily register and render components in your Blade templates or standalone PHP views using BladeOne. Use the package helper class to retrieve paths and resources:
+
 ```php
-$skeleton = new deComponents\BladeComponents();
-echo $skeleton->echoPhrase('Hello, deComponents!');
+use Juksgraphic\BladeComponents\BladeComponents;
+
+// Retrieve views/components directory path
+$viewsPath = BladeComponents::path();
+
+// Retrieve theme CSS file path
+$themePath = BladeComponents::theme();
+
+// Get all available component names
+$components = BladeComponents::all();
+```
+
+### Rendering a Component Example (Laravel / BladeOne)
+
+```html
+@include('jkc.feedbacks.alert', [
+    'type' => 'success',
+    'style' => 'left-border',
+    'title' => 'System Operational',
+    'message' => 'All components are successfully loaded.'
+])
 ```
 
 ## Testing
+
+The package includes comprehensive test suites powered by Pest PHP:
 
 ```bash
 composer test
@@ -41,17 +56,17 @@ Please see [CHANGELOG](CHANGELOG.md) for more information on what has changed re
 
 ## Contributing
 
-Please see [CONTRIBUTING](https://github.com/spatie/.github/blob/main/CONTRIBUTING.md) for details.
+Please see [CONTRIBUTING](https://github.com/juksgraphic-LLC/BladeComponents/blob/main/CONTRIBUTING.md) for details.
 
 ## Security Vulnerabilities
 
-Please review [our security policy](../../security/policy) on how to report security vulnerabilities.
+Please review our [security policy](https://github.com/juksgraphic-LLC/BladeComponents/security/policy) on how to report security vulnerabilities.
 
 ## Credits
 
-- [Kingsley](https://github.com/juksgraphic-LLC)
+- [Kingsley Guillaume](https://github.com/juksgraphic-LLC)
 - [All Contributors](../../contributors)
 
 ## License
 
-The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
+The MIT License (MIT). Please see the [License File](LICENSE.md) for more information.
