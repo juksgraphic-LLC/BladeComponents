@@ -8,17 +8,17 @@ function renderModal(array $data = []): string
     $cache = __DIR__ . '/../../docs/cache';
 
     $blade = new BladeOne($views, $cache, BladeOne::MODE_DEBUG);
-    
+
     $defaults = [
-        'id'         => 'test-modal',
-        'size'       => null,
-        'position'   => null,
-        'centered'   => false,
-        'static'     => false,
+        'id' => 'test-modal',
+        'size' => null,
+        'position' => null,
+        'centered' => false,
+        'static' => false,
         'scrollable' => false,
-        'animation'  => 'fade',
-        'showClose'  => true,
-        'title'      => 'Modal Title',
+        'animation' => 'fade',
+        'showClose' => true,
+        'title' => 'Modal Title',
     ];
 
     return $blade->run('jkc.modals.modal', array_merge($defaults, $data));
@@ -26,7 +26,7 @@ function renderModal(array $data = []): string
 
 it('renders default modal correctly with title and default buttons', function () {
     $html = renderModal([
-        'id'    => 'my-modal',
+        'id' => 'my-modal',
         'title' => 'Custom Modal Title',
     ]);
 
@@ -40,7 +40,7 @@ it('renders default modal correctly with title and default buttons', function ()
 
 it('renders modal with size and animation attributes correctly', function () {
     $html = renderModal([
-        'size'      => 'lg',
+        'size' => 'lg',
         'animation' => 'zoom',
     ]);
 

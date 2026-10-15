@@ -23,7 +23,7 @@ it('renders default alert correctly', function () {
 
 it('renders alert with correct type and role for danger', function () {
     $html = renderAlert([
-        'type'    => 'danger',
+        'type' => 'danger',
         'message' => 'Danger alert message.',
     ]);
 
@@ -34,9 +34,9 @@ it('renders alert with correct type and role for danger', function () {
 
 it('renders title and optional link correctly', function () {
     $html = renderAlert([
-        'title'    => 'Update Available',
-        'message'  => 'A new version is ready.',
-        'link'     => 'https://example.com',
+        'title' => 'Update Available',
+        'message' => 'A new version is ready.',
+        'link' => 'https://example.com',
         'linkText' => 'Download',
     ]);
 
@@ -49,8 +49,8 @@ it('renders title and optional link correctly', function () {
 it('renders dismissible close button and attributes when enabled', function () {
     $html = renderAlert([
         'dismissible' => true,
-        'id'          => 'my-alert',
-        'message'     => 'Dismissible alert content.',
+        'id' => 'my-alert',
+        'message' => 'Dismissible alert content.',
     ]);
 
     expect($html)->toContain('id="my-alert"')
@@ -62,8 +62,8 @@ it('renders dismissible close button and attributes when enabled', function () {
 
 it('renders live mode attributes correctly', function () {
     $html = renderAlert([
-        'live'    => true,
-        'id'      => 'live-alert',
+        'live' => true,
+        'id' => 'live-alert',
         'message' => 'Live alert message.',
     ]);
 

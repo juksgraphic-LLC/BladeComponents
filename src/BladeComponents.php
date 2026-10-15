@@ -6,8 +6,6 @@ namespace Juksgraphic\BladeComponents;
 
 final class BladeComponents
 {
-  
-
     /**
      * Folder paths to add in Laravel and Blade projects
      * @return string

@@ -8,16 +8,16 @@ function renderTabs(array $data = []): string
     $cache = __DIR__ . '/../../docs/cache';
 
     $blade = new BladeOne($views, $cache, BladeOne::MODE_DEBUG);
-    
+
     $defaults = [
-        'variant'      => 'default',
-        'color'        => 'primary',
-        'tabs'         => [
+        'variant' => 'default',
+        'color' => 'primary',
+        'tabs' => [
             ['label' => 'Tab 1', 'content' => 'Content 1', 'active' => true],
             ['label' => 'Tab 2', 'content' => 'Content 2'],
         ],
-        'id'           => 'test-tabs',
-        'tabClass'     => '',
+        'id' => 'test-tabs',
+        'tabClass' => '',
         'contentClass' => '',
     ];
 
@@ -26,11 +26,11 @@ function renderTabs(array $data = []): string
 
 it('renders default tabs and panels correctly', function () {
     $html = renderTabs([
-        'id'   => 'my-tabs',
+        'id' => 'my-tabs',
         'tabs' => [
             ['label' => 'Home Panel', 'content' => 'Welcome home', 'active' => true],
-            ['label' => 'About Panel', 'content' => 'About us']
-        ]
+            ['label' => 'About Panel', 'content' => 'About us'],
+        ],
     ]);
 
     expect($html)->toContain('Home Panel')
@@ -43,9 +43,9 @@ it('renders default tabs and panels correctly', function () {
 it('renders pills variant correctly', function () {
     $html = renderTabs([
         'variant' => 'pills',
-        'tabs'    => [
-            ['label' => 'Pill Tab', 'content' => 'Pill content', 'active' => true]
-        ]
+        'tabs' => [
+            ['label' => 'Pill Tab', 'content' => 'Pill content', 'active' => true],
+        ],
     ]);
 
     expect($html)->toContain('Pill Tab')

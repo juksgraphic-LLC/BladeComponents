@@ -8,8 +8,8 @@ function renderNotification(array $data = []): string
     $cache = __DIR__ . '/../../docs/cache';
 
     $blade = new BladeOne($views, $cache, BladeOne::MODE_DEBUG);
-    
-    
+
+
     return $blade->run('jkc.feedbacks.notification', $data);
 }
 

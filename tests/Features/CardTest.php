@@ -8,7 +8,8 @@ function renderCard(array $data = []): string
     $cache = __DIR__ . '/../../docs/cache';
 
     $blade = new BladeOne($views, $cache, BladeOne::MODE_DEBUG);
-     return $blade->run('jkc.cards.card', $data);
+
+    return $blade->run('jkc.cards.card', $data);
 }
 
 it('renders default card correctly without header or footer', function () {
@@ -23,9 +24,9 @@ it('renders default card correctly without header or footer', function () {
 
 it('renders card with title and subtitle correctly', function () {
     $html = renderCard([
-        'title'    => 'Card Title Test',
+        'title' => 'Card Title Test',
         'subtitle' => 'Card Subtitle Test',
-        'body'     => 'Content inside card.',
+        'body' => 'Content inside card.',
     ]);
 
     expect($html)->toContain('Card Title Test')
@@ -35,7 +36,7 @@ it('renders card with title and subtitle correctly', function () {
 
 it('renders body without padding when noPadding is true', function () {
     $html = renderCard([
-        'body'      => 'No padding body content.',
+        'body' => 'No padding body content.',
         'noPadding' => true,
     ]);
 
@@ -45,10 +46,10 @@ it('renders body without padding when noPadding is true', function () {
 
 it('renders header actions and footer correctly', function () {
     $html = renderCard([
-        'title'        => 'Action Card',
+        'title' => 'Action Card',
         'headerAction' => '<button>Action</button>',
-        'body'         => 'Body content',
-        'footer'       => 'Footer content',
+        'body' => 'Body content',
+        'footer' => 'Footer content',
     ]);
 
     expect($html)->toContain('Action Card')
