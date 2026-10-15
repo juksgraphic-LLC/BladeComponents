@@ -8,21 +8,21 @@ function renderCarousel(array $data = []): string
     $cache = __DIR__ . '/../../docs/cache';
 
     $blade = new BladeOne($views, $cache, BladeOne::MODE_DEBUG);
-    
+
     $defaults = [
-        'variant'       => 'slides-only',
-        'slides'        => [
+        'variant' => 'slides-only',
+        'slides' => [
             ['img' => 'https://example.com/slide1.jpg', 'alt' => 'Slide 1', 'caption_title' => 'Title 1', 'caption_text' => 'Text 1'],
             ['img' => 'https://example.com/slide2.jpg', 'alt' => 'Slide 2'],
         ],
-        'autoplay'      => false,
+        'autoplay' => false,
         'autoplayDelay' => 3000,
-        'loop'          => true,
-        'height'        => 'h-72',
-        'wrapClass'     => '',
-        'dark'          => false,
-        'id'            => 'swiper-test',
-        'effect'        => null,
+        'loop' => true,
+        'height' => 'h-72',
+        'wrapClass' => '',
+        'dark' => false,
+        'id' => 'swiper-test',
+        'effect' => null,
     ];
 
     return $blade->run('jkc.media.carousel', array_merge($defaults, $data));
@@ -31,8 +31,8 @@ function renderCarousel(array $data = []): string
 it('renders default carousel with slides correctly', function () {
     $html = renderCarousel([
         'slides' => [
-            ['img' => 'https://example.com/img.jpg', 'alt' => 'Test Image']
-        ]
+            ['img' => 'https://example.com/img.jpg', 'alt' => 'Test Image'],
+        ],
     ]);
 
     expect($html)->toContain('https://example.com/img.jpg')
@@ -53,7 +53,7 @@ it('renders controls when variant is controls', function () {
 it('renders indicators when variant is indicators', function () {
     $html = renderCarousel([
         'variant' => 'indicators',
-        'slides'  => [
+        'slides' => [
             ['img' => 'https://example.com/1.jpg'],
             ['img' => 'https://example.com/2.jpg'],
         ],
@@ -66,7 +66,7 @@ it('renders indicators when variant is indicators', function () {
 it('renders slide captions when provided in slide data', function () {
     $html = renderCarousel([
         'variant' => 'captions',
-        'slides'  => [
+        'slides' => [
             ['img' => 'https://example.com/1.jpg', 'caption_title' => 'My Title', 'caption_text' => 'My Description'],
         ],
     ]);

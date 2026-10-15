@@ -9,14 +9,14 @@ function renderOffcanvas(array $data = []): string
 
     $blade = new BladeOne($views, $cache, BladeOne::MODE_DEBUG);
 
-    
+
     $defaults = [
-        'id'        => 'test-offcanvas',
+        'id' => 'test-offcanvas',
         'placement' => 'start',
-        'size'      => null,
-        'backdrop'  => true,
-        'scroll'    => false,
-        'title'     => 'Offcanvas',
+        'size' => null,
+        'backdrop' => true,
+        'scroll' => false,
+        'title' => 'Offcanvas',
         'showClose' => true,
     ];
 
@@ -25,7 +25,7 @@ function renderOffcanvas(array $data = []): string
 
 it('renders default offcanvas correctly with title and close button', function () {
     $html = renderOffcanvas([
-        'id'    => 'my-offcanvas',
+        'id' => 'my-offcanvas',
         'title' => 'Custom Offcanvas Title',
     ]);
 
@@ -39,11 +39,11 @@ it('renders default offcanvas correctly with title and close button', function (
 it('renders placement and size classes correctly', function () {
     $html = renderOffcanvas([
         'placement' => 'end',
-        'size'      => 'lg',
+        'size' => 'lg',
     ]);
 
     expect($html)->toContain('top-0 right-0 h-full')
-        ->toContain('w-[32rem]'); 
+        ->toContain('w-[32rem]');
 });
 
 it('renders backdrop overlay by default and hides it when backdrop is false', function () {
@@ -56,7 +56,7 @@ it('renders backdrop overlay by default and hides it when backdrop is false', fu
 
 it('renders body and footer content when provided', function () {
     $html = renderOffcanvas([
-        'body'   => 'Offcanvas body content',
+        'body' => 'Offcanvas body content',
         'footer' => 'Offcanvas footer content',
     ]);
 

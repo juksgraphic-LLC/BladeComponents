@@ -8,22 +8,22 @@ function renderToast(array $data = []): string
     $cache = __DIR__ . '/../../docs/cache';
 
     $blade = new BladeOne($views, $cache, BladeOne::MODE_DEBUG);
-    
-    
+
+
     $defaults = [
-        'variant'      => 'info',
-        'type'         => 'default',
-        'title'        => 'Notification',
-        'message'      => 'Hello, world! This is a toast message.',
-        'time'         => 'Just now',
-        'senderName'   => null,
+        'variant' => 'info',
+        'type' => 'default',
+        'title' => 'Notification',
+        'message' => 'Hello, world! This is a toast message.',
+        'time' => 'Just now',
+        'senderName' => null,
         'senderAvatar' => null,
-        'dismissible'  => true,
-        'translucent'  => false,
-        'duration'     => null,
-        'id'           => null,
-        'live'         => false,
-        'stacked'      => false,
+        'dismissible' => true,
+        'translucent' => false,
+        'duration' => null,
+        'id' => null,
+        'live' => false,
+        'stacked' => false,
     ];
 
     return $blade->run('jkc.feedbacks.toast', array_merge($defaults, $data));
@@ -31,7 +31,7 @@ function renderToast(array $data = []): string
 
 it('renders default toast correctly', function () {
     $html = renderToast([
-        'title'   => 'Test Title',
+        'title' => 'Test Title',
         'message' => 'Test toast message.',
     ]);
 
@@ -43,9 +43,9 @@ it('renders default toast correctly', function () {
 
 it('renders bordered toast type with success variant correctly', function () {
     $html = renderToast([
-        'type'    => 'bordered',
+        'type' => 'bordered',
         'variant' => 'success',
-        'title'   => 'Success',
+        'title' => 'Success',
         'message' => 'Operation successful.',
     ]);
 
@@ -57,10 +57,10 @@ it('renders bordered toast type with success variant correctly', function () {
 
 it('renders message toast type with sender details correctly', function () {
     $html = renderToast([
-        'type'         => 'message',
-        'senderName'   => 'John Doe',
+        'type' => 'message',
+        'senderName' => 'John Doe',
         'senderAvatar' => 'https://example.com/avatar.jpg',
-        'message'      => 'Hello from John!',
+        'message' => 'Hello from John!',
     ]);
 
     expect($html)->toContain('John Doe')
@@ -70,8 +70,8 @@ it('renders message toast type with sender details correctly', function () {
 
 it('renders live mode attributes and custom ID correctly', function () {
     $html = renderToast([
-        'id'      => 'my-custom-toast',
-        'live'    => true,
+        'id' => 'my-custom-toast',
+        'live' => true,
         'message' => 'Live toast content.',
     ]);
 

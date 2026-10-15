@@ -8,17 +8,17 @@ function renderAccordion(array $data = []): string
     $cache = __DIR__ . '/../../docs/cache';
 
     $blade = new BladeOne($views, $cache, BladeOne::MODE_DEBUG);
-    
+
     $defaults = [
-        'type'     => 'default',
-        'items'    => [
+        'type' => 'default',
+        'items' => [
             ['title' => 'Section 1', 'content' => 'Content 1', 'expanded' => true],
             ['title' => 'Section 2', 'content' => 'Content 2'],
         ],
-        'color'    => 'primary',
+        'color' => 'primary',
         'multiple' => false,
-        'flush'    => false,
-        'id'       => 'test-accordion',
+        'flush' => false,
+        'id' => 'test-accordion',
     ];
 
     return $blade->run('jkc.accordions.accordion', array_merge($defaults, $data));
@@ -26,10 +26,10 @@ function renderAccordion(array $data = []): string
 
 it('renders default accordion with items correctly', function () {
     $html = renderAccordion([
-        'id'    => 'my-accordion',
+        'id' => 'my-accordion',
         'items' => [
-            ['title' => 'First Title', 'content' => 'First Content', 'expanded' => true]
-        ]
+            ['title' => 'First Title', 'content' => 'First Content', 'expanded' => true],
+        ],
     ]);
 
     expect($html)->toContain('First Title')
@@ -39,10 +39,10 @@ it('renders default accordion with items correctly', function () {
 
 it('renders different accordion types correctly', function () {
     $html = renderAccordion([
-        'type'  => 'plus',
+        'type' => 'plus',
         'items' => [
-            ['title' => 'Plus Accordion', 'content' => 'Content']
-        ]
+            ['title' => 'Plus Accordion', 'content' => 'Content'],
+        ],
     ]);
 
     expect($html)->toContain('Plus Accordion');

@@ -8,24 +8,24 @@ function renderDropdown(array $data = []): string
     $cache = __DIR__ . '/../../docs/cache';
 
     $blade = new BladeOne($views, $cache, BladeOne::MODE_DEBUG);
-    
+
     $defaults = [
-        'trigger'     => 'button',
-        'color'       => 'primary',
-        'size'        => null,
-        'darkMenu'    => false,
-        'align'       => null,
-        'autoClose'   => true,
-        'items'       => [
+        'trigger' => 'button',
+        'color' => 'primary',
+        'size' => null,
+        'darkMenu' => false,
+        'align' => null,
+        'autoClose' => true,
+        'items' => [
             ['text' => 'Action 1', 'href' => '#'],
             ['text' => 'Action 2', 'href' => '#'],
         ],
-        'header'      => null,
-        'text'        => null,
+        'header' => null,
+        'text' => null,
         'splitAction' => null,
-        'buttonText'  => 'Dropdown',
-        'menuClass'   => '',
-        'id'          => 'test-dropdown',
+        'buttonText' => 'Dropdown',
+        'menuClass' => '',
+        'id' => 'test-dropdown',
     ];
 
     return $blade->run('jkc.dropdowns.dropdown', array_merge($defaults, $data));
@@ -34,9 +34,9 @@ function renderDropdown(array $data = []): string
 it('renders default dropdown button and items correctly', function () {
     $html = renderDropdown([
         'buttonText' => 'My Dropdown',
-        'items'      => [
-            ['text' => 'Profile', 'href' => '/profile']
-        ]
+        'items' => [
+            ['text' => 'Profile', 'href' => '/profile'],
+        ],
     ]);
 
     expect($html)->toContain('My Dropdown')
@@ -47,9 +47,9 @@ it('renders default dropdown button and items correctly', function () {
 
 it('renders split dropdown type correctly', function () {
     $html = renderDropdown([
-        'trigger'     => 'split',
+        'trigger' => 'split',
         'splitAction' => '/action',
-        'buttonText'  => 'Split Action',
+        'buttonText' => 'Split Action',
     ]);
 
     expect($html)->toContain('Split Action')
