@@ -108,13 +108,13 @@
     $btnClass = trim(
         ($btnThemes[$color] ?? $btnThemes['primary']) .
             ' ' .
-            ($sizeClasses[$size] ?? $sizeClasses[null]) .
+            ($sizeClasses[$size] ?? $sizeClasses['']) .
             ' inline-flex items-center justify-center font-medium rounded-radius transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 dark:focus:ring-offset-surface-dark',
     );
 
     $menuBaseClass =
         'absolute z-50 min-w-[12rem] mt-2 rounded-radius border shadow-lg overflow-hidden ' .
-        ($alignClasses[$align] ?? $alignClasses[null]) .
+        ($alignClasses[$align] ?? $alignClasses['']) .
         ' ' .
         $menuClass;
 

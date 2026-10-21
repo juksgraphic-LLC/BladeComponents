@@ -91,7 +91,7 @@ $_animEnd = match ($animation) {
 /** @var string $_dialogClasses */
 $_dialogClasses = trim(
     'relative w-full '
-    . ($_sizeMap[$size] ?? $_sizeMap[null])
+    . ($_sizeMap[$size] ?? $_sizeMap[''])
     . ' bg-surface dark:bg-surface-dark rounded-radius shadow-2xl border border-outline dark:border-outline-dark overflow-hidden'
     . ($scrollable ? ' flex flex-col max-h-[calc(100vh-2rem)]' : '')
 );
@@ -99,11 +99,11 @@ $_dialogClasses = trim(
 /** @var string $_wrapperClass */
 $_wrapperClass = 'fixed inset-0 z-50 flex bg-black/50 backdrop-blur-sm transition-opacity duration-300';
 if ($position) {
-    $_wrapperClass .= ' ' . ($_positionMap[$position] ?? $_positionMap[null]);
+    $_wrapperClass .= ' ' . ($_positionMap[$position] ?? $_positionMap['']);
 } elseif ($centered) {
     $_wrapperClass .= ' items-center justify-center';
 } else {
-    $_wrapperClass .= ' ' . $_positionMap[null];
+    $_wrapperClass .= ' ' . $_positionMap[''];
 }
 
 /** @var bool $_hasHeader */
