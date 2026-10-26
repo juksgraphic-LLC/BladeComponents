@@ -28,13 +28,13 @@
     $color = (string) ($color ?? 'primary');
 
     /** @var string|null $size */
-    $size = $size ? (string) $size : null;
+    $size = (string) ($size ?? null);
 
     /** @var bool $darkMenu */
     $darkMenu = (bool) ($darkMenu ?? false);
 
     /** @var string|null $align */
-    $align = $align ? (string) $align : null;
+    $align = (string) ($align ?? null);
 
     /** @var bool|string $autoClose */
     $autoClose = $autoClose ?? true;

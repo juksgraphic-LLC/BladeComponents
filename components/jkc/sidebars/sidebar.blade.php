@@ -21,10 +21,10 @@
     Requires an Alpine ancestor with x-data="{ sidebarIsOpen: false }" and the Alpine collapse plugin.
 --}}
 @php
-    $items = $items ?? [];
-    $logo = trim($logo ?? '') !== '' ? $logo : 'Juksgraphic <span class="text-primary dark:text-primary-dark">.</span>';
+    $items   = $items ?? [];
+    $logo    = trim($logo ?? '') !== '' ? $logo : 'Juksgraphic <span class="text-primary dark:text-primary-dark">.</span>';
     $current = parse_url($_SERVER['REQUEST_URI'] ?? '/', PHP_URL_PATH) ?: '/';
-    $search = $search ?? true;
+    $search  = $search ?? true;
     $searchLabel = $searchLabel ?? 'Search';
     $navLabel = $navLabel ?? 'sidebar navigation';
     $homeHref = $homeHref ?? '/';

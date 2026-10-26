@@ -26,6 +26,7 @@
         soundUrl: 'https://res.cloudinary.com/ds8pgw1pf/video/upload/v1728571480/penguinui/component-assets/sounds/ding.mp3',
     
         push(detail, type = 'notify') {
+        
             let data = detail && detail.notify ? detail.notify : detail;
     
             if (typeof data === 'string') {
@@ -39,8 +40,8 @@
             const newNotification = {
                 id: Date.now() + '-' + Math.random().toString(36).slice(2, 7),
                 variant: (data && data.variant) || 'info',
-                sender: (data && data.sender) || null,
-                title: (data && data.title) || null,
+                sender:  (data && data.sender)  || null,
+                title:   (data && data.title)   || null,
                 message: (data && data.message) || ''
             };
     

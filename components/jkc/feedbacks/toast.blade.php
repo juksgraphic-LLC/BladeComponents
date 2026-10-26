@@ -31,7 +31,7 @@
     $variant = (string) ($variant ?? 'info');
 
     /** @var string $type */
-    $type = (string) ($type ?? 'default');
+    $type  = (string) ($type ?? 'default');
 
     /** @var string $title */
     $title = (string) ($title ?? 'Notification');
@@ -40,7 +40,7 @@
     $message = (string) ($message ?? 'Hello, world! This is a toast message.');
 
     /** @var string $time */
-    $time = (string) ($time ?? 'Just now');
+    $time    = (string) ($time ?? 'Just now');
 
     /** @var string|null $senderName */
     $senderName = $senderName ?? null;
@@ -49,13 +49,13 @@
     $senderAvatar = $senderAvatar ?? null;
 
     /** @var bool $dismissible */
-    $dismissible = (bool) ($dismissible ?? true);
+    $dismissible  = (bool) ($dismissible ?? true);
 
     /** @var bool $translucent */
-    $translucent = (bool) ($translucent ?? false);
+    $translucent  = (bool) ($translucent ?? false);
 
     /** @var int|null $duration */
-    $duration = $duration ? (int) $duration : null;
+    $duration = (int) ($duration ?? null);
 
     /** @var string $customId */
     $customId = $id ?? 'toast-' . bin2hex(random_bytes(4));
