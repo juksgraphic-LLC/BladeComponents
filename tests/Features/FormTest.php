@@ -18,8 +18,8 @@ it('renders form container with correct action, method, and initial data json', 
         'method' => 'POST',
         'initialData' => [
             'name' => 'Kingsley',
-            'email' => 'contact@juksgraphic.com'
-        ]
+            'email' => 'contact@juksgraphic.com',
+        ],
     ]);
 
     $decodedHtml = html_entity_decode($html);
@@ -34,7 +34,7 @@ it('renders standard text input with label and x-model binding', function () {
         'name' => 'full_name',
         'type' => 'text',
         'required' => true,
-        'model' => 'formData'
+        'model' => 'formData',
     ]);
 
     expect($html)->toContain('Full Name')
@@ -49,7 +49,7 @@ it('renders textarea with quill js rich editor when useQuill is true', function 
         'label' => 'Description',
         'name' => 'content',
         'useQuill' => true,
-        'model' => 'formData'
+        'model' => 'formData',
     ]);
 
     expect($html)->toContain('Description')
@@ -66,8 +66,8 @@ it('renders file upload with multi-format support and remote initial image previ
         'accept' => 'image/*',
         'recommended' => 'Recommended: JPG/PNG up to 5MB',
         'initialData' => [
-            'avatar' => 'https://images.unsplash.com/photo-1534528741775-53994a69daeb'
-        ]
+            'avatar' => 'https://images.unsplash.com/photo-1534528741775-53994a69daeb',
+        ],
     ]);
 
     expect($html)->toContain('Avatar')
@@ -83,9 +83,9 @@ it('renders custom radio group with hidden input and alpine click trigger', func
         'name' => 'account_type',
         'options' => [
             ['id' => 'personal', 'title' => 'Personal'],
-            ['id' => 'business', 'title' => 'Business']
+            ['id' => 'business', 'title' => 'Business'],
         ],
-        'initialData' => ['account_type' => 'business']
+        'initialData' => ['account_type' => 'business'],
     ]);
 
     expect($html)->toContain('Account Type')
@@ -100,7 +100,7 @@ it('renders custom switch/checkbox with hidden input and toggles', function () {
         'label' => 'Enable Notifications',
         'name' => 'notifications_enabled',
         'multiple' => false,
-        'initialData' => ['notifications_enabled' => true]
+        'initialData' => ['notifications_enabled' => true],
     ]);
 
     expect($html)->toContain('Enable Notifications')

@@ -17,11 +17,11 @@ it('renders breadcrumb items correctly with links and active last item', functio
         'items' => [
             ['label' => 'Dashboard', 'url' => '/admin'],
             ['label' => 'Users', 'url' => '/admin/users'],
-            ['label' => 'Profile', 'url' => '']
-        ]
+            ['label' => 'Profile', 'url' => ''],
+        ],
     ]);
 
-    expect($html)->toContain('aria-label="breadcrumb"') 
+    expect($html)->toContain('aria-label="breadcrumb"')
                  ->toContain('href="/admin"')
                  ->toContain('Dashboard')
                  ->toContain('href="/admin/users"')
@@ -33,8 +33,8 @@ it('renders custom SVG separator between items', function () {
     $html = renderBreadcrumb([
         'items' => [
             ['label' => 'Home', 'url' => '/'],
-            ['label' => 'Settings', 'url' => '/settings']
-        ]
+            ['label' => 'Settings', 'url' => '/settings'],
+        ],
     ]);
 
     expect($html)->toContain('svg')
