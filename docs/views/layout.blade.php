@@ -1,87 +1,128 @@
 @php
 
-    $components = [
-        [
-            'title' => 'Alerts',
-            'description' => 'Short contextual messages with 8 types and 9 styles.',
-            'url' => '/components/alert',
-            'icon' => 'bx bx-bell',
+    $componentCategories = [
+        'Layout & Containers' => [
+            [
+                'title' => 'Cards',
+                'description' => 'Flexible containers with headers, footers, and slot support.',
+                'url' => '/components/card',
+                'icon' => 'bx bx-id-card',
+            ],
+            [
+                'title' => 'Accordion',
+                'description' => 'Collapsible content panels with multiple variants and custom icons.',
+                'url' => '/components/accordion',
+                'icon' => 'bx bx-list-plus',
+            ],
+            [
+                'title' => 'Tabs',
+                'description' => 'Organize content into multiple panels with various design variants.',
+                'url' => '/components/tab',
+                'icon' => 'bx bx-tab',
+            ],
+            [
+                'title' => 'List Group',
+                'description' =>
+                    'Flexible item lists supporting links, badges, checkboxes, avatars, and custom layouts.',
+                'url' => '/components/list',
+                'icon' => 'bx bx-list-ul',
+            ],
         ],
-        [
-            'title' => 'Accordion',
-            'description' => 'Collapsible content panels with multiple variants and custom icons.',
-            'url' => '/components/accordion',
-            'icon' => 'bx bx-list-plus',
+        'Forms & Inputs' => [
+            [
+                'title' => 'Forms',
+                'description' => 'Dynamic modular form containers supporting array data, SlimSelect, and Quill JS.',
+                'url' => '/components/form',
+                'icon' => 'bx bx-clipboard',
+            ],
         ],
-        [
-            'title' => 'Dropdowns',
-            'description' => 'Toggleable menu overlays for actions, links, and contextual options.',
-            'url' => '/components/dropdown',
-            'icon' => 'bx bx-menu',
+        'Navigation' => [
+            [
+                'title' => 'Pagination',
+                'description' => 'Autonomous pagination component with customizable window size and total items.',
+                'url' => '/components/pagination',
+                'icon' => 'bx bx-chevrons-right',
+            ],
+            [
+                'title' => 'Breadcrumb',
+                'description' => 'Navigation trail indicating current page location with multiple separator styles.',
+                'url' => '/components/breadcrumb',
+                'icon' => 'bx bx-chevron-right',
+            ],
         ],
-        [
-            'title' => 'Modals',
-            'description' => 'Dialog windows with various sizes, positions, and animations.',
-            'url' => '/components/modal',
-            'icon' => 'bx bx-windows',
+        'Overlays & Modals' => [
+            [
+                'title' => 'Dropdowns',
+                'description' => 'Toggleable menu overlays for actions, links, and contextual options.',
+                'url' => '/components/dropdown',
+                'icon' => 'bx bx-menu',
+            ],
+            [
+                'title' => 'Modals',
+                'description' => 'Dialog windows with various sizes, positions, and animations.',
+                'url' => '/components/modal',
+                'icon' => 'bx bx-windows',
+            ],
+            [
+                'title' => 'Offcanvas',
+                'description' => 'Sliding side panels supporting 4 different directions.',
+                'url' => '/components/offcanvas',
+                'icon' => 'bx bx-layout',
+            ],
         ],
-        [
-            'title' => 'Cards',
-            'description' => 'Flexible containers with headers, footers, and slot support.',
-            'url' => '/components/card',
-            'icon' => 'bx bx-id-card',
+        'Feedback & Messages' => [
+            [
+                'title' => 'Alerts',
+                'description' => 'Short contextual messages with 8 types and 9 styles.',
+                'url' => '/components/alert',
+                'icon' => 'bx bx-bell',
+            ],
+            [
+                'title' => 'Toasts & Notifications',
+                'label' => 'Toasts',
+                'description' => 'Push notifications and brief messages with a built-in stack manager.',
+                'url' => '/components/toast',
+                'icon' => 'bx bx-message-square-detail',
+            ],
         ],
-        [
-            'title' => 'Tabs',
-            'description' => 'Organize content into multiple panels with various design variants.',
-            'url' => '/components/tab',
-            'icon' => 'bx bx-tab',
-        ],
-        [
-            'title' => 'Offcanvas',
-            'description' => 'Sliding side panels supporting 4 different directions.',
-            'url' => '/components/offcanvas',
-            'icon' => 'bx bx-layout',
-        ],
-        [
-            'title' => 'Toasts & Notifications',
-            'label' => 'Toasts',
-            'description' => 'Push notifications and brief messages with a built-in stack manager.',
-            'url' => '/components/toast',
-            'icon' => 'bx bx-message-square-detail',
-        ],
-        [
-            'title' => 'Carousel',
-            'description' => 'Image and content sliders powered by Alpine.js.',
-            'url' => '/components/carousel',
-            'icon' => 'bx bx-slideshow',
-        ],
-        [
-            'title' => 'List Group',
-            'description' => 'Flexible item lists supporting links, badges, checkboxes, avatars, and custom layouts.',
-            'url' => '/components/list',
-            'icon' => 'bx bx-list-ul',
-        ],
-        [
-            'title' => 'Pagination',
-            'description' => 'Autonomous pagination component with customizable window size and total items.',
-            'url' => '/components/pagination',
-            'icon' => 'bx bx-chevrons-right',
+        'Data Visualization' => [
+            [
+                'title' => 'Carousel',
+                'description' => 'Image and content sliders powered by Alpine.js.',
+                'url' => '/components/carousel',
+                'icon' => 'bx bx-slideshow',
+            ],
+            [
+                'title' => 'ApexCharts',
+                'description' => 'Interactive charts and data visualizations powered by ApexCharts.',
+                'url' => '/components/apexcharts',
+                'icon' => 'bx bx-bar-chart-alt-2',
+            ],
         ],
     ];
 
-    $items = array_merge(
-        [['label' => 'Home', 'href' => '/', 'icon' => 'bx bx-home'], ['heading' => 'Composants']],
-        array_map(
-            fn($c) => [
+    $components = [];
+    foreach ($componentCategories as $catComponents) {
+        foreach ($catComponents as $comp) {
+            $components[] = $comp;
+        }
+    }
+
+    $sidebarItems = [['label' => 'Home', 'href' => '/', 'icon' => 'bx bx-home']];
+
+    foreach ($componentCategories as $categoryName => $catComponents) {
+        $sidebarItems[] = ['heading' => $categoryName];
+        foreach ($catComponents as $c) {
+            $sidebarItems[] = [
                 'label' => $c['label'] ?? $c['title'],
                 'href' => $c['url'],
                 'icon' => $c['icon'],
-            ],
-            $components,
-        ),
-    );
+            ];
+        }
+    }
 @endphp
+
+
 <!DOCTYPE html>
 <html lang="en" x-data="{ dark: document.documentElement.classList.contains('dark') }" x-on:jkc-theme-dark.window="dark = true"
     x-on:jkc-theme-light.window="dark = false" x-bind:class="{ 'dark': dark }"
@@ -118,7 +159,7 @@
         <a class="sr-only" href="#main-content" hx-boost="false">Aller au contenu principal</a>
 
         @include('jkc.sidebars.sidebar', [
-            'items' => $items,
+            'items' => $sidebarItems,
             'searchLabel' => 'Rechercher',
             'search' => false,
             'navLabel' => 'Navigation',

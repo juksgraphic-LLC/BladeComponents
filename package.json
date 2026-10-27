@@ -8,7 +8,9 @@
     "dependencies": {
         "@alpinejs/collapse": "^3.14.0",
         "alpinejs": "^3.14.0",
+        "apexcharts": "^8.5.0",
         "htmx.org": "^4.0.0",
+        "quill": "^2.0.3",
         "shiki": "^4.5.0",
         "swiper": "^14.3.0"
     },
