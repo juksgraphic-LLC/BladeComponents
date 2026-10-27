@@ -50,9 +50,9 @@ it('merges custom options with default apexcharts theme configuration', function
             'series' => [
                 [
                     'name' => 'Visitors',
-                    'data' => [30, 40, 35, 50, 49, 60]
-                ]
-            ]
+                    'data' => [30, 40, 35, 50, 49, 60],
+                ],
+            ],
         ],
         'mergeDefaults' => true,
     ]);
@@ -71,7 +71,7 @@ it('overrides default configuration when mergeDefaults is false', function () {
         'title' => 'Minimal Chart',
         'options' => [
             'chart' => ['type' => 'bar'],
-            'series' => [['data' => [10, 20]]]
+            'series' => [['data' => [10, 20]]],
         ],
         'mergeDefaults' => false,
     ]);
