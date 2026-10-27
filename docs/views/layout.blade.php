@@ -32,10 +32,10 @@
             'icon' => 'bx bx-id-card',
         ],
         [
-            'title' => 'Tabs', 
-            'description' => 'Organize content into multiple panels with various design variants.', 
-            'url' => '/components/tab', 
-            'icon' => 'bx bx-tab'
+            'title' => 'Tabs',
+            'description' => 'Organize content into multiple panels with various design variants.',
+            'url' => '/components/tab',
+            'icon' => 'bx bx-tab',
         ],
         [
             'title' => 'Offcanvas',
@@ -55,6 +55,18 @@
             'description' => 'Image and content sliders powered by Alpine.js.',
             'url' => '/components/carousel',
             'icon' => 'bx bx-slideshow',
+        ],
+        [
+            'title' => 'List Group',
+            'description' => 'Flexible item lists supporting links, badges, checkboxes, avatars, and custom layouts.',
+            'url' => '/components/list',
+            'icon' => 'bx bx-list-ul',
+        ],
+        [
+            'title' => 'Pagination',
+            'description' => 'Autonomous pagination component with customizable window size and total items.',
+            'url' => '/components/pagination',
+            'icon' => 'bx bx-chevrons-right',
         ],
     ];
 
@@ -115,7 +127,7 @@
         <div id="page-scroll" class="h-svh w-full min-w-0 overflow-y-auto bg-surface dark:bg-surface-dark">
 
             <header
-                class="sticky top-0 z-10 flex items-center gap-4 border-b border-outline bg-surface-alt px-4 py-4 dark:border-outline-dark dark:bg-surface-dark-alt">
+                class="sticky top-0 z-20 flex items-center gap-4 border-b border-outline bg-surface-alt px-4 py-4 dark:border-outline-dark dark:bg-surface-dark-alt">
 
                 {{-- Sidebar toggle (mobile) --}}
                 <button type="button" class="md:hidden" x-on:click="sidebarIsOpen = true">
