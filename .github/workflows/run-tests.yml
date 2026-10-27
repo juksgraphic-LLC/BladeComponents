@@ -55,5 +55,8 @@ jobs:
       - name: List Installed Dependencies
         run: composer show -D
 
+      - name:  Create Blade Cache Directory
+        run: mkdir -p docs/cache && chmod -R 777 docs/cache
+
       - name: Execute tests
         run: vendor/bin/pest --ci

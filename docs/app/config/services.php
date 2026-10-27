@@ -45,3 +45,10 @@ $app->map(
 		echo $blade->run($template, $data);
 	}
 );
+
+/**
+ * @var BladeOne $view
+ */
+$view = $app->view();
+$view->share("app" , $app);
+
