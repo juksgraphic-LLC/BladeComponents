@@ -450,6 +450,89 @@
                     @endcomponent
                 @endcomponent
 
+                {{-- Type 10: Quill with initialData as Delta --}}
+                @component('partials.section', [
+                    'title' => '10. Quill Editor with Delta initialData',
+                    'description' =>
+                        'The initial content is provided as a Delta (array with an "ops" key). Quill loads it directly, and the field always returns a Delta on submit.',
+                ])
+                    @component('partials.example')
+                        @verbatim
+                            @include('jkc.forms.form', [
+                                'fields' => [
+                                    [
+                                        'name' => 'title',
+                                        'label' => 'Article Title',
+                                        'type' => 'text',
+                                        'required' => true,
+                                    ],
+                                    [
+                                        'name' => 'content',
+                                        'label' => 'Body Content (Delta)',
+                                        'type' => 'textarea',
+                                        'useQuill' => true,
+                                    ],
+                                ],
+                                'initialData' => [
+                                    'title' => 'Delta Format Explained',
+                                    'content' => [
+                                        'ops' => [
+                                            ['insert' => 'Delta Format'],
+                                            ['attributes' => ['header' => 1], 'insert' => "\n"],
+                                            ['insert' => 'Quill stores content as a '],
+                                            ['attributes' => ['bold' => true], 'insert' => 'Delta'],
+                                            ['insert' => ', a clean JSON structure.' . "\n"],
+                                            ['insert' => 'Easy to store'],
+                                            ['attributes' => ['list' => 'bullet'], 'insert' => "\n"],
+                                            ['insert' => 'Easy to transform'],
+                                            ['attributes' => ['list' => 'bullet'], 'insert' => "\n"],
+                                        ],
+                                    ],
+                                ],
+                                'action' => '/api/articles/delta',
+                                'method' => 'POST',
+                                'submitText' => 'Save Article',
+                            ])
+                        @endverbatim
+                    @endcomponent
+                @endcomponent
+
+                {{-- Type 11: Quill with initialData as legacy HTML --}}
+                @component('partials.section', [
+                    'title' => '11. Quill Editor with HTML initialData (Legacy)',
+                    'description' =>
+                        'The initial content is an HTML string from older records. It is converted to a Delta when the editor loads, so the field returns a Delta even if the user changes nothing.',
+                ])
+                    @component('partials.example')
+                        @verbatim
+                            @include('jkc.forms.form', [
+                                'fields' => [
+                                    [
+                                        'name' => 'title',
+                                        'label' => 'Article Title',
+                                        'type' => 'text',
+                                        'required' => true,
+                                    ],
+                                    [
+                                        'name' => 'content',
+                                        'label' => 'Body Content (HTML → Delta)',
+                                        'type' => 'textarea',
+                                        'useQuill' => true,
+                                    ],
+                                ],
+                                'initialData' => [
+                                    'title' => 'Migrating Legacy Content',
+                                    'content' =>
+                                        '<h1>Legacy HTML</h1><p>This text was saved as <strong>HTML</strong> and is now converted to a <em>Delta</em>.</p><ul><li>Old format in</li><li>Delta format out</li></ul>',
+                                ],
+                                'action' => '/api/articles/legacy',
+                                'method' => 'PUT',
+                                'submitText' => 'Update Article',
+                            ])
+                        @endverbatim
+                    @endcomponent
+                @endcomponent
+
             </div>
         </section>
 

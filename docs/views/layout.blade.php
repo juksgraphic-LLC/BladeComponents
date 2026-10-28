@@ -93,6 +93,12 @@
                 'icon' => 'bx bx-slideshow',
             ],
             [
+                'title' => 'Tables',
+                'description' => 'Dynamic tables using fetch',
+                'url' => '/components/table',
+                'icon' => 'bx bx-table',
+            ],
+            [
                 'title' => 'ApexCharts',
                 'description' => 'Interactive charts and data visualizations powered by ApexCharts.',
                 'url' => '/components/apexcharts',
