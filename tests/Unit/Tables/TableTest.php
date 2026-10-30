@@ -57,8 +57,8 @@ describe('fluent setters', function () {
 });
 
 describe('endpoint', function () {
- 
-   it('uses the given endpoint', function () {
+
+    it('uses the given endpoint', function () {
         $table = (new Table())->setBaseRoute('/users')->setEndpoint('/api/users');
 
         expect($table->getEndpoint())->toBe('/api/users');

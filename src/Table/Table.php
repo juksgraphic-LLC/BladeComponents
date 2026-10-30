@@ -7,7 +7,6 @@ namespace Juksgraphic\BladeComponents\Table;
 /** Configuration and builder for the dynamic table component. */
 final class Table
 {
-
     /**
      * Summary of baseRoute
      * @var string
@@ -72,10 +71,9 @@ final class Table
     public function setBaseRoute(string $baseRoute): self
     {
         $this->baseRoute = rtrim(trim($baseRoute), '/');
+
         return $this;
     }
-
-    
 
     /**
      * Summary of setEndpoint
@@ -84,7 +82,8 @@ final class Table
      */
     public function setEndpoint(string $endpoint): self
     {
-        $this->endpoint = rtrim(trim($endpoint) , '/');
+        $this->endpoint = rtrim(trim($endpoint), '/');
+
         return $this;
     }
 
@@ -92,6 +91,7 @@ final class Table
     public function setHeaders(mixed $headers): self
     {
         $this->headers = is_array($headers) ? $headers : [];
+
         return $this;
     }
 
@@ -99,6 +99,7 @@ final class Table
     public function setColumns(mixed $columns): self
     {
         $this->columns = is_array($columns) ? $columns : [];
+
         return $this;
     }
 
@@ -106,6 +107,7 @@ final class Table
     public function setFilters(mixed $filters): self
     {
         $this->filters = is_array($filters) ? $filters : [];
+
         return $this;
     }
 
@@ -113,6 +115,7 @@ final class Table
     public function setWithAction(mixed $withAction): self
     {
         $this->withAction = is_array($withAction) ? array_values($withAction) : [];
+
         return $this;
     }
 
@@ -120,6 +123,7 @@ final class Table
     public function setSelectable(bool $selectable = true): self
     {
         $this->selectable = $selectable;
+
         return $this;
     }
 
@@ -127,6 +131,7 @@ final class Table
     public function setPerPage(int $perPage): self
     {
         $this->perPage = max(1, $perPage);
+
         return $this;
     }
 
@@ -134,6 +139,7 @@ final class Table
     public function setTableId(string $tableId): self
     {
         $this->tableId = trim($tableId);
+
         return $this;
     }
 
@@ -141,6 +147,7 @@ final class Table
     public function setLabels(mixed $labels): self
     {
         $this->labels = is_array($labels) ? $labels : [];
+
         return $this;
     }
 
@@ -196,7 +203,7 @@ final class Table
     /** Returns normalized headers/columns array. */
     public function rawHeaders(): array
     {
-        if (!empty($this->headers)) {
+        if (! empty($this->headers)) {
             return $this->headers;
         }
 
@@ -219,18 +226,18 @@ final class Table
     public function toArray(): array
     {
         $pagination = TablePagination::from($this->perPage);
-        $filters    = TableFilters::from($this->filters);
-        $labels     = TableLabels::from($this->labels);
+        $filters = TableFilters::from($this->filters);
+        $labels = TableLabels::from($this->labels);
 
         return [
-            'endpoint'       => $this->getEndpoint(),
-            'headers'        => $this->rawHeaders(),
-            'filters'        => $filters->toArray(),
-            'withAction'     => $this->withAction,
-            'selectable'     => $this->selectable,
-            'perPage'        => $pagination->perPage(),
+            'endpoint' => $this->getEndpoint(),
+            'headers' => $this->rawHeaders(),
+            'filters' => $filters->toArray(),
+            'withAction' => $this->withAction,
+            'selectable' => $this->selectable,
+            'perPage' => $pagination->perPage(),
             'perPageOptions' => $pagination->perPageOptions(),
-            'labels'         => $labels->toArray(),
+            'labels' => $labels->toArray(),
         ];
     }
 
@@ -247,5 +254,4 @@ final class Table
                 JSON_INVALID_UTF8_SUBSTITUTE
         );
     }
-
 }

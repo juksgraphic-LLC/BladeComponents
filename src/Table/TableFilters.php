@@ -7,15 +7,14 @@ namespace Juksgraphic\BladeComponents\Table;
 /** Handles filter definitions and options normalization. */
 final class TableFilters
 {
-   
-
     /**
      * Summary of __construct
      * @param array<int, array<string, mixed>> $filters
      */
     public function __construct(
         private readonly array $filters,
-    ) {}
+    ) {
+    }
 
     /** Creates filters configuration from raw input. */
 
@@ -55,7 +54,7 @@ final class TableFilters
      */
     public function hasFilters(): bool
     {
-        return !empty($this->filters);
+        return ! empty($this->filters);
     }
 
     /**
@@ -66,14 +65,14 @@ final class TableFilters
     private static function normalizeFilter(array $filter): array
     {
         $options = [];
-        $given   = is_array($filter['options'] ?? null) ? $filter['options'] : [];
+        $given = is_array($filter['options'] ?? null) ? $filter['options'] : [];
 
         foreach ($given as $value => $label) {
             $options[] = is_array($label)
                 ? $label
                 : [
                     'value' => (string) $value,
-                    'label' => (string) $label
+                    'label' => (string) $label,
                 ];
         }
 

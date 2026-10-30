@@ -12,12 +12,12 @@ final class TableLabels
      * @var array
      */
     private const DEFAULT_LABELS = [
-        'loadingError'     => 'Failed to load the data',
-        'deleteError'      => 'Failed to delete the item',
+        'loadingError' => 'Failed to load the data',
+        'deleteError' => 'Failed to delete the item',
         'imagePlaceholder' => '/assets/img/placeholder.png',
-        'avatarPlaceholder'=> '/assets/img/avatar-placeholder.png',
-        'na'               => 'N/A',
-        'empty'            => '-',
+        'avatarPlaceholder' => '/assets/img/avatar-placeholder.png',
+        'na' => 'N/A',
+        'empty' => '-',
     ];
 
     /**
@@ -26,8 +26,8 @@ final class TableLabels
      */
     public function __construct(
         private readonly array $labels,
-    ) {}
-
+    ) {
+    }
 
     /**
      * Creates table labels configuration from raw input.
@@ -42,7 +42,7 @@ final class TableLabels
     }
 
     /**
-     * 
+     *
      * Summary of toArray
      * @return string[]
      */

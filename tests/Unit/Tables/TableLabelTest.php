@@ -6,12 +6,12 @@ use Juksgraphic\BladeComponents\Table\TableLabels;
 
 it('provides the default labels', function () {
     expect(TableLabels::from(null)->toArray())->toBe([
-        'loadingError'      => 'Failed to load the data',
-        'deleteError'       => 'Failed to delete the item',
-        'imagePlaceholder'  => '/assets/img/placeholder.png',
+        'loadingError' => 'Failed to load the data',
+        'deleteError' => 'Failed to delete the item',
+        'imagePlaceholder' => '/assets/img/placeholder.png',
         'avatarPlaceholder' => '/assets/img/avatar-placeholder.png',
-        'na'                => 'N/A',
-        'empty'             => '-',
+        'na' => 'N/A',
+        'empty' => '-',
     ]);
 });
 
