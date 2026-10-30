@@ -1,4 +1,5 @@
-{{-- Cell "badge" of jkc.tables.dynamic-table. Alpine scope: `item` (the row) and `column` (this column definition). --}}
+{{-- Cell "badge" of jkc.tables.dynamic-table. Alpine scope: `item` (the row). --}}
 <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium border capitalize"
-    :class="getBadgeClasses(getCellValue(item, column.key), column)"
-    x-text="getCellValue(item, column.key) || 'N/A'"></span>
+    x-data="{ badgeMap: {{ $jkcColumn->cell()->badgeMapJson() }}, val: {{ $jkcColumn->cell()->valueExpr() }} }"
+    :class="badgeMap.map[val] || badgeMap.default"
+   x-text="val || labels.na"></span>

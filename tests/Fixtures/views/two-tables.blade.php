@@ -1,2 +1,2 @@
-@include('jkc.tables.dynamic-table', ['baseRoute' => '/first'])
-@include('jkc.tables.dynamic-table', ['baseRoute' => '/second'])
+@include('jkc.tables.table', ['baseRoute' => '/first'])
+@include('jkc.tables.table', ['baseRoute' => '/second'])

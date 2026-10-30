@@ -37,8 +37,8 @@ final class BladeComponents
     }
 
     /**
-     * Path of a component script (without extension), e.g. "jkc-table".
-     * Load it with your bundler (Vite) or let the views inline it.
+     * Path of a component script source (without extension), e.g. "jkc-table".
+     * Import it with your bundler (Vite), it contains ES module imports.
      *
      * @param string $name Script name, e.g. "jkc-table".
      * @return string
@@ -46,6 +46,34 @@ final class BladeComponents
     public static function script(string $name): string
     {
         return dirname(__DIR__) . '/resources/js/' . $name . '.js';
+    }
+
+    /**
+     * Path of the bundled version of a script (one file, no import), built into dist/.
+     *
+     * @param string $name Script name, e.g. "jkc-table".
+     * @return string
+     */
+    public static function bundle(string $name): string
+    {
+        return dirname(__DIR__) . '/dist/' . $name . '.js';
+    }
+
+    /**
+     * Contents of the bundled script, ready to be inlined in a <script> tag.
+     *
+     * @param string $name Script name, e.g. "jkc-table".
+     * @return string
+     */
+    public static function inline(string $name): string
+    {
+        $file = self::bundle($name);
+
+        if (! is_file($file)) {
+            throw new \RuntimeException("Bundled script not found: {$file} (run npm run build:table).");
+        }
+
+        return (string) file_get_contents($file);
     }
 
     /**
@@ -58,7 +86,7 @@ final class BladeComponents
      */
     public static function shouldInline(string $name): bool
     {
-        if (!self::$inlineScripts || isset(self::$emittedScripts[$name])) {
+        if (! self::$inlineScripts || isset(self::$emittedScripts[$name])) {
             return false;
         }
 

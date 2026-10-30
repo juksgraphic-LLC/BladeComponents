@@ -1,4 +1,3 @@
-{{-- Internal partial of jkc.tables.dynamic-table. Not a public component: include the facade instead. --}}
 <tr x-on:click="triggerView(item)"
     @keydown.enter.self="canNavigate() || triggerView(item)"
     :tabindex="hasAction('view') && !canNavigate() ? 0 : null"
@@ -9,14 +8,15 @@
     ]"
     class="relative transition-colors group whitespace-nowrap">
 
-    @include("jkc-internal.tables.checkbox")
+    @include("jkc-internal.tables.checkbox" , ['jkcTable' => $jkcTable])
   
     @foreach ($jkcTable->columns() as $jkcIndex => $jkcColumn)
-        <td class="px-6 py-3 text-sm text-on-surface dark:text-on-surface-dark" x-data="{ column: {{ $jkcColumn->ref() }} }">
+        <td class="px-6 py-3 text-sm text-on-surface dark:text-on-surface-dark">
             @if ($jkcIndex === 0 && $jkcTable->getBaseRoute() !== '')
-                <template x-if="hasAction('view')">
+                <template
+                     x-if="hasAction('view')">
                     <a :href="rowUrl(item)"
-                     @click.stop="follow($event, 'view', item)"
+                     x-on:click.stop="follow($event, 'view', item)"
                      tabindex="-1"
                      aria-hidden="true"
                      class="absolute inset-0"></a>
@@ -26,5 +26,5 @@
         </td>
     @endforeach
 
-    @include('jkc-internal.tables.actions')
+    @include('jkc-internal.tables.actions' , ['jkcTable' => $jkcTable])
 </tr>

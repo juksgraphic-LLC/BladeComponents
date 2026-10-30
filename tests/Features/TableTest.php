@@ -23,7 +23,7 @@ function renderDynamicTable(array $data = []): string
 
     $blade = new BladeOne($views, $cache, BladeOne::MODE_DEBUG);
 
-    return $blade->run('jkc.tables.dynamic-table', $data);
+    return $blade->run('jkc.tables.table', $data);
 }
 
 /**
@@ -50,6 +50,46 @@ function dynamicTableConfig(array $data = []): array
     return is_array($config) ? $config : [];
 }
 
+/**
+ * The labels the component ships with (mirrors TableLabels::DEFAULT_LABELS).
+ *
+ * @return array<string, string>
+ */
+function dynamicTableDefaultLabels(): array
+{
+    return [
+        'loadingError' => 'Failed to load the data',
+        'deleteError' => 'Failed to delete the item',
+        'imagePlaceholder' => '/assets/img/placeholder.png',
+        'avatarPlaceholder' => '/assets/img/avatar-placeholder.png',
+        'na' => 'N/A',
+        'empty' => '-',
+    ];
+}
+
+/**
+ * Offset of the inlined table script, or false when it is absent.
+ *
+ * Tolerant of minification: `window.JkcTable = {` and `window.JkcTable={` both match.
+ */
+function dynamicTableScriptOffset(string $html): int|false
+{
+    return preg_match('/window\.JkcTable\s*=\s*\{/', $html, $matches, PREG_OFFSET_CAPTURE) === 1
+        ? $matches[0][1]
+        : false;
+}
+
+/**
+ * Whether the inlined script registers an Alpine component under this name.
+ *
+ * Tolerant of minification: the receiver of `.data(` may have been renamed
+ * (`Alpine.data(`, `e.data(`, ...) and the quotes may be single or double.
+ */
+function dynamicTableRegistersComponent(string $html, string $name): bool
+{
+    return preg_match('/\.data\(\s*["\']' . preg_quote($name, '/') . '["\']\s*,/', $html) === 1;
+}
+
 // ---------------------------------------------------------------------------
 // Defaults and shape of the contract
 // ---------------------------------------------------------------------------
@@ -58,13 +98,14 @@ it('renders without any variable and falls back to the defaults', function () {
     $config = dynamicTableConfig();
 
     expect($config)->toBe([
-        'endpoint' => '/table',
+        'endpoint' => '',
         'headers' => [],
         'filters' => [],
         'withAction' => [],
         'selectable' => false,
         'perPage' => 5,
         'perPageOptions' => [5, 10, 25, 50, 100],
+        'labels' => dynamicTableDefaultLabels(),
     ]);
 });
 
@@ -79,6 +120,7 @@ it('exposes exactly the documented config keys', function () {
         'selectable',
         'perPage',
         'perPageOptions',
+        'labels',
     ]);
 });
 
@@ -93,16 +135,16 @@ it('renders the Alpine root with its config attribute', function () {
 // baseRoute and endpoint
 // ---------------------------------------------------------------------------
 
-it('derives the endpoint from the baseRoute', function () {
+it('uses the baseRoute as the endpoint when none is given, without appending anything', function () {
     $config = dynamicTableConfig(['baseRoute' => '/admin/posts']);
 
-    expect($config['endpoint'])->toBe('/admin/posts/table');
+    expect($config['endpoint'])->toBe('/admin/posts');
 });
 
-it('strips the trailing slash of the baseRoute before deriving the endpoint', function () {
+it('strips the trailing slash of the baseRoute', function () {
     $config = dynamicTableConfig(['baseRoute' => '/admin/posts/']);
 
-    expect($config['endpoint'])->toBe('/admin/posts/table');
+    expect($config['endpoint'])->toBe('/admin/posts');
 });
 
 it('keeps an explicit endpoint untouched', function () {
@@ -112,6 +154,30 @@ it('keeps an explicit endpoint untouched', function () {
     ]);
 
     expect($config['endpoint'])->toBe('/api/posts?scope=all');
+});
+
+it('lets the caller choose any endpoint, whatever its last segment is', function () {
+    expect(dynamicTableConfig(['endpoint' => 'admin/users'])['endpoint'])->toBe('admin/users')
+        ->and(dynamicTableConfig(['endpoint' => 'admin/table'])['endpoint'])->toBe('admin/table')
+        ->and(dynamicTableConfig(['baseRoute' => '/admin', 'endpoint' => '/admin/users'])['endpoint'])->toBe('/admin/users');
+});
+
+it('never appends "/table" to the endpoint', function () {
+    expect(dynamicTableConfig(['baseRoute' => '/admin/users'])['endpoint'])->not->toEndWith('/table')
+        ->and(dynamicTableConfig(['baseRoute' => '/admin/users/'])['endpoint'])->not->toEndWith('/table')
+        ->and(dynamicTableConfig()['endpoint'])->not->toContain('table');
+});
+
+
+it('trims the whitespace around the baseRoute and the endpoint', function () {
+    expect(dynamicTableConfig(['baseRoute' => '  /admin/posts/ '])['endpoint'])->toBe('/admin/posts')
+        ->and(dynamicTableConfig(['endpoint' => ' /api/posts '])['endpoint'])->toBe('/api/posts');
+});
+
+it('gives an explicit endpoint priority over the baseRoute', function () {
+    $config = dynamicTableConfig(['baseRoute' => '/admin/posts', 'endpoint' => '/api/other']);
+
+    expect($config['endpoint'])->toBe('/api/other');
 });
 
 // ---------------------------------------------------------------------------
@@ -311,6 +377,29 @@ it('falls back to no filters when filters is not an array', function () {
 });
 
 // ---------------------------------------------------------------------------
+// labels
+// ---------------------------------------------------------------------------
+
+it('ships the default labels', function () {
+    expect(dynamicTableConfig()['labels'])->toBe(dynamicTableDefaultLabels());
+});
+
+it('overrides only the labels it is given and keeps the other defaults', function () {
+    $config = dynamicTableConfig(['labels' => ['na' => 'Non disponible', 'empty' => '—']]);
+
+    expect($config['labels'])->toBe(array_merge(dynamicTableDefaultLabels(), [
+        'na' => 'Non disponible',
+        'empty' => '—',
+    ]));
+});
+
+it('falls back to the default labels when labels is not an array', function () {
+    $config = dynamicTableConfig(['labels' => 'fr']);
+
+    expect($config['labels'])->toBe(dynamicTableDefaultLabels());
+});
+
+// ---------------------------------------------------------------------------
 // Escaping
 // ---------------------------------------------------------------------------
 
@@ -355,8 +444,10 @@ it('freezes the config of the real admin Posts table', function () {
         ['label' => 'Created At', 'key' => 'created_at', 'type' => 'text', 'sortable' => true],
     ];
 
+    // The endpoint is never derived with a "/table" suffix: the page states it.
     $config = dynamicTableConfig([
         'baseRoute' => '/admin/posts',
+        'endpoint' => '/admin/posts/table',
         'headers' => $columns,
         'withAction' => ['view', 'edit', 'delete'],
         'perPage' => 10,
@@ -370,6 +461,7 @@ it('freezes the config of the real admin Posts table', function () {
         'selectable' => false,
         'perPage' => 10,
         'perPageOptions' => [5, 10, 25, 50, 100],
+        'labels' => dynamicTableDefaultLabels(),
     ]);
 });
 
@@ -380,16 +472,17 @@ it('freezes the config of the real admin Posts table', function () {
 it('inlines the table script that registers the Alpine components', function () {
     $html = renderDynamicTable(['baseRoute' => '/admin/posts']);
 
-    // Formatting-agnostic: quotes and spacing of the JS source do not matter.
+    // The bundle in dist/ may be minified: assert on the registration, not on the formatting.
     expect($html)->toContain('window.JkcTable')
-                 ->and(preg_match('/Alpine\.data\(\s*[\'"]jkcTable[\'"]/', $html))->toBe(1)
-                 ->and(preg_match('/Alpine\.data\(\s*[\'"]jkcTableBody[\'"]/', $html))->toBe(1);
+                 ->and(dynamicTableRegistersComponent($html, 'jkcTable'))->toBeTrue()
+                 ->and(dynamicTableRegistersComponent($html, 'jkcTableBody'))->toBeTrue();
 });
 
 it('places the script before the Alpine root so the components exist when it initializes', function () {
     $html = renderDynamicTable(['baseRoute' => '/admin/posts']);
 
-    expect(strpos($html, 'window.JkcTable'))->toBeLessThan(strpos($html, 'data-config="'));
+    expect(strpos($html, 'window.JkcTable'))->not->toBeFalse()
+        ->and(strpos($html, 'window.JkcTable'))->toBeLessThan(strpos($html, 'data-config="'));
 });
 
 it('only references registered components in x-data attributes', function () {
@@ -422,14 +515,16 @@ function renderTwoDynamicTables(): string
 it('inlines the script only once when a page contains two tables', function () {
     $html = renderTwoDynamicTables();
 
-    expect(substr_count($html, 'window.JkcTable = {'))->toBe(1)
+    expect(preg_match_all('/window\.JkcTable\s*=\s*\{/', $html))->toBe(1)
         ->and(substr_count($html, 'data-config="'))->toBe(2);
 });
 
 it('keeps the single script before the first table', function () {
     $html = renderTwoDynamicTables();
 
-    expect(strpos($html, 'window.JkcTable = {'))->toBeLessThan(strpos($html, 'data-config="'));
+    // `false < int` is true in PHP: make sure the script is really there before comparing offsets.
+    expect(dynamicTableScriptOffset($html))->not->toBeFalse()
+        ->and(dynamicTableScriptOffset($html))->toBeLessThan(strpos($html, 'data-config="'));
 });
 
 it('does not inline the script when a bundler loads it', function () {
@@ -439,7 +534,7 @@ it('does not inline the script when a bundler loads it', function () {
 
     expect($html)->toContain('x-data="jkcTable"')
                  ->and($html)->not->toContain('window.JkcTable')
-                 ->and(dynamicTableConfig(['baseRoute' => '/admin/posts'])['endpoint'])->toBe('/admin/posts/table');
+                 ->and(dynamicTableConfig(['baseRoute' => '/admin/posts'])['endpoint'])->toBe('/admin/posts');
 });
 
 it('does not require a stack in the layout', function () {
@@ -482,6 +577,12 @@ it('derives a stable table id from the endpoint', function () {
     expect(dynamicTableId(['baseRoute' => '/admin/posts']))->toMatch('/^jkc-table-[0-9a-f]{8}$/')
         ->and(dynamicTableId(['baseRoute' => '/admin/posts']))->toBe(dynamicTableId(['baseRoute' => '/admin/posts']))
         ->and(dynamicTableId(['baseRoute' => '/admin/users']))->not->toBe(dynamicTableId(['baseRoute' => '/admin/posts']));
+});
+
+it('derives the table id from the resolved endpoint, so two endpoints give two ids', function () {
+    expect(dynamicTableId(['endpoint' => '/admin/users']))->not->toBe(dynamicTableId(['endpoint' => '/admin/table']))
+        ->and(dynamicTableId(['baseRoute' => '/admin/posts/']))->toBe(dynamicTableId(['baseRoute' => '/admin/posts']))
+        ->and(dynamicTableId(['baseRoute' => '/admin/posts']))->toBe(dynamicTableId(['endpoint' => '/admin/posts']));
 });
 
 it('does not capture an `$id` variable inherited from the page scope', function () {

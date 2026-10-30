@@ -7,12 +7,7 @@ namespace Juksgraphic\BladeComponents\Table;
 use Juksgraphic\BladeComponents\BladeComponents;
 
 /**
- * One column of the `jkc.tables.dynamic-table` view, as the row partial needs it
- * to pick the partial that renders its cells.
- *
- * Pure PHP: no view, no framework. The column definition itself is left
- * untouched (it still reaches the browser through the JSON config); this class
- * only decides which cell partial applies and how a cell reaches its column.
+ * Represents a table column definition and delegates cell behavior to TableCell.
  */
 final class TableColumn
 {
@@ -20,17 +15,20 @@ final class TableColumn
 
     private const FALLBACK_TYPE = 'text';
 
+    private readonly TableCell $cell;
+
     /**
      * @param array<string, mixed> $definition
      */
     private function __construct(
         private readonly array $definition,
         private readonly int|string $position,
-    ) {}
+    ) {
+        $this->cell = new TableCell($this->definition);
+    }
 
     /**
-     * @param mixed $definition Entry of `headers` (a malformed, non-array entry gives an empty column).
-     * @param int|string $position Key of that entry in `headers`.
+     * Creates a column instance from raw header input definition.
      */
     public static function from(mixed $definition, int|string $position): self
     {
@@ -38,8 +36,7 @@ final class TableColumn
     }
 
     /**
-     * The cell type: the `type` of the column when a partial exists for it, "text" otherwise.
-     * A type is available as soon as `cells/<type>.blade.php` exists: adding a file adds a type.
+     * Returns the resolved cell type or text fallback.
      */
     public function type(): string
     {
@@ -49,8 +46,7 @@ final class TableColumn
     }
 
     /**
-     * Name of the view that renders the cells of this column: the optional
-     * `view` key of the column, or the partial of its type.
+     * Returns the Blade view partial path responsible for rendering this column's cells.
      */
     public function view(): string
     {
@@ -64,14 +60,16 @@ final class TableColumn
     }
 
     /**
-     * Alpine expression that evaluates to this column's definition,
-     * e.g. `headers[0]` (the position is the key of the column in `headers`).
+     * Returns the cell configuration helper instance.
      */
-    public function ref(): string
+    public function cell(): TableCell
     {
-        return 'headers[' . json_encode($this->position) . ']';
+        return $this->cell;
     }
 
+    /**
+     * Checks if a custom cell partial template exists on disk.
+     */
     private static function hasCellPartial(string $type): bool
     {
         if (preg_match('/^[a-z0-9_]+$/', $type) !== 1) {
