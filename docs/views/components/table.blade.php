@@ -43,7 +43,7 @@
                     'headers[].type',
                     'string',
                     "'text'",
-                    'One of <code>text</code>, <code>link</code>, <code>badge</code>, <code>progress</code>, <code>image</code>, <code>avatar_text</code>, <code>boolean</code>, <code>currency</code>, <code>date</code>, <code>actions_menu</code>.',
+                    'One of <code>text</code>, <code>link</code>, <code>badge</code>, <code>progress</code>, <code>image</code>, <code>avatar_text</code>, <code>boolean</code>, <code>currency</code>, <code>date</code>. Any other value falls back to <code>text</code>.',
                 ],
                 [
                     'filters',
@@ -74,25 +74,25 @@
             'Events',
             [
                 [
-                    'on-jkc-table-view',
+                    'jkc-table-view',
                     'CustomEvent',
                     '—',
                     'Fired when clicking the view button or row. <code>detail</code> holds <code>item</code>.',
                 ],
                 [
-                    'on-jkc-table-edit',
+                    'jkc-table-edit',
                     'CustomEvent',
                     '—',
                     'Fired when clicking the edit button. <code>detail</code> holds <code>item</code>.',
                 ],
                 [
-                    'on-jkc-table-delete',
+                    'jkc-table-delete',
                     'CustomEvent',
                     '—',
                     'Fired when clicking the delete button. <code>detail</code> holds <code>item</code>.',
                 ],
                 [
-                    'on-jkc-table-selection-change',
+                    'jkc-table-selection-change',
                     'CustomEvent',
                     '—',
                     'Fired when row selections change. <code>detail</code> holds <code>selectedIds</code> and <code>selectedItems</code>.',
@@ -148,7 +148,7 @@
                     <span
                         class="rounded-full border border-primary/30 bg-primary/10 px-3 py-1 font-code text-xs text-primary dark:border-primary-dark/30 dark:bg-primary-dark/10 dark:text-primary-dark">server-side</span>
                     <span
-                        class="rounded-full border border-primary/30 bg-primary/10 px-3 py-1 font-code text-xs text-primary dark:border-primary-dark/30 dark:bg-primary-dark/10 dark:text-primary-dark">10
+                        class="rounded-full border border-primary/30 bg-primary/10 px-3 py-1 font-code text-xs text-primary dark:border-primary-dark/30 dark:bg-primary-dark/10 dark:text-primary-dark">9
                         cell types</span>
                     <span
                         class="rounded-full border border-outline bg-surface-alt px-3 py-1 font-code text-xs text-on-surface dark:border-outline-dark dark:bg-surface-dark-alt dark:text-on-surface-dark">Alpine.js
@@ -314,16 +314,16 @@
                     @endcomponent
                 </div>
 
-                {{-- 5. Multiple Selection & Actions Menu --}}
+                {{-- 5. Multiple Selection & Row Actions --}}
                 <div class="min-w-0 md:col-span-2">
                     @component('partials.section', [
-                        'title' => '5. Multiple Selection (Selectable) & Actions Menu',
-                        'description' => 'Enabling left-side checkboxes for bulk actions and a row-level contextual dropdown menu.',
+                        'title' => '5. Multiple Selection (Selectable) & Row Actions',
+                        'description' => 'Enabling left-side checkboxes for bulk actions and view / edit / delete buttons on each row.',
                     ])
                         @component('partials.example')
                             @verbatim
-                                <div x-data="{ count: 0 }"
-                                    x-on:on-jkc-table-selection-change.window="count = $event.detail.selectedIds.length">
+                                <div x-data="{ count: 0 }" x-on:jkc-table-view.window.prevent x-on:jkc-table-edit.window.prevent
+                                    x-on:jkc-table-selection-change.window="count = $event.detail.selectedIds.length">
                                     <p class="mb-2 font-code text-xs text-primary" role="status" x-text="count + ' item(s) selected'">
                                     </p>
 
@@ -361,7 +361,8 @@
                     ])
                         @component('partials.example')
                             @verbatim
-                                <div x-data x-on:on-jkc-table-selection-change.window="console.log($event.detail)">
+                                <div x-data x-on:jkc-table-view.window.prevent x-on:jkc-table-edit.window.prevent
+                                    x-on:jkc-table-selection-change.window="console.log($event.detail)">
                                     @include('jkc.tables.dynamic-table', [
                                         'baseRoute' => '/tables/orders',
                                         'endpoint' => '/tables/orders/table',
@@ -401,9 +402,9 @@
                                                 'locale' => 'fr-FR',
                                                 'sortable' => true,
                                                 'rules' => [
-                                                    ['max' => 0, 'variant' => 'danger'], 
-                                                    ['min' => 500, 'variant' => 'success'], 
-                                                    ['min' => 100, 'variant' => 'warning'], 
+                                                    ['max' => 0, 'variant' => 'danger'],
+                                                    ['min' => 500, 'variant' => 'success'],
+                                                    ['min' => 100, 'variant' => 'warning'],
                                                 ],
                                                 'variant' => 'neutral',
                                             ],
