@@ -58,7 +58,7 @@ final class BladeComponents
      */
     public static function shouldInline(string $name): bool
     {
-        if (!self::$inlineScripts || isset(self::$emittedScripts[$name])) {
+        if (! self::$inlineScripts || isset(self::$emittedScripts[$name])) {
             return false;
         }
 

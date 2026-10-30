@@ -19,15 +19,15 @@ it('falls back to text for a missing, unknown or unsafe type', function (array $
     expect($column->type())->toBe('text')
         ->and($column->view())->toBe('jkc-internal.tables.cells.text');
 })->with([
-    'no type'        => [[]],
-    'unknown type'   => [['type' => 'unknown']],
-    'wrong case'     => [['type' => 'Badge']],
+    'no type' => [[]],
+    'unknown type' => [['type' => 'unknown']],
+    'wrong case' => [['type' => 'Badge']],
     'path traversal' => [['type' => '../row']],
-    'with a slash'   => [['type' => 'cells/text']],
+    'with a slash' => [['type' => 'cells/text']],
     'trailing space' => [['type' => 'badge ']],
-    'empty string'   => [['type' => '']],
-    'not a string'   => [['type' => 123]],
-    'null'           => [['type' => null]],
+    'empty string' => [['type' => '']],
+    'not a string' => [['type' => 123]],
+    'null' => [['type' => null]],
 ]);
 
 it('uses the view given by the column', function () {
@@ -71,7 +71,7 @@ it('creates one column per header, even a malformed one', function () {
     ])->columns();
 
     expect($columns)->toHaveCount(3)
-        ->and(array_map(fn(TableColumn $column) => $column->type(), $columns))->toBe(['badge', 'text', 'text'])
+        ->and(array_map(fn (TableColumn $column) => $column->type(), $columns))->toBe(['badge', 'text', 'text'])
         ->and($columns[1]->ref())->toBe('headers[1]');
 });
 
@@ -80,7 +80,7 @@ it('keeps the keys of associative headers', function () {
         'headers' => ['name' => ['key' => 'name'], 'state' => ['key' => 'state', 'type' => 'badge']],
     ])->columns();
 
-    expect(array_map(fn(TableColumn $column) => $column->ref(), $columns))
+    expect(array_map(fn (TableColumn $column) => $column->ref(), $columns))
         ->toBe(['headers["name"]', 'headers["state"]']);
 });
 

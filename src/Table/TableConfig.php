@@ -35,7 +35,8 @@ final class TableConfig
         private readonly array $config,
         private readonly string $id,
         private readonly string $baseRoute,
-    ) {}
+    ) {
+    }
 
     /**
      * Builds the configuration from the raw view variables.
@@ -49,17 +50,17 @@ final class TableConfig
     public static function fromInput(array $input): self
     {
         $baseRoute = self::baseRoute($input['baseRoute'] ?? null);
-        $endpoint  = self::endpoint($input['endpoint'] ?? null, $baseRoute);
-        $perPage   = self::perPage($input['perPage'] ?? null);
+        $endpoint = self::endpoint($input['endpoint'] ?? null, $baseRoute);
+        $perPage = self::perPage($input['perPage'] ?? null);
 
         return new self(
             [
-                'endpoint'   => $endpoint,
-                'headers'    => self::headers($input['headers'] ?? null, $input['columns'] ?? null),
-                'filters'    => self::filters($input['filters'] ?? null),
+                'endpoint' => $endpoint,
+                'headers' => self::headers($input['headers'] ?? null, $input['columns'] ?? null),
+                'filters' => self::filters($input['filters'] ?? null),
                 'withAction' => self::withAction($input['withAction'] ?? null),
                 'selectable' => (bool) ($input['selectable'] ?? false),
-                'perPage'    => $perPage,
+                'perPage' => $perPage,
                 'perPageOptions' => self::perPageOptions($perPage),
             ],
             self::resolveId($input['tableId'] ?? null, $endpoint),

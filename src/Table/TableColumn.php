@@ -26,7 +26,8 @@ final class TableColumn
     private function __construct(
         private readonly array $definition,
         private readonly int|string $position,
-    ) {}
+    ) {
+    }
 
     /**
      * @param mixed $definition Entry of `headers` (a malformed, non-array entry gives an empty column).
