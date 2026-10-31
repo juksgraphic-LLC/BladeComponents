@@ -16,7 +16,6 @@ import { createJavaScriptRegexEngine } from "shiki/engine/javascript";
 import Quill from 'quill';
 
 
-
 window.Quill = Quill;
 window.htmx = htmx;
 window.Alpine = Alpine;

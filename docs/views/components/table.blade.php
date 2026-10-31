@@ -43,7 +43,7 @@
                     'headers[].type',
                     'string',
                     "'text'",
-                    'One of <code>text</code>, <code>link</code>, <code>badge</code>, <code>progress</code>, <code>image</code>, <code>avatar_text</code>, <code>boolean</code>, <code>currency</code>, <code>date</code>, <code>actions_menu</code>.',
+                    'One of <code>text</code>, <code>link</code>, <code>badge</code>, <code>progress</code>, <code>image</code>, <code>avatar_text</code>, <code>boolean</code>, <code>currency</code>, <code>date</code>. Any other value falls back to <code>text</code>.',
                 ],
                 [
                     'filters',
@@ -74,28 +74,34 @@
             'Events',
             [
                 [
-                    'on-jkc-table-view',
+                    'jkc-table-view',
                     'CustomEvent',
                     '—',
-                    'Fired when clicking the view button or row. <code>detail</code> holds <code>item</code>.',
+                    'Fired when clicking the view link, button or row, before the navigation. <code>detail</code> holds <code>tableId</code> and <code>item</code>. Cancelable: <code>preventDefault()</code> skips the default behavior.',
                 ],
                 [
-                    'on-jkc-table-edit',
+                    'jkc-table-edit',
                     'CustomEvent',
                     '—',
-                    'Fired when clicking the edit button. <code>detail</code> holds <code>item</code>.',
+                    'Fired when clicking the edit link or button, before the navigation. <code>detail</code> holds <code>tableId</code> and <code>item</code>. Cancelable: <code>preventDefault()</code> skips the default behavior.',
                 ],
                 [
-                    'on-jkc-table-delete',
+                    'jkc-table-delete',
                     'CustomEvent',
                     '—',
-                    'Fired when clicking the delete button. <code>detail</code> holds <code>item</code>.',
+                    'Fired when clicking the delete button, before the confirmation modal. <code>detail</code> holds <code>tableId</code> and <code>item</code>. Cancelable: <code>preventDefault()</code> skips the modal and the request.',
                 ],
                 [
-                    'on-jkc-table-selection-change',
+                    'jkc-table-selection-change',
                     'CustomEvent',
                     '—',
-                    'Fired when row selections change. <code>detail</code> holds <code>selectedIds</code> and <code>selectedItems</code>.',
+                    'Fired when row selections change, and when the selection is cleared because the rows changed. <code>detail</code> holds <code>tableId</code>, <code>selectedIds</code> and <code>selectedItems</code>.',
+                ],
+                [
+                    'jkc-table-refresh',
+                    'CustomEvent (command)',
+                    '—',
+                    'Dispatch it on <code>window</code> to reload a table, keeping its page, search, sort and filters. <code>detail</code> is a <code>tableId</code>; without it every table reloads.',
                 ],
             ],
         ],
@@ -148,7 +154,7 @@
                     <span
                         class="rounded-full border border-primary/30 bg-primary/10 px-3 py-1 font-code text-xs text-primary dark:border-primary-dark/30 dark:bg-primary-dark/10 dark:text-primary-dark">server-side</span>
                     <span
-                        class="rounded-full border border-primary/30 bg-primary/10 px-3 py-1 font-code text-xs text-primary dark:border-primary-dark/30 dark:bg-primary-dark/10 dark:text-primary-dark">10
+                        class="rounded-full border border-primary/30 bg-primary/10 px-3 py-1 font-code text-xs text-primary dark:border-primary-dark/30 dark:bg-primary-dark/10 dark:text-primary-dark">9
                         cell types</span>
                     <span
                         class="rounded-full border border-outline bg-surface-alt px-3 py-1 font-code text-xs text-on-surface dark:border-outline-dark dark:bg-surface-dark-alt dark:text-on-surface-dark">Alpine.js
@@ -173,8 +179,9 @@
                     ])
                         @component('partials.example')
                             @verbatim
-                                @include('jkc.tables.dynamic-table', [
+                                @include('jkc.tables.table', [
                                     'baseRoute' => '/tables/users',
+                                    'endpoint' => '/tables/users/table',
                                     'headers' => [
                                         ['key' => 'name', 'label' => 'Name', 'type' => 'text', 'sortable' => true],
                                         [
@@ -205,8 +212,10 @@
                     ])
                         @component('partials.example')
                             @verbatim
-                                @include('jkc.tables.dynamic-table', [
+                                @include('jkc.tables.table', [
                                     'baseRoute' => '/tables/users',
+                                    'endpoint' => '/tables/users/table',
+                                    
                                     'headers' => [
                                         ['key' => 'name', 'label' => 'User', 'type' => 'text', 'sortable' => true],
                                         [
@@ -239,8 +248,9 @@
                     ])
                         @component('partials.example')
                             @verbatim
-                                @include('jkc.tables.dynamic-table', [
+                                @include('jkc.tables.table', [
                                     'baseRoute' => '/tables/orders',
+                                    'endpoint' => '/tables/orders/table',
                                     'headers' => [
                                         [
                                             'key' => 'reference',
@@ -278,8 +288,9 @@
                     ])
                         @component('partials.example')
                             @verbatim
-                                @include('jkc.tables.dynamic-table', [
+                                @include('jkc.tables.table', [
                                     'baseRoute' => '/tables/users',
+                                    'endpoint' => '/tables/users/table',
                                     'headers' => [
                                         [
                                             'key' => 'name',
@@ -314,21 +325,23 @@
                     @endcomponent
                 </div>
 
-                {{-- 5. Multiple Selection & Actions Menu --}}
+                {{-- 5. Multiple Selection & Row Actions --}}
                 <div class="min-w-0 md:col-span-2">
                     @component('partials.section', [
-                        'title' => '5. Multiple Selection (Selectable) & Actions Menu',
-                        'description' => 'Enabling left-side checkboxes for bulk actions and a row-level contextual dropdown menu.',
+                        'title' => '5. Multiple Selection (Selectable) & Row Actions',
+                        'description' => 'Enabling left-side checkboxes for bulk actions and view / edit / delete buttons on each row.',
                     ])
                         @component('partials.example')
                             @verbatim
                                 <div x-data="{ count: 0 }"
-                                    x-on:on-jkc-table-selection-change.window="count = $event.detail.selectedIds.length">
+                                    x-on:jkc-table-view.window.prevent x-on:jkc-table-edit.window.prevent
+                                    x-on:jkc-table-selection-change.window="count = $event.detail.selectedIds.length">
                                     <p class="mb-2 font-code text-xs text-primary" role="status" x-text="count + ' item(s) selected'">
                                     </p>
 
-                                    @include('jkc.tables.dynamic-table', [
-                                        'baseRoute' => '/tables/users',
+                                    @include('jkc.tables.table', [
+                                        'baseRoute' => '/tables/users/',
+                                        'endpoint' => '/tables/users/table',
                                         'selectable' => true,
                                         'withAction' => ['view', 'edit', 'delete'],
                                         'headers' => [
@@ -361,8 +374,9 @@
                     ])
                         @component('partials.example')
                             @verbatim
-                                <div x-data x-on:on-jkc-table-selection-change.window="console.log($event.detail)">
-                                    @include('jkc.tables.dynamic-table', [
+                                <div x-data x-on:jkc-table-view.window.prevent x-on:jkc-table-edit.window.prevent
+                                    x-on:jkc-table-selection-change.window="console.log($event.detail)">
+                                    @include('jkc.tables.table', [
                                         'baseRoute' => '/tables/orders',
                                         'endpoint' => '/tables/orders/table',
                                         'perPage' => 10,
@@ -443,7 +457,7 @@
                         ])
                             @component('partials.example')
                                 @verbatim
-                                    @include('jkc.tables.dynamic-table', [
+                                    @include('jkc.tables.table', [
                                         'baseRoute' => '/tables/empty',
                                         'endpoint' => '/tables/empty/table',
                                         'headers' => [
@@ -470,7 +484,7 @@
                     ])
                         @component('partials.example')
                             @verbatim
-                                @include('jkc.tables.dynamic-table', [
+                                @include('jkc.tables.table', [
                                     'baseRoute' => '/tables/failing',
                                     'endpoint' => '/tables/failing/table',
                                     'headers' => [
@@ -546,9 +560,9 @@
             <div id="source" class="mt-8 scroll-mt-6">
                 @component('partials.section', [
                     'title' => 'Source Code',
-                    'description' => 'Full source of the jkc.tables.dynamic-table component view.',
+                    'description' => 'Full source of the jkc.tables.table component view.',
                 ])
-                    @include('partials.source', ['view' => 'jkc.tables.dynamic-table'])
+                    @include('partials.source', ['view' => 'jkc.tables.table'])
                 @endcomponent
             </div>
         </aside>

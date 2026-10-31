@@ -3,7 +3,8 @@
     "type": "module",
     "scripts": {
         "dev": "vite",
-        "build": "vite build"
+        "build": "vite build",
+        "build:table": "esbuild resources/js/jkc-table.js --bundle --format=iife --minify --legal-comments=none --outfile=dist/jkc-table.js"
     },
     "dependencies": {
         "@alpinejs/collapse": "^3.14.0",
@@ -16,6 +17,7 @@
     },
     "devDependencies": {
         "@tailwindcss/vite": "^4.0.0",
+        "esbuild": "^0.28.2",
         "tailwindcss": "^4.0.0",
         "vite": "^6.0.0"
     }

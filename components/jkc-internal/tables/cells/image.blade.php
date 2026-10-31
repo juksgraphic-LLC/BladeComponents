@@ -1,0 +1,2 @@
+<img x-bind:src="{{ $jkcColumn->cell()->valueExpr() }} || labels.imagePlaceholder" alt=""
+    class="size-10 rounded-radius object-cover border border-outline dark:border-outline-dark flex-shrink-0" />

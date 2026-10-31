@@ -219,5 +219,8 @@
 
     @include('partials.search-modal', ['components' => $components])
 </body>
+<script>
+    @stack('scripts')
+</script>
 
 </html>
