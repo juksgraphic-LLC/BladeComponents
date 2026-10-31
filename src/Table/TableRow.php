@@ -15,7 +15,8 @@ final class TableRow
     public function __construct(
         private readonly string $baseRoute,
         private readonly array $actions,
-    ) {}
+    ) {
+    }
 
     /**
      * Determines whether client-side navigation via baseRoute is active.

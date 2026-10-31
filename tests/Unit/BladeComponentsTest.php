@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 use Juksgraphic\BladeComponents\BladeComponents;
 
-beforeEach(fn() => BladeComponents::resetScripts());
-afterEach(fn() => BladeComponents::resetScripts());
+beforeEach(fn () => BladeComponents::resetScripts());
+afterEach(fn () => BladeComponents::resetScripts());
 
 describe('paths', function () {
     it('points to the components folder', function () {
@@ -120,7 +120,7 @@ describe('all', function () {
 
     it('matches the blade files of components/jkc', function () {
         $expected = array_map(
-            fn(string $file) => basename($file, '.blade.php'),
+            fn (string $file) => basename($file, '.blade.php'),
             glob(BladeComponents::path() . '/jkc/*/*.blade.php') ?: []
         );
         $expected = array_values(array_unique($expected));

@@ -10,15 +10,14 @@ final class TablePagination
     private const DEFAULT_PER_PAGE = 5;
 
     private const BASE_PER_PAGE_OPTIONS = [5, 10, 25, 50, 100];
-    
 
     /** @param array<int, int> $perPageOptions */
     public function __construct(
         private readonly int $perPage,
         private readonly array $perPageOptions,
-    ) {}
+    ) {
+    }
 
- 
     /**
      * Summary of from
      * @param mixed $perPageValue
@@ -27,9 +26,9 @@ final class TablePagination
     public static function from(mixed $perPageValue): self
     {
         $perPage = self::resolvePerPage($perPageValue);
+
         return new self($perPage, self::resolvePerPageOptions($perPage));
     }
-
 
     /**
      * Returns items count per page.
@@ -39,8 +38,6 @@ final class TablePagination
     {
         return $this->perPage;
     }
-
-
 
     /**
      * Returns available per page options.
@@ -60,8 +57,6 @@ final class TablePagination
     {
         return max(1, (int) ($value ?? self::DEFAULT_PER_PAGE));
     }
-
-
 
     /**
      * Summary of resolvePerPageOptions

@@ -22,13 +22,13 @@ it('falls back to text when the type is missing', function () {
 it('falls back to text for unknown or invalid types', function (mixed $type) {
     expect(TableColumn::from(['type' => $type], 0)->type())->toBe('text');
 })->with([
-    'unknown'        => 'does_not_exist',
-    'uppercase'      => 'Badge',
+    'unknown' => 'does_not_exist',
+    'uppercase' => 'Badge',
     'path traversal' => '../../secret',
-    'with dot'       => 'badge.blade',
-    'not a string'   => 42,
-    'null'           => null,
-    'empty'          => '',
+    'with dot' => 'badge.blade',
+    'not a string' => 42,
+    'null' => null,
+    'empty' => '',
 ]);
 
 it('falls back to text when the definition is not an array', function (mixed $definition) {
