@@ -25,7 +25,7 @@
         "eftec/bladeone": "^5.0",
         "flightphp/core": "^3.19",
         "friendsofphp/php-cs-fixer": "^3.21.1",
-        "pestphp/pest": "^4.0"
+        "pestphp/pest": "^5.3"
     },
     "suggest": {
         "eftec/bladeone": "Pour utiliser les composants hors Laravel (Flight, etc.)"
