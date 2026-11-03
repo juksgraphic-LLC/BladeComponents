@@ -1,10 +1,23 @@
 <?php
 /*
 |--------------------------------------------------------------------------
+| Project root
+|--------------------------------------------------------------------------
+|
+| On the server, the code lives in ../app (outside public_html).
+| Locally, it is the repository root (docs/public -> ../..).
+|
+*/
+$root = is_file(dirname(__DIR__) . '/app/vendor/autoload.php')
+    ? dirname(__DIR__) . '/app'
+    : dirname(__DIR__, 2);
+
+/*
+|--------------------------------------------------------------------------
 | Composer Autoload
 |--------------------------------------------------------------------------
 */
-require dirname(__DIR__, 2) . '/vendor/autoload.php';
+require $root . '/vendor/autoload.php';
 
 /*
 |--------------------------------------------------------------------------
@@ -15,5 +28,4 @@ require dirname(__DIR__, 2) . '/vendor/autoload.php';
 | config, services and routes files.
 |
 */
-require dirname(__DIR__) . '/app/bootstrap.php';
-
+require $root . '/docs/app/bootstrap.php';

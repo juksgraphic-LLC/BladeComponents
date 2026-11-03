@@ -1,0 +1,135 @@
+name: Deploy to Hostinger
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Simulation seulement (aucun fichier modifié sur le serveur)"
+        type: boolean
+        default: true
+
+concurrency:
+  group: deploy-main
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    name: Tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v7
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.4'
+          extensions: dom, curl, libxml, mbstring, zip, pdo, sqlite, pdo_sqlite, intl, fileinfo
+          coverage: none
+
+      - name: Install dependencies
+        run: composer install --prefer-dist --no-interaction
+
+      - name: Create Blade cache directory
+        run: mkdir -p docs/cache && chmod -R 777 docs/cache
+
+      - name: Execute tests
+        run: vendor/bin/pest --ci
+
+  deploy:
+    name: Build & Deploy (SSH)
+    needs: test
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    # environment: production   # décommente après avoir créé l'Environment (secrets protégés)
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v7
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.4'
+          tools: composer:v2
+          coverage: none
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      # Retire --no-dev seulement après avoir vérifié que Flight (et tout ce que
+      # docs/ utilise) est bien dans "require" et non dans "require-dev".
+      - name: Install PHP dependencies
+        run: composer install --prefer-dist --optimize-autoloader --no-interaction
+
+      - name: Install JS dependencies
+        run: npm ci
+
+      - name: Build assets (Vite)
+        run: npm run build
+
+      - name: Prepare deploy bundle
+        run: |
+          mkdir -p deploy/app/docs deploy/public_html
+          # Même structure que le dépôt, dans app/
+          cp -r vendor        deploy/app/
+          cp -r src           deploy/app/
+          cp -r components    deploy/app/
+          cp composer.json    deploy/app/
+          cp -r docs/app      deploy/app/docs/
+          cp -r docs/views    deploy/app/docs/
+          # Partie publique (inclut .htaccess et build/)
+          cp -r docs/public/. deploy/public_html/
+
+      - name: Install sshpass
+        run: sudo apt-get update && sudo apt-get install -y sshpass
+
+      - name: Trust server host key
+        run: |
+          mkdir -p ~/.ssh
+          ssh-keyscan -p ${{ secrets.SSH_PORT }} -H ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
+
+      - name: Sync files (rsync)
+        env:
+          SSHPASS: ${{ secrets.SSH_PASS }}
+        run: |
+          DRY=""
+          if [ "${{ inputs.dry_run }}" = "true" ]; then
+            DRY="--dry-run"
+            echo "::notice::Mode simulation (dry-run) : rien n'est modifié sur le serveur"
+          fi
+
+          sshpass -e rsync -rltz --delete --itemize-changes $DRY \
+            --exclude='/DO_NOT_UPLOAD_HERE' \
+            --exclude='/app/.env' \
+            --exclude='/app/docs/.env' \
+            --exclude='/app/docs/cache/' \
+            --exclude='/app/docs/storage/' \
+            -e "ssh -p ${{ secrets.SSH_PORT }} -o StrictHostKeyChecking=yes" \
+            deploy/ \
+            ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:${{ secrets.REMOTE_PATH }}/
+
+      - name: Post-deploy commands
+        if: ${{ !inputs.dry_run }}
+        env:
+          SSHPASS: ${{ secrets.SSH_PASS }}
+        run: |
+          sshpass -e ssh -p ${{ secrets.SSH_PORT }} -o StrictHostKeyChecking=yes \
+            ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} << 'EOF'
+            set -e
+            cd ${{ secrets.REMOTE_PATH }}/app/docs
+            mkdir -p cache
+            chmod 775 cache
+            find cache -type f -delete
+            echo "Deploy OK: $(date)"
+          EOF
