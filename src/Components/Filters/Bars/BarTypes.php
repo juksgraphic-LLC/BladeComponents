@@ -11,7 +11,7 @@ final class BarTypes
 {
     /** Filter types by name. */
     public const ITEMS = [
-        'SELECT'      => 'select',
+        'SELECT' => 'select',
         'MULTISELECT' => 'multiselect',
     ];
 }

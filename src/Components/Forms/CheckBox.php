@@ -15,13 +15,13 @@ class Checkbox extends FormField
      * @var array<string, mixed>
      */
     protected array $defaults = [
-        'label'       => '',
-        'name'        => 'checkbox',
-        'multiple'    => false,
-        'options'     => [],
-        'model'       => 'formData',
+        'label' => '',
+        'name' => 'checkbox',
+        'multiple' => false,
+        'options' => [],
+        'model' => 'formData',
         'initialData' => [],
-        'class'       => '',
+        'class' => '',
     ];
 
     /**
@@ -33,18 +33,18 @@ class Checkbox extends FormField
     {
         parent::__construct($config);
 
-        $isMultiple  = (bool) $this->config['multiple'];
-        $name        = $this->sanitizeFieldName($this->config['name'], 'checkbox');
+        $isMultiple = (bool) $this->config['multiple'];
+        $name = $this->sanitizeFieldName($this->config['name'], 'checkbox');
         $initialData = is_array($this->config['initialData']) ? $this->config['initialData'] : [];
-        $rawValue    = $initialData[$name] ?? null;
+        $rawValue = $initialData[$name] ?? null;
 
-        $this->config['label']       = is_scalar($this->config['label']) ? (string) $this->config['label'] : '';
-        $this->config['name']        = $name;
-        $this->config['multiple']    = $isMultiple;
-        $this->config['options']     = $this->normalizeOptions((array) $this->config['options']);
-        $this->config['model']       = $this->sanitizeModelPath($this->config['model']);
+        $this->config['label'] = is_scalar($this->config['label']) ? (string) $this->config['label'] : '';
+        $this->config['name'] = $name;
+        $this->config['multiple'] = $isMultiple;
+        $this->config['options'] = $this->normalizeOptions((array) $this->config['options']);
+        $this->config['model'] = $this->sanitizeModelPath($this->config['model']);
         $this->config['initialData'] = $initialData;
-        $this->config['class']       = is_scalar($this->config['class']) ? trim((string) $this->config['class']) : '';
+        $this->config['class'] = is_scalar($this->config['class']) ? trim((string) $this->config['class']) : '';
 
         $this->config['initialValue'] = $isMultiple
             ? $this->normalizeMultiValue($rawValue)

@@ -26,14 +26,14 @@ class Pagination extends Component
      * @var array<string, mixed>
      */
     protected array $defaults = [
-        'total'     => 50,
-        'current'   => 1,
-        'perPage'   => 10,
-        'baseUrl'   => '?page=',
-        'window'    => 1,
-        'style'     => 'default',
-        'class'     => '',
-        'attrs'     => '',
+        'total' => 50,
+        'current' => 1,
+        'perPage' => 10,
+        'baseUrl' => '?page=',
+        'window' => 1,
+        'style' => 'default',
+        'class' => '',
+        'attrs' => '',
         'prevLabel' => 'Previous',
         'nextLabel' => 'Next',
     ];
@@ -47,26 +47,26 @@ class Pagination extends Component
     {
         parent::__construct($config);
 
-        $total   = max(0, is_numeric($this->config['total']) ? (int) $this->config['total'] : 50);
+        $total = max(0, is_numeric($this->config['total']) ? (int) $this->config['total'] : 50);
         $perPage = max(1, is_numeric($this->config['perPage']) ? (int) $this->config['perPage'] : 10);
-        $last    = (int) ceil($total / $perPage);
+        $last = (int) ceil($total / $perPage);
         $current = max(1, min($last > 0 ? $last : 1, is_numeric($this->config['current']) ? (int) $this->config['current'] : 1));
-        $window  = max(0, is_numeric($this->config['window']) ? (int) $this->config['window'] : 1);
-        $style   = is_string($this->config['style'] ?? null) && in_array($this->config['style'], self::STYLES, true)
+        $window = max(0, is_numeric($this->config['window']) ? (int) $this->config['window'] : 1);
+        $style = is_string($this->config['style'] ?? null) && in_array($this->config['style'], self::STYLES, true)
             ? $this->config['style']
             : 'default';
 
-        $this->config['total']     = $total;
-        $this->config['perPage']   = $perPage;
-        $this->config['last']      = $last;
-        $this->config['current']   = $current;
-        $this->config['window']    = $window;
-        $this->config['start']     = max(1, $current - $window);
-        $this->config['end']       = min($last, $current + $window);
-        $this->config['style']     = $style;
-        $this->config['baseUrl']   = $this->sanitizeBaseUrl($this->config['baseUrl']);
-        $this->config['class']     = is_scalar($this->config['class']) ? trim((string) $this->config['class']) : '';
-        $this->config['attrs']     = is_scalar($this->config['attrs']) ? trim((string) $this->config['attrs']) : '';
+        $this->config['total'] = $total;
+        $this->config['perPage'] = $perPage;
+        $this->config['last'] = $last;
+        $this->config['current'] = $current;
+        $this->config['window'] = $window;
+        $this->config['start'] = max(1, $current - $window);
+        $this->config['end'] = min($last, $current + $window);
+        $this->config['style'] = $style;
+        $this->config['baseUrl'] = $this->sanitizeBaseUrl($this->config['baseUrl']);
+        $this->config['class'] = is_scalar($this->config['class']) ? trim((string) $this->config['class']) : '';
+        $this->config['attrs'] = is_scalar($this->config['attrs']) ? trim((string) $this->config['attrs']) : '';
         $this->config['prevLabel'] = is_scalar($this->config['prevLabel']) ? (string) $this->config['prevLabel'] : 'Previous';
         $this->config['nextLabel'] = is_scalar($this->config['nextLabel']) ? (string) $this->config['nextLabel'] : 'Next';
     }

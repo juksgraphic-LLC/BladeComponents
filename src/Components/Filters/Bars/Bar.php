@@ -45,12 +45,12 @@ final class Bar
     public function __construct(array $props)
     {
         $this->endpoint = BarNormalizer::endpoint($props['endpoint'] ?? null);
-        $this->id       = BarNormalizer::id($props['id'] ?? null);
-        $this->filters  = FilterNormalizer::normalizeAll($props['filters'] ?? []);
-        $this->search   = BarNormalizer::search($props['search'] ?? null);
-        $this->variant  = BarNormalizer::variant($props['variant'] ?? null);
-        $this->perPage  = BarNormalizer::perPage($props['perPage'] ?? null);
-        $this->sort     = BarNormalizer::sort($props['sort'] ?? null);
+        $this->id = BarNormalizer::id($props['id'] ?? null);
+        $this->filters = FilterNormalizer::normalizeAll($props['filters'] ?? []);
+        $this->search = BarNormalizer::search($props['search'] ?? null);
+        $this->variant = BarNormalizer::variant($props['variant'] ?? null);
+        $this->perPage = BarNormalizer::perPage($props['perPage'] ?? null);
+        $this->sort = BarNormalizer::sort($props['sort'] ?? null);
         $this->autoload = (bool) ($props['autoload'] ?? true);
     }
 
@@ -116,16 +116,16 @@ final class Bar
         return [
             'id' => $this->id,
             'endpoint' => $this->endpoint,
-            'page'     => BarDefaults::ITEMS['PAGE'],
-            'perPage'  => $this->perPage,
+            'page' => BarDefaults::ITEMS['PAGE'],
+            'perPage' => $this->perPage,
             'autoload' => $this->autoload,
-            'search'   => $this->search,
-            'filters'   => $this->filters,
+            'search' => $this->search,
+            'filters' => $this->filters,
             'initialFilters' => $this->initialFilters(),
             'sort' => $this->sort,
             'directions' => BarDirections::ITEMS,
-            'events'     => BarEvents::ITEMS,
-            'commands'   => BarCommands::ITEMS,
+            'events' => BarEvents::ITEMS,
+            'commands' => BarCommands::ITEMS,
         ];
     }
 

@@ -105,12 +105,12 @@ abstract class Component implements JsonSerializable
     protected function normalize(mixed $value): mixed
     {
         return match (true) {
-            is_array($value)             => array_map(fn(mixed $item): mixed => $this->normalize($item), $value),
-            $value instanceof self       => $value->toArray(),
+            is_array($value) => array_map(fn (mixed $item): mixed => $this->normalize($item), $value),
+            $value instanceof self => $value->toArray(),
             $value instanceof BackedEnum => $value->value,
-            $value instanceof UnitEnum   => $value->name,
-            $value instanceof Closure    => null,
-            default                      => $value,
+            $value instanceof UnitEnum => $value->name,
+            $value instanceof Closure => null,
+            default => $value,
         };
     }
 }

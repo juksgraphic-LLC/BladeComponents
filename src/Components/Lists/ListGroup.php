@@ -38,14 +38,14 @@ class ListGroup extends Component
      * @var array<string, mixed>
      */
     protected array $defaults = [
-        'id'       => null,
-        'type'     => 'default',
-        'color'    => 'primary',
-        'active'   => null,
+        'id' => null,
+        'type' => 'default',
+        'color' => 'primary',
+        'active' => null,
         'disabled' => [],
-        'items'    => [],
-        'class'    => '',
-        'attrs'    => '',
+        'items' => [],
+        'class' => '',
+        'attrs' => '',
     ];
 
     /**
@@ -57,18 +57,18 @@ class ListGroup extends Component
     {
         parent::__construct($config);
 
-        $type         = (string) $this->config['type'];
-        $active       = isset($this->config['active']) && is_numeric($this->config['active']) ? (int) $this->config['active'] : null;
+        $type = (string) $this->config['type'];
+        $active = isset($this->config['active']) && is_numeric($this->config['active']) ? (int) $this->config['active'] : null;
         $disabledList = $this->normalizeDisabledIndices((array) ($this->config['disabled'] ?? []));
 
-        $this->config['id']       = $this->safeId($this->config['id']);
-        $this->config['type']     = in_array($type, self::TYPES, true) ? $type : 'default';
-        $this->config['color']    = $this->validColor($this->config['color']) ?? 'primary';
-        $this->config['active']   = $active;
+        $this->config['id'] = $this->safeId($this->config['id']);
+        $this->config['type'] = in_array($type, self::TYPES, true) ? $type : 'default';
+        $this->config['color'] = $this->validColor($this->config['color']) ?? 'primary';
+        $this->config['active'] = $active;
         $this->config['disabled'] = $disabledList;
-        $this->config['items']    = $this->normalizeItems((array) $this->config['items'], $active, $disabledList);
-        $this->config['class']    = is_scalar($this->config['class']) ? trim((string) $this->config['class']) : '';
-        $this->config['attrs']    = is_scalar($this->config['attrs']) ? trim((string) $this->config['attrs']) : '';
+        $this->config['items'] = $this->normalizeItems((array) $this->config['items'], $active, $disabledList);
+        $this->config['class'] = is_scalar($this->config['class']) ? trim((string) $this->config['class']) : '';
+        $this->config['attrs'] = is_scalar($this->config['attrs']) ? trim((string) $this->config['attrs']) : '';
     }
 
     /**
@@ -208,7 +208,7 @@ class ListGroup extends Component
      */
     private function sanitizeUri(mixed $url): ?string
     {
-        if (!is_string($url)) {
+        if (! is_string($url)) {
             return null;
         }
 
@@ -235,38 +235,38 @@ class ListGroup extends Component
         $normalized = [];
 
         foreach (array_values($items) as $index => $item) {
-            $item       = (array) $item;
-            $isActive   = ($activeIndex !== null && $activeIndex === $index) || (bool) ($item['active'] ?? false);
+            $item = (array) $item;
+            $isActive = ($activeIndex !== null && $activeIndex === $index) || (bool) ($item['active'] ?? false);
             $isDisabled = in_array($index, $disabledList, true) || (bool) ($item['disabled'] ?? false);
-            $safeHref   = $this->sanitizeUri($item['href'] ?? null);
+            $safeHref = $this->sanitizeUri($item['href'] ?? null);
             $safeAvatar = $this->sanitizeUri($item['avatar'] ?? null);
 
             $normalized[] = [
-                'title'      => isset($item['title']) && is_scalar($item['title']) && (string) $item['title'] !== ''
+                'title' => isset($item['title']) && is_scalar($item['title']) && (string) $item['title'] !== ''
                     ? (string) $item['title']
                     : 'Item ' . ($index + 1),
-                'subtitle'   => isset($item['subtitle']) && is_scalar($item['subtitle']) && (string) $item['subtitle'] !== ''
+                'subtitle' => isset($item['subtitle']) && is_scalar($item['subtitle']) && (string) $item['subtitle'] !== ''
                     ? (string) $item['subtitle']
                     : null,
-                'content'    => isset($item['content']) && is_scalar($item['content']) && (string) $item['content'] !== ''
+                'content' => isset($item['content']) && is_scalar($item['content']) && (string) $item['content'] !== ''
                     ? (string) $item['content']
                     : null,
-                'icon'       => isset($item['icon']) && is_scalar($item['icon']) && (string) $item['icon'] !== ''
+                'icon' => isset($item['icon']) && is_scalar($item['icon']) && (string) $item['icon'] !== ''
                     ? (string) $item['icon']
                     : null,
-                'badge'      => isset($item['badge']) && is_scalar($item['badge']) && (string) $item['badge'] !== ''
+                'badge' => isset($item['badge']) && is_scalar($item['badge']) && (string) $item['badge'] !== ''
                     ? (string) $item['badge']
                     : null,
                 'badgeColor' => $this->validColor($item['badgeColor'] ?? null),
-                'color'      => $this->validColor($item['color'] ?? null),
-                'avatar'     => $safeAvatar,
-                'action'     => isset($item['action']) && is_scalar($item['action']) && trim((string) $item['action']) !== ''
+                'color' => $this->validColor($item['color'] ?? null),
+                'avatar' => $safeAvatar,
+                'action' => isset($item['action']) && is_scalar($item['action']) && trim((string) $item['action']) !== ''
                     ? trim((string) $item['action'])
                     : null,
-                'href'       => ($isDisabled || $safeHref === null) ? '#' : $safeHref,
-                'active'     => $isActive,
-                'disabled'   => $isDisabled,
-                'number'     => $index + 1,
+                'href' => ($isDisabled || $safeHref === null) ? '#' : $safeHref,
+                'active' => $isActive,
+                'disabled' => $isDisabled,
+                'number' => $index + 1,
             ];
         }
 

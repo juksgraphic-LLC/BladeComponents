@@ -62,10 +62,10 @@ class PaginationStyles
     public function pageItemBase(): string
     {
         return match ($this->pagination->style()) {
-            'pill'     => 'flex size-8 items-center justify-center rounded-full text-sm font-medium transition',
+            'pill' => 'flex size-8 items-center justify-center rounded-full text-sm font-medium transition',
             'bordered' => 'flex size-8 items-center justify-center rounded-radius border border-outline dark:border-outline-dark text-sm font-medium transition',
-            'minimal'  => 'flex size-8 items-center justify-center text-sm font-medium transition hover:text-primary dark:hover:text-primary-dark',
-            default    => 'flex size-8 items-center justify-center rounded-radius text-sm font-medium transition',
+            'minimal' => 'flex size-8 items-center justify-center text-sm font-medium transition hover:text-primary dark:hover:text-primary-dark',
+            default => 'flex size-8 items-center justify-center rounded-radius text-sm font-medium transition',
         };
     }
 
@@ -78,7 +78,7 @@ class PaginationStyles
     {
         $activeCls = match ($this->pagination->style()) {
             'minimal' => 'text-primary dark:text-primary-dark font-bold underline underline-offset-4',
-            default   => 'bg-primary text-on-primary dark:bg-primary-dark dark:text-on-primary-dark font-bold shadow-sm',
+            default => 'bg-primary text-on-primary dark:bg-primary-dark dark:text-on-primary-dark font-bold shadow-sm',
         };
 
         return $this->pageItemBase() . ' ' . $activeCls;
@@ -117,8 +117,8 @@ class PaginationStyles
     {
         $base = match ($this->pagination->style()) {
             'bordered' => 'flex items-center gap-1 px-3 py-1.5 rounded-radius border border-outline dark:border-outline-dark text-sm font-medium transition',
-            'pill'     => 'flex items-center gap-1 px-3 py-1.5 rounded-full text-sm font-medium transition',
-            default    => 'flex items-center gap-1 px-3 py-1.5 rounded-radius text-sm font-medium transition',
+            'pill' => 'flex items-center gap-1 px-3 py-1.5 rounded-full text-sm font-medium transition',
+            default => 'flex items-center gap-1 px-3 py-1.5 rounded-radius text-sm font-medium transition',
         };
 
         $stateCls = $disabled

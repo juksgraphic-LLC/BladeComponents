@@ -86,7 +86,7 @@ abstract class FormField extends Component
         string $pattern = '/[^A-Za-z0-9_-]/'
     ): string {
         $string = is_scalar($raw) ? (string) $raw : '';
-        $clean  = preg_replace($pattern, '', $string);
+        $clean = preg_replace($pattern, '', $string);
 
         return ($clean !== null && $clean !== '') ? $clean : $fallback;
     }
@@ -101,7 +101,7 @@ abstract class FormField extends Component
     protected function sanitizeModelPath(mixed $raw): string
     {
         $string = is_scalar($raw) ? trim((string) $raw) : '';
-        $clean  = preg_replace('/[^A-Za-z0-9_.\[\]\'\"]/', '', $string);
+        $clean = preg_replace('/[^A-Za-z0-9_.\[\]\'\"]/', '', $string);
 
         return ($clean !== null && $clean !== '') ? $clean : 'formData';
     }
@@ -121,7 +121,7 @@ abstract class FormField extends Component
             $item = (array)$option;
 
             $normalized[] = [
-                'id'    => (string) ($item['id'] ?? $item['value'] ?? ''),
+                'id' => (string) ($item['id'] ?? $item['value'] ?? ''),
                 'title' => (string) ($item['title'] ?? $item['name'] ?? $item['label'] ?? ''),
             ];
         }
@@ -139,8 +139,8 @@ abstract class FormField extends Component
     protected function normalizeMultiValue(mixed $value): array
     {
         if (is_string($value)) {
-            $value = array_filter(explode(',', $value), static fn(string $part): bool => $part !== '');
-        } elseif (!is_array($value)) {
+            $value = array_filter(explode(',', $value), static fn (string $part): bool => $part !== '');
+        } elseif (! is_array($value)) {
             $value = $value !== null ? [$value] : [];
         }
 

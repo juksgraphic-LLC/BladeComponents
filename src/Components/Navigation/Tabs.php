@@ -47,11 +47,11 @@ class Tabs extends Component
      * @var array<string, mixed>
      */
     protected array $defaults = [
-        'id'           => null,
-        'variant'      => 'default',
-        'color'        => 'primary',
-        'tabs'         => [],
-        'tabClass'     => '',
+        'id' => null,
+        'variant' => 'default',
+        'color' => 'primary',
+        'tabs' => [],
+        'tabClass' => '',
         'contentClass' => '',
     ];
 
@@ -67,19 +67,19 @@ class Tabs extends Component
         $variant = is_string($this->config['variant'] ?? null) && in_array($this->config['variant'], self::VARIANTS, true)
             ? $this->config['variant']
             : 'default';
-        $color   = is_string($this->config['color'] ?? null) && in_array($this->config['color'], self::COLORS, true)
+        $color = is_string($this->config['color'] ?? null) && in_array($this->config['color'], self::COLORS, true)
             ? $this->config['color']
             : 'primary';
 
         $normalizedTabs = $this->normalizeTabs((array) ($this->config['tabs'] ?? []));
-        $activeIndex    = $this->resolveActiveIndex($normalizedTabs);
+        $activeIndex = $this->resolveActiveIndex($normalizedTabs);
 
-        $this->config['id']           = $this->safeId($this->config['id']);
-        $this->config['variant']      = $variant;
-        $this->config['color']        = $color;
-        $this->config['tabs']         = $normalizedTabs;
-        $this->config['activeIndex']  = $activeIndex;
-        $this->config['tabClass']     = is_scalar($this->config['tabClass']) ? trim((string) $this->config['tabClass']) : '';
+        $this->config['id'] = $this->safeId($this->config['id']);
+        $this->config['variant'] = $variant;
+        $this->config['color'] = $color;
+        $this->config['tabs'] = $normalizedTabs;
+        $this->config['activeIndex'] = $activeIndex;
+        $this->config['tabClass'] = is_scalar($this->config['tabClass']) ? trim((string) $this->config['tabClass']) : '';
         $this->config['contentClass'] = is_scalar($this->config['contentClass']) ? trim((string) $this->config['contentClass']) : '';
     }
 
@@ -204,16 +204,16 @@ class Tabs extends Component
             $item = (array) $tab;
 
             $normalized[] = [
-                'label'    => isset($item['label']) && is_scalar($item['label']) ? (string) $item['label'] : '',
-                'icon'     => isset($item['icon']) && is_scalar($item['icon']) && (string) $item['icon'] !== ''
+                'label' => isset($item['label']) && is_scalar($item['label']) ? (string) $item['label'] : '',
+                'icon' => isset($item['icon']) && is_scalar($item['icon']) && (string) $item['icon'] !== ''
                     ? (string) $item['icon']
                     : null,
-                'badge'    => isset($item['badge']) && is_scalar($item['badge']) && (string) $item['badge'] !== ''
+                'badge' => isset($item['badge']) && is_scalar($item['badge']) && (string) $item['badge'] !== ''
                     ? (string) $item['badge']
                     : null,
-                'active'   => (bool) ($item['active'] ?? false),
+                'active' => (bool) ($item['active'] ?? false),
                 'disabled' => (bool) ($item['disabled'] ?? false),
-                'content'  => isset($item['content']) && is_scalar($item['content']) ? (string) $item['content'] : '',
+                'content' => isset($item['content']) && is_scalar($item['content']) ? (string) $item['content'] : '',
             ];
         }
 
@@ -230,7 +230,7 @@ class Tabs extends Component
     private function resolveActiveIndex(array $tabs): int
     {
         foreach ($tabs as $index => $tab) {
-            if ($tab['active'] && !$tab['disabled']) {
+            if ($tab['active'] && ! $tab['disabled']) {
                 return $index;
             }
         }

@@ -178,7 +178,7 @@ class CarouselStyles
     public function controlButton(string $side): string
     {
         $base = 'absolute top-1/2 -translate-y-1/2 z-10 flex items-center justify-center w-9 h-9 rounded-full transition-all duration-200 focus:outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-current';
-        $pos  = $side === 'right' ? 'right-3' : 'left-3';
+        $pos = $side === 'right' ? 'right-3' : 'left-3';
         $tone = $this->carousel->isDark()
             ? 'bg-black/50 text-white hover:bg-black/70 border border-white/20'
             : 'bg-white/80 dark:bg-black/50 text-on-surface dark:text-white hover:bg-white dark:hover:bg-black/70 shadow-md border border-outline/20 dark:border-white/20';
@@ -205,7 +205,7 @@ class CarouselStyles
      */
     public function dotBinding(int $index): string
     {
-        $activeBg   = $this->carousel->isDark() ? 'bg-white' : 'bg-primary';
+        $activeBg = $this->carousel->isDark() ? 'bg-white' : 'bg-primary';
         $inactiveBg = $this->carousel->isDark() ? 'bg-white/50 hover:bg-white/80' : 'bg-white/70 hover:bg-white';
 
         return "activeIndex === {$index} ? 'w-5 h-2 {$activeBg} rounded-full' : 'w-2 h-2 {$inactiveBg} rounded-full'";

@@ -81,20 +81,20 @@ class Dropdown extends Component
      * @var array<string, mixed>
      */
     protected array $defaults = [
-        'id'          => null,
-        'trigger'     => 'button',
-        'color'       => 'primary',
-        'size'        => null,
-        'darkMenu'    => false,
-        'align'       => null,
-        'autoClose'   => true,
-        'items'       => [],
-        'header'      => null,
-        'text'        => null,
+        'id' => null,
+        'trigger' => 'button',
+        'color' => 'primary',
+        'size' => null,
+        'darkMenu' => false,
+        'align' => null,
+        'autoClose' => true,
+        'items' => [],
+        'header' => null,
+        'text' => null,
         'splitAction' => null,
-        'buttonText'  => 'Dropdown',
-        'buttonIcon'  => null,
-        'menuClass'   => '',
+        'buttonText' => 'Dropdown',
+        'buttonIcon' => null,
+        'menuClass' => '',
     ];
 
     /**
@@ -106,26 +106,26 @@ class Dropdown extends Component
     {
         parent::__construct($config);
 
-        $trigger    = (string) $this->config['trigger'];
-        $size       = $this->config['size'];
-        $align      = $this->config['align'];
+        $trigger = (string) $this->config['trigger'];
+        $size = $this->config['size'];
+        $align = $this->config['align'];
         $buttonText = is_scalar($this->config['buttonText']) ? (string) $this->config['buttonText'] : 'Dropdown';
         $buttonIcon = $this->config['buttonIcon'];
 
-        $this->config['id']          = $this->safeId($this->config['id']);
-        $this->config['trigger']     = in_array($trigger, self::TRIGGERS, true) ? $trigger : 'button';
-        $this->config['color']       = $this->validColor($this->config['color'], self::COLORS) ?? 'primary';
-        $this->config['size']        = is_string($size) && in_array($size, self::SIZES, true) ? $size : null;
-        $this->config['darkMenu']    = (bool) $this->config['darkMenu'];
-        $this->config['align']       = is_string($align) && in_array($align, self::ALIGNS, true) ? $align : null;
-        $this->config['autoClose']   = $this->normalizeAutoClose($this->config['autoClose']);
-        $this->config['items']       = $this->normalizeItems((array) $this->config['items']);
-        $this->config['header']      = $this->sanitizeNullableString($this->config['header']);
-        $this->config['text']        = $this->sanitizeNullableString($this->config['text']);
+        $this->config['id'] = $this->safeId($this->config['id']);
+        $this->config['trigger'] = in_array($trigger, self::TRIGGERS, true) ? $trigger : 'button';
+        $this->config['color'] = $this->validColor($this->config['color'], self::COLORS) ?? 'primary';
+        $this->config['size'] = is_string($size) && in_array($size, self::SIZES, true) ? $size : null;
+        $this->config['darkMenu'] = (bool) $this->config['darkMenu'];
+        $this->config['align'] = is_string($align) && in_array($align, self::ALIGNS, true) ? $align : null;
+        $this->config['autoClose'] = $this->normalizeAutoClose($this->config['autoClose']);
+        $this->config['items'] = $this->normalizeItems((array) $this->config['items']);
+        $this->config['header'] = $this->sanitizeNullableString($this->config['header']);
+        $this->config['text'] = $this->sanitizeNullableString($this->config['text']);
         $this->config['splitAction'] = $this->sanitizeNullableString($this->config['splitAction']);
-        $this->config['buttonText']  = $buttonText;
-        $this->config['buttonIcon']  = is_scalar($buttonIcon) ? (string) $buttonIcon : self::DEFAULT_ICON;
-        $this->config['menuClass']   = is_scalar($this->config['menuClass']) ? trim((string) $this->config['menuClass']) : '';
+        $this->config['buttonText'] = $buttonText;
+        $this->config['buttonIcon'] = is_scalar($buttonIcon) ? (string) $buttonIcon : self::DEFAULT_ICON;
+        $this->config['menuClass'] = is_scalar($this->config['menuClass']) ? trim((string) $this->config['menuClass']) : '';
     }
 
     /**
@@ -298,7 +298,7 @@ class Dropdown extends Component
     public function toArray(): array
     {
         return [
-            'id'   => $this->config['id'],
+            'id' => $this->config['id'],
             'open' => false,
         ];
     }
@@ -355,7 +355,7 @@ class Dropdown extends Component
      */
     private function sanitizeNullableString(mixed $value): ?string
     {
-        if (!is_scalar($value)) {
+        if (! is_scalar($value)) {
             return null;
         }
 
@@ -380,14 +380,14 @@ class Dropdown extends Component
             $type = (string) ($item['type'] ?? 'link');
 
             $normalized[] = [
-                'type'     => in_array($type, self::ITEM_TYPES, true) ? $type : 'link',
-                'text'     => (string) ($item['text'] ?? ''),
-                'href'     => (string) ($item['href'] ?? '#'),
-                'icon'     => isset($item['icon']) && is_scalar($item['icon']) ? (string) $item['icon'] : null,
-                'color'    => $this->validColor($item['color'] ?? null, self::ITEM_COLORS),
-                'active'   => (bool) ($item['active'] ?? false),
+                'type' => in_array($type, self::ITEM_TYPES, true) ? $type : 'link',
+                'text' => (string) ($item['text'] ?? ''),
+                'href' => (string) ($item['href'] ?? '#'),
+                'icon' => isset($item['icon']) && is_scalar($item['icon']) ? (string) $item['icon'] : null,
+                'color' => $this->validColor($item['color'] ?? null, self::ITEM_COLORS),
+                'active' => (bool) ($item['active'] ?? false),
                 'disabled' => (bool) ($item['disabled'] ?? false),
-                'content'  => (string) ($item['content'] ?? ''),
+                'content' => (string) ($item['content'] ?? ''),
             ];
         }
 

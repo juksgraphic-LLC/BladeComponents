@@ -15,13 +15,13 @@ class Input extends FormField
      * @var array<string, mixed>
      */
     protected array $defaults = [
-        'label'       => '',
-        'name'        => 'input',
-        'type'        => 'text',
-        'model'       => 'formData',
-        'required'    => false,
+        'label' => '',
+        'name' => 'input',
+        'type' => 'text',
+        'model' => 'formData',
+        'required' => false,
         'placeholder' => '',
-        'class'       => '',
+        'class' => '',
     ];
 
     /**
@@ -35,13 +35,13 @@ class Input extends FormField
 
         $type = is_scalar($this->config['type']) ? (string) $this->config['type'] : 'text';
 
-        $this->config['label']       = is_scalar($this->config['label']) ? (string) $this->config['label'] : '';
-        $this->config['name']        = $this->sanitizeFieldName($this->config['name'], 'input', '/[^A-Za-z0-9_\[\]-]/');
-        $this->config['type']        = $type !== '' ? $type : 'text';
-        $this->config['model']       = $this->sanitizeModelPath($this->config['model']);
-        $this->config['required']    = (bool) $this->config['required'];
+        $this->config['label'] = is_scalar($this->config['label']) ? (string) $this->config['label'] : '';
+        $this->config['name'] = $this->sanitizeFieldName($this->config['name'], 'input', '/[^A-Za-z0-9_\[\]-]/');
+        $this->config['type'] = $type !== '' ? $type : 'text';
+        $this->config['model'] = $this->sanitizeModelPath($this->config['model']);
+        $this->config['required'] = (bool) $this->config['required'];
         $this->config['placeholder'] = is_scalar($this->config['placeholder']) ? (string) $this->config['placeholder'] : '';
-        $this->config['class']       = is_scalar($this->config['class']) ? trim((string) $this->config['class']) : '';
+        $this->config['class'] = is_scalar($this->config['class']) ? trim((string) $this->config['class']) : '';
     }
 
     /**

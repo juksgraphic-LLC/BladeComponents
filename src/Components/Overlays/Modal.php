@@ -45,12 +45,12 @@ class Modal extends Component
      * @var array<string, string>
      */
     private const POSITION_ALIASES = [
-        'top'          => 'center-top',
-        'bottom'       => 'center-bottom',
-        'top-right'    => 'right-top',
+        'top' => 'center-top',
+        'bottom' => 'center-bottom',
+        'top-right' => 'right-top',
         'bottom-right' => 'right-bottom',
-        'top-left'     => 'left-top',
-        'bottom-left'  => 'left-bottom',
+        'top-left' => 'left-top',
+        'bottom-left' => 'left-bottom',
     ];
 
     /**
@@ -73,17 +73,17 @@ class Modal extends Component
      * @var array<string, mixed>
      */
     protected array $defaults = [
-        'id'         => null,
-        'size'       => null,
-        'position'   => null,
-        'centered'   => false,
-        'static'     => false,
+        'id' => null,
+        'size' => null,
+        'position' => null,
+        'centered' => false,
+        'static' => false,
         'scrollable' => false,
-        'animation'  => 'fade',
-        'showClose'  => true,
-        'title'      => 'Modal Title',
-        'class'      => '',
-        'attrs'      => '',
+        'animation' => 'fade',
+        'showClose' => true,
+        'title' => 'Modal Title',
+        'class' => '',
+        'attrs' => '',
     ];
 
     /**
@@ -95,14 +95,14 @@ class Modal extends Component
     {
         parent::__construct($config);
 
-        $size      = is_string($this->config['size'] ?? null)
+        $size = is_string($this->config['size'] ?? null)
             && in_array(
                 $this->config['size'],
                 self::SIZES,
                 true
             ) ? $this->config['size'] : null;
 
-        $position  = $this->normalizePosition($this->config['position'] ?? null, (bool) $this->config['centered']);
+        $position = $this->normalizePosition($this->config['position'] ?? null, (bool) $this->config['centered']);
 
         $animation = is_string($this->config['animation'] ?? null)
             && in_array(
@@ -113,17 +113,17 @@ class Modal extends Component
             ? $this->config['animation']
             : 'fade';
 
-        $this->config['id']         = $this->safeId($this->config['id']);
-        $this->config['size']       = $size;
-        $this->config['position']   = $position;
-        $this->config['centered']   = (bool) $this->config['centered'];
-        $this->config['static']     = (bool) $this->config['static'];
+        $this->config['id'] = $this->safeId($this->config['id']);
+        $this->config['size'] = $size;
+        $this->config['position'] = $position;
+        $this->config['centered'] = (bool) $this->config['centered'];
+        $this->config['static'] = (bool) $this->config['static'];
         $this->config['scrollable'] = (bool) $this->config['scrollable'];
-        $this->config['animation']  = $animation;
-        $this->config['showClose']  = (bool) $this->config['showClose'];
-        $this->config['title']      = is_scalar($this->config['title']) ? (string) $this->config['title'] : 'Modal Title';
-        $this->config['class']      = is_scalar($this->config['class']) ? trim((string) $this->config['class']) : '';
-        $this->config['attrs']      = is_scalar($this->config['attrs']) ? trim((string) $this->config['attrs']) : '';
+        $this->config['animation'] = $animation;
+        $this->config['showClose'] = (bool) $this->config['showClose'];
+        $this->config['title'] = is_scalar($this->config['title']) ? (string) $this->config['title'] : 'Modal Title';
+        $this->config['class'] = is_scalar($this->config['class']) ? trim((string) $this->config['class']) : '';
+        $this->config['attrs'] = is_scalar($this->config['attrs']) ? trim((string) $this->config['attrs']) : '';
     }
 
     /**
@@ -235,11 +235,11 @@ class Modal extends Component
     {
         return match ($this->animation()) {
             'fade-right' => 'opacity-0 translate-x-8 scale-95',
-            'fade-left'  => 'opacity-0 -translate-x-8 scale-95',
-            'fade-up'    => 'opacity-0 translate-y-8 scale-95',
-            'flip'       => 'opacity-0 scale-90',
-            'zoom'       => 'opacity-0 scale-75',
-            default      => 'opacity-0 scale-95',
+            'fade-left' => 'opacity-0 -translate-x-8 scale-95',
+            'fade-up' => 'opacity-0 translate-y-8 scale-95',
+            'flip' => 'opacity-0 scale-90',
+            'zoom' => 'opacity-0 scale-75',
+            default => 'opacity-0 scale-95',
         };
     }
 
@@ -252,7 +252,7 @@ class Modal extends Component
     {
         return match ($this->animation()) {
             'flip', 'zoom' => 'opacity-100 scale-100',
-            default        => 'opacity-100 translate-x-0 translate-y-0 scale-100',
+            default => 'opacity-100 translate-x-0 translate-y-0 scale-100',
         };
     }
 
@@ -276,7 +276,7 @@ class Modal extends Component
      */
     private function normalizePosition(mixed $position, bool $centered): string
     {
-        if (!is_string($position) || trim($position) === '') {
+        if (! is_string($position) || trim($position) === '') {
             return $centered ? 'center' : 'center';
         }
 

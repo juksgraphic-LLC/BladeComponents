@@ -15,14 +15,14 @@ class AccordionStyles
      * @var array<string, string>
      */
     private const COLORS = [
-        'primary'   => 'text-primary border-primary/20 bg-primary/5 dark:text-primary-dark dark:border-primary-dark/20 dark:bg-primary-dark/5',
+        'primary' => 'text-primary border-primary/20 bg-primary/5 dark:text-primary-dark dark:border-primary-dark/20 dark:bg-primary-dark/5',
         'secondary' => 'text-secondary border-secondary/20 bg-secondary/5 dark:text-secondary-dark dark:border-secondary-dark/20 dark:bg-secondary-dark/5',
-        'success'   => 'text-success border-success/20 bg-success/5',
-        'danger'    => 'text-danger border-danger/20 bg-danger/5',
-        'warning'   => 'text-warning border-warning/20 bg-warning/5',
-        'info'      => 'text-info border-info/20 bg-info/5',
-        'light'     => 'text-on-surface border-outline bg-surface-alt dark:text-on-surface-dark dark:border-outline-dark dark:bg-surface-dark-alt',
-        'dark'      => 'text-on-surface-strong border-outline-strong bg-surface dark:text-on-surface-dark-strong dark:border-outline-dark-strong dark:bg-surface-dark',
+        'success' => 'text-success border-success/20 bg-success/5',
+        'danger' => 'text-danger border-danger/20 bg-danger/5',
+        'warning' => 'text-warning border-warning/20 bg-warning/5',
+        'info' => 'text-info border-info/20 bg-info/5',
+        'light' => 'text-on-surface border-outline bg-surface-alt dark:text-on-surface-dark dark:border-outline-dark dark:bg-surface-dark-alt',
+        'dark' => 'text-on-surface-strong border-outline-strong bg-surface dark:text-on-surface-dark-strong dark:border-outline-dark-strong dark:bg-surface-dark',
     ];
 
     /**
@@ -31,14 +31,14 @@ class AccordionStyles
      * @var array<string, string>
      */
     private const TEXTS = [
-        'primary'   => 'text-primary dark:text-primary-dark',
+        'primary' => 'text-primary dark:text-primary-dark',
         'secondary' => 'text-secondary dark:text-secondary-dark',
-        'success'   => 'text-success',
-        'danger'    => 'text-danger',
-        'warning'   => 'text-warning',
-        'info'      => 'text-info',
-        'light'     => 'text-on-surface dark:text-on-surface-dark',
-        'dark'      => 'text-on-surface-strong dark:text-on-surface-dark-strong',
+        'success' => 'text-success',
+        'danger' => 'text-danger',
+        'warning' => 'text-warning',
+        'info' => 'text-info',
+        'light' => 'text-on-surface dark:text-on-surface-dark',
+        'dark' => 'text-on-surface-strong dark:text-on-surface-dark-strong',
     ];
 
     /**
@@ -47,8 +47,8 @@ class AccordionStyles
      * @var array<string, array{rotate: string, path: string}>
      */
     private const TOGGLES = [
-        'plus'    => ['rotate' => 'rotate-45', 'path' => 'M12 6v6m0 0v6m0-6h6m-6 0H6'],
-        'arrow'   => ['rotate' => 'rotate-90', 'path' => 'M9 5l7 7-7 7'],
+        'plus' => ['rotate' => 'rotate-45', 'path' => 'M12 6v6m0 0v6m0-6h6m-6 0H6'],
+        'arrow' => ['rotate' => 'rotate-90', 'path' => 'M9 5l7 7-7 7'],
         'default' => ['rotate' => 'rotate-180', 'path' => 'M19 9l-7 7-7-7'],
     ];
 
@@ -77,9 +77,9 @@ class AccordionStyles
     public function container(): string
     {
         return match ($this->accordion->type()) {
-            'flush'  => '',
+            'flush' => '',
             'nested' => 'space-y-2',
-            default  => 'rounded-radius border border-outline dark:border-outline-dark overflow-hidden bg-surface dark:bg-surface-dark',
+            default => 'rounded-radius border border-outline dark:border-outline-dark overflow-hidden bg-surface dark:bg-surface-dark',
         };
     }
 

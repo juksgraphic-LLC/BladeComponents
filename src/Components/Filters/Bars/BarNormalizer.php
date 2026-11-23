@@ -50,12 +50,12 @@ final class BarNormalizer
     public static function search($search): array
     {
         $settings = is_array($search) ? $search : [];
-        $enabled  = is_array($search) ? (bool) ($settings['enabled'] ?? true) : (bool) $search;
+        $enabled = is_array($search) ? (bool) ($settings['enabled'] ?? true) : (bool) $search;
 
         return [
-            'enabled'     => $enabled,
+            'enabled' => $enabled,
             'placeholder' => (string)  ($settings['placeholder'] ?? BarDefaults::ITEMS['PLACEHOLDER']),
-            'debounce'    => max(0, (int) ($settings['debounce'] ?? BarDefaults::ITEMS['DEBOUNCE'])),
+            'debounce' => max(0, (int) ($settings['debounce'] ?? BarDefaults::ITEMS['DEBOUNCE'])),
         ];
     }
 
@@ -72,7 +72,7 @@ final class BarNormalizer
     {
         $variant = $variant ?? BarDefaults::ITEMS['VARIANT'];
 
-        if (!in_array($variant, BarVariants::ITEMS, true)) {
+        if (! in_array($variant, BarVariants::ITEMS, true)) {
             throw new InvalidArgumentException(BarErrors::ITEMS['VARIANT_INVALID']);
         }
 
@@ -101,21 +101,21 @@ final class BarNormalizer
      */
     public static function sort($sort): array
     {
-        $settings  = is_array($sort) ? $sort : ['column' => $sort];
-        $column    = $settings['column'] ?? BarDefaults::ITEMS['SORT'];
+        $settings = is_array($sort) ? $sort : ['column' => $sort];
+        $column = $settings['column'] ?? BarDefaults::ITEMS['SORT'];
         $direction = $settings['direction'] ?? BarDefaults::ITEMS['DIRECTION'];
 
         if ($column === '') {
             $column = null;
         }
 
-        if ($column !== null && (!is_string($column) || !preg_match(FilterNormalizer::KEY_PATTERN, $column))) {
+        if ($column !== null && (! is_string($column) || ! preg_match(FilterNormalizer::KEY_PATTERN, $column))) {
             throw new InvalidArgumentException(BarErrors::ITEMS['SORT_INVALID']);
         }
 
         $direction = is_string($direction) ? strtolower($direction) : $direction;
 
-        if (!in_array($direction, BarDirections::ITEMS, true)) {
+        if (! in_array($direction, BarDirections::ITEMS, true)) {
             throw new InvalidArgumentException(BarErrors::ITEMS['DIRECTION_INVALID']);
         }
 

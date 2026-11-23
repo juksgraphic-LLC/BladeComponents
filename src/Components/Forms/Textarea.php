@@ -32,15 +32,15 @@ class Textarea extends FormField
      * @var array<string, mixed>
      */
     protected array $defaults = [
-        'label'       => '',
-        'name'        => 'content',
-        'model'       => 'formData',
-        'required'    => false,
-        'useQuill'    => null,
-        'isSimple'    => false,
+        'label' => '',
+        'name' => 'content',
+        'model' => 'formData',
+        'required' => false,
+        'useQuill' => null,
+        'isSimple' => false,
         'placeholder' => 'Enter your text here...',
-        'rows'        => 4,
-        'class'       => '',
+        'rows' => 4,
+        'class' => '',
     ];
 
     /**
@@ -53,20 +53,20 @@ class Textarea extends FormField
         parent::__construct($config);
 
         $useQuill = ($this->config['useQuill'] ?? null) === null
-            ? !((bool) ($this->config['isSimple'] ?? false))
+            ? ! ((bool) ($this->config['isSimple'] ?? false))
             : (bool) $this->config['useQuill'];
 
         $rows = is_numeric($this->config['rows']) ? (int) $this->config['rows'] : 4;
 
-        $this->config['label']       = is_scalar($this->config['label']) ? (string) $this->config['label'] : '';
-        $this->config['name']        = $this->sanitizeFieldName($this->config['name'], 'content');
-        $this->config['model']       = $this->sanitizeModelPath($this->config['model']);
-        $this->config['required']    = (bool) $this->config['required'];
-        $this->config['useQuill']    = $useQuill;
-        $this->config['isSimple']    = (bool) $this->config['isSimple'];
+        $this->config['label'] = is_scalar($this->config['label']) ? (string) $this->config['label'] : '';
+        $this->config['name'] = $this->sanitizeFieldName($this->config['name'], 'content');
+        $this->config['model'] = $this->sanitizeModelPath($this->config['model']);
+        $this->config['required'] = (bool) $this->config['required'];
+        $this->config['useQuill'] = $useQuill;
+        $this->config['isSimple'] = (bool) $this->config['isSimple'];
         $this->config['placeholder'] = is_scalar($this->config['placeholder']) ? (string) $this->config['placeholder'] : 'Enter your text here...';
-        $this->config['rows']        = $rows > 0 ? $rows : 4;
-        $this->config['class']       = is_scalar($this->config['class']) ? trim((string) $this->config['class']) : '';
+        $this->config['rows'] = $rows > 0 ? $rows : 4;
+        $this->config['class'] = is_scalar($this->config['class']) ? trim((string) $this->config['class']) : '';
     }
 
     /**
