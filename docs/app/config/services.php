@@ -35,6 +35,7 @@ $app->register('view', BladeOne::class, [
 	BladeOne::MODE_DEBUG,
 ]);
 
+
 $app->map(
 	'render',
 	function (string $template, array $data = []) use ($app): void {

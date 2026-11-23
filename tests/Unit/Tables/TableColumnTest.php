@@ -2,8 +2,8 @@
 
 declare(strict_types=1);
 
-use Juksgraphic\BladeComponents\Table\TableCell;
-use Juksgraphic\BladeComponents\Table\TableColumn;
+use Juksgraphic\BladeComponents\Components\Tables\TableCell;
+use Juksgraphic\BladeComponents\Components\Tables\TableColumn;
 
 it('resolves every built-in cell type', function (string $type) {
     $column = TableColumn::from(['type' => $type], 0);

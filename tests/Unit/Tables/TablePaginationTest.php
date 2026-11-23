@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use Juksgraphic\BladeComponents\Table\TablePagination;
+use Juksgraphic\BladeComponents\Components\Tables\TablePagination;
 
 it('defaults to 5 rows per page', function () {
     $pagination = TablePagination::from(null);

@@ -1,158 +1,105 @@
 @php
-/**
- * Pagination Component — Juksgraphic / Penguin UI
- *
- * Autonomous pagination component built with Tailwind CSS.
- *
- * @param int    $total       Total number of items. Default: 50.
- * @param int    $current     Current active page number. Default: 1.
- * @param int    $perPage     Number of items per page. Default: 10.
- * @param string $baseUrl     Base URL pattern or route for pagination links. Default: '?page='.
- * @param int    $window      Number of surrounding pages to display. Default: 1.
- * @param string $style       Visual style: default|pill|bordered|minimal. Default: 'default'.
- * @param string $class       Extra CSS classes for the container. Default: ''.
- * @param string $attrs       Extra HTML attributes for the container. Default: ''.
- * @param string $prevLabel   Text for previous button. Default: 'Previous'.
- * @param string $nextLabel   Text for next button. Default: 'Next'.
- */
+    use Juksgraphic\BladeComponents\Components\Navigation\Pagination;
+    use Juksgraphic\BladeComponents\Components\Navigation\PaginationStyles;
 
-/** @var int $total */
-$total = max(0, (int) ($total ?? 50));
 
-/** @var int $perPage */
-$perPage = max(1, (int) ($perPage ?? 10));
+    $pagination = new Pagination([
+        'total'     => $total   ?? 50,
+        'current'   => $current ?? 1,
+        'perPage'   => $perPage ?? 10,
+        'baseUrl'   => $baseUrl ?? '?page=',
+        'window'    => $window  ?? 1,
+        'style'     => $style   ?? 'default',
+        'class'     => $class   ?? '',
+        'attrs'     => $attrs   ?? '',
+        'prevLabel' => $prevLabel ?? 'Previous',
+        'nextLabel' => $nextLabel ?? 'Next',
+    ]);
 
-/** @var int $last */
-$last = (int) ceil($total / $perPage);
-
-/** @var int $current */
-$current = max(1, min($last > 0 ? $last : 1, (int) ($current ?? 1)));
-
-/** @var string $baseUrl */
-$baseUrl = (string) ($baseUrl ?? '?page=');
-
-/** @var int $window */
-$window = max(0, (int) ($window ?? 1));
-
-/** @var string $style */
-$style = (string) ($style ?? 'default');
-
-/** @var string $class */
-$class = $class ?? '';
-
-/** @var string $attrs */
-$attrs = $attrs ?? '';
-
-/** @var string $prevLabel */
-$prevLabel = (string) ($prevLabel ?? 'Previous');
-
-/** @var string $nextLabel */
-$nextLabel = (string) ($nextLabel ?? 'Next');
-
-$start = max(1, $current - $window);
-$end   = min($last, $current + $window);
-
-$hasPages     = $last > 1;
-$onFirstPage  = $current <= 1;
-$hasMorePages = $current < $last;
-
-$getLink = fn(int $page) => $baseUrl . $page;
-
-// ── Styles UI Mapping ──
-$itemBase = match ($style) {
-    'pill'     => 'flex size-8 items-center justify-center rounded-full text-sm font-medium transition',
-    'bordered' => 'flex size-8 items-center justify-center rounded-radius border border-outline dark:border-outline-dark text-sm font-medium transition',
-    'minimal'  => 'flex size-8 items-center justify-center text-sm font-medium transition hover:text-primary dark:hover:text-primary-dark',
-    default    => 'flex size-8 items-center justify-center rounded-radius text-sm font-medium transition',
-};
-
-$activeClass = match ($style) {
-    'minimal' => 'text-primary dark:text-primary-dark font-bold underline underline-offset-4',
-    default   => 'bg-primary text-on-primary dark:bg-primary-dark dark:text-on-primary-dark font-bold shadow-sm',
-};
-
-$inactiveClass = 'text-on-surface hover:bg-surface-alt dark:text-on-surface-dark dark:hover:bg-surface-dark-alt';
-$disabledClass = 'text-on-surface/40 cursor-not-allowed dark:text-on-surface-dark/40 hover:bg-transparent';
-
-$navButtonBase = match ($style) {
-    'bordered' => 'flex items-center gap-1 px-3 py-1.5 rounded-radius border border-outline dark:border-outline-dark text-sm font-medium transition',
-    'pill'     => 'flex items-center gap-1 px-3 py-1.5 rounded-full text-sm font-medium transition',
-    default    => 'flex items-center gap-1 px-3 py-1.5 rounded-radius text-sm font-medium transition',
-};
+    $styles = new PaginationStyles($pagination);
 @endphp
 
-@if ($hasPages)
-    <nav aria-label="pagination" class="mt-8 flex justify-center {{ $class }}" {!! $attrs !!}>
-        <ul class="flex shrink-0 items-center gap-1.5">
+@if ($pagination->hasPages())
+    <!-- Pagination navigation landmark -->
+    <nav aria-label="pagination" class="{{ $styles->nav() }}" {!! $pagination->attrs() !!}>
+        <ul class="{{ $styles->list() }}">
 
-            {{-- Previous --}}
+            <!-- Previous page control -->
             <li>
-                @if ($onFirstPage)
-                    <span class="{{ $navButtonBase }} {{ $disabledClass }}" aria-disabled="true">
+                @if ($pagination->onFirstPage())
+                    <span class="{{ $styles->navButton(true) }}" aria-disabled="true">
                         <svg class="size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
                         </svg>
-                        {{ $prevLabel }}
+                        {{ $pagination->prevLabel() }}
                     </span>
                 @else
-                    <a href="{{ $getLink($current - 1) }}" class="{{ $navButtonBase }} {{ $inactiveClass }}" aria-label="previous page">
+                    <a href="{{ $pagination->linkFor($pagination->current() - 1) }}"
+                        class="{{ $styles->navButton(false) }}" aria-label="previous page">
                         <svg class="size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
                         </svg>
-                        {{ $prevLabel }}
+                        {{ $pagination->prevLabel() }}
                     </a>
                 @endif
             </li>
 
-            {{-- Première page --}}
-            @if ($start > 1)
+            <!-- First page shortcut and leading ellipsis -->
+            @if ($pagination->start() > 1)
                 <li>
-                    <a href="{{ $getLink(1) }}" class="{{ $itemBase }} {{ $inactiveClass }}" aria-label="page 1">1</a>
+                    <a href="{{ $pagination->linkFor(1) }}" class="{{ $styles->inactivePage() }}"
+                        aria-label="page 1">1</a>
                 </li>
-                @if ($start > 2)
+
+                @if ($pagination->showLeadingEllipsis())
                     <li>
-                        <span class="flex size-8 items-center justify-center text-on-surface/60 dark:text-on-surface-dark/60" aria-hidden="true">…</span>
+                        <span class="{{ $styles->ellipsis() }}" aria-hidden="true">&hellip;</span>
                     </li>
                 @endif
             @endif
 
-            {{-- Pages du milieu (Window) --}}
-            @for ($p = $start; $p <= $end; $p++)
+            <!-- Surrounding page window -->
+            @for ($page = $pagination->start(); $page <= $pagination->end(); $page++)
                 <li>
-                    @if ($p == $current)
-                        <span class="{{ $itemBase }} {{ $activeClass }}" aria-current="page" aria-label="page {{ $p }}">{{ $p }}</span>
+                    @if ($page === $pagination->current())
+                        <span class="{{ $styles->activePage() }}" aria-current="page"
+                            aria-label="page {{ $page }}">{{ $page }}</span>
                     @else
-                        <a href="{{ $getLink($p) }}" class="{{ $itemBase }} {{ $inactiveClass }}" aria-label="page {{ $p }}">{{ $p }}</a>
+                        <a href="{{ $pagination->linkFor($page) }}" class="{{ $styles->inactivePage() }}"
+                            aria-label="page {{ $page }}">{{ $page }}</a>
                     @endif
                 </li>
             @endfor
 
-            {{-- Dernière page --}}
-            @if ($end < $last)
-                @if ($end < $last - 1)
+            <!-- Trailing ellipsis and last page shortcut -->
+            @if ($pagination->end() < $pagination->last())
+                @if ($pagination->showTrailingEllipsis())
                     <li>
-                        <span class="flex size-8 items-center justify-center text-on-surface/60 dark:text-on-surface-dark/60" aria-hidden="true">…</span>
+                        <span class="{{ $styles->ellipsis() }}" aria-hidden="true">&hellip;</span>
                     </li>
                 @endif
+
                 <li>
-                    <a href="{{ $getLink($last) }}" class="{{ $itemBase }} {{ $inactiveClass }}" aria-label="page {{ $last }}">{{ $last }}</a>
+                    <a href="{{ $pagination->linkFor($pagination->last()) }}" class="{{ $styles->inactivePage() }}"
+                        aria-label="page {{ $pagination->last() }}">{{ $pagination->last() }}</a>
                 </li>
             @endif
 
-            {{-- Next --}}
+            <!-- Next page control -->
             <li>
-                @if ($hasMorePages)
-                    <a href="{{ $getLink($current + 1) }}" class="{{ $navButtonBase }} {{ $inactiveClass }}" aria-label="next page">
-                        {{ $nextLabel }}
+                @if ($pagination->hasMorePages())
+                    <a href="{{ $pagination->linkFor($pagination->current() + 1) }}"
+                        class="{{ $styles->navButton(false) }}" aria-label="next page">
+                        {{ $pagination->nextLabel() }}
                         <svg class="size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
                         </svg>
                     </a>
                 @else
-                    <span class="{{ $navButtonBase }} {{ $disabledClass }}" aria-disabled="true">
-                        {{ $nextLabel }}
+                    <span class="{{ $styles->navButton(true) }}" aria-disabled="true">
+                        {{ $pagination->nextLabel() }}
                         <svg class="size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
                         </svg>
                     </span>
                 @endif

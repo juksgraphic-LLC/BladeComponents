@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use Juksgraphic\BladeComponents\Table\TableCell;
+use Juksgraphic\BladeComponents\Components\Tables\TableCell;
 
 describe('valueExpr', function () {
     it('compiles a simple key', function () {

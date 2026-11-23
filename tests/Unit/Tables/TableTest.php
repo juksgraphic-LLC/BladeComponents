@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-use Juksgraphic\BladeComponents\Table\Table;
-use Juksgraphic\BladeComponents\Table\TableColumn;
-use Juksgraphic\BladeComponents\Table\TableRow;
+use Juksgraphic\BladeComponents\Components\Tables\Table;
+use Juksgraphic\BladeComponents\Components\Tables\TableColumn;
+use Juksgraphic\BladeComponents\Components\Tables\TableRow;
 
 describe('defaults', function () {
     it('starts with an empty configuration', function () {

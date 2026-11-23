@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use Juksgraphic\BladeComponents\Table\TableFilters;
+use Juksgraphic\BladeComponents\Components\Tables\TableFilters;
 
 it('is empty when the input is not an array', function (mixed $value) {
     $filters = TableFilters::from($value);

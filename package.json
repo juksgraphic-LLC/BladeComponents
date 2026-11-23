@@ -4,7 +4,8 @@
     "scripts": {
         "dev": "vite",
         "build": "vite build",
-        "build:table": "esbuild resources/js/jkc-table.js --bundle --format=iife --minify --legal-comments=none --outfile=dist/jkc-table.js"
+        "build:table": "esbuild resources/js/jkc-table.js --bundle --format=iife --minify --legal-comments=none --outfile=dist/jkc-table.js",
+        "build:filter": "esbuild resources/js/jkc-filters.js --bundle --format=iife --minify --legal-comments=none --outfile=dist/jkc-filters.js"
     },
     "dependencies": {
         "@alpinejs/collapse": "^3.14.0",

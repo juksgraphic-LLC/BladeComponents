@@ -99,6 +99,12 @@
                 'icon' => 'bx bx-table',
             ],
             [
+                'title' => 'Filter Bar',
+                'description' => 'Search, filters, sort and pagination driven by events, with any display style.',
+                'url' => '/components/filterbar',
+                'icon' => 'bx bx-filter-alt',
+            ],
+            [
                 'title' => 'ApexCharts',
                 'description' => 'Interactive charts and data visualizations powered by ApexCharts.',
                 'url' => '/components/apexcharts',

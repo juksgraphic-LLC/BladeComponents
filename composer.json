@@ -32,13 +32,13 @@
     },
     "autoload": {
         "psr-4": {
-            "Juksgraphic\\BladeComponents\\": "src/"
+            "Juksgraphic\\BladeComponents\\": "src/",
+            "Docs\\": "docs/app/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Juksgraphic\\BladeComponents\\Tests\\": "tests/",
-            "Docs\\": "docs/app/"
+            "Juksgraphic\\BladeComponents\\Tests\\": "tests/"
         }
     },
     "scripts": {

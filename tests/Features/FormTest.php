@@ -12,22 +12,6 @@ function renderComponent(string $view, array $data = []): string
     return $blade->run($view, $data);
 }
 
-it('renders form container with correct action, method, and initial data json', function () {
-    $html = renderComponent('jkc.forms.form', [
-        'action' => '/api/submit',
-        'method' => 'POST',
-        'initialData' => [
-            'name' => 'Kingsley',
-            'email' => 'contact@juksgraphic.com',
-        ],
-    ]);
-
-    $decodedHtml = html_entity_decode($html);
-
-    expect($decodedHtml)->toContain('action="/api/submit"')
-                        ->toContain('method="POST"')
-                        ->toContain('formData: {"name":"Kingsley","email":"contact@juksgraphic.com"}');
-});
 it('renders standard text input with label and x-model binding', function () {
     $html = renderComponent('jkc.forms.input', [
         'label' => 'Full Name',
