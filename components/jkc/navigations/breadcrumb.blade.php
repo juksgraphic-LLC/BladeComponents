@@ -1,20 +1,20 @@
 @php
  
-    use Juksgraphic\BladeComponents\Components\Navigation\Breadcrumb;
-    use Juksgraphic\BladeComponents\Components\Navigation\BreadcrumbStyles;
+    use Juksgraphic\BladeComponents\Components\Navigation\BreadCrumb;
+    use Juksgraphic\BladeComponents\Components\Navigation\BreadCrumbStyles;
 
-    $breadcrumb = new Breadcrumb([
+    $breadcrumb = new BreadCrumb([
         'items' => $items ?? [],
         'style' => $style ?? 'chevron',
         'class' => $class ?? '',
         'attrs' => $attrs ?? '',
     ]);
 
-    $styles = new BreadcrumbStyles($breadcrumb);
+    $styles = new BreadCrumbStyles($breadcrumb);
 @endphp
 
 @if (!$breadcrumb->isEmpty())
-    <!-- Breadcrumb navigation landmark -->
+    <!-- BreadCrumb navigation landmark -->
     <nav class="{{ $styles->container() }}" aria-label="breadcrumb" {!! $breadcrumb->attrs() !!}>
         <ol class="{{ $styles->list() }}">
 

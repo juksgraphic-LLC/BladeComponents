@@ -7,21 +7,21 @@ namespace Juksgraphic\BladeComponents\Components\Navigation;
 /**
  * Tailwind classes for the breadcrumb container, links, separators, and current item.
  */
-class BreadcrumbStyles
+class BreadCrumbStyles
 {
     /**
-     * Breadcrumb instance providing variant and classes.
+     * BreadCrumb instance providing variant and classes.
      *
-     * @var Breadcrumb
+     * @var BreadCrumb
      */
-    private Breadcrumb $breadcrumb;
+    private BreadCrumb $breadcrumb;
 
     /**
      * Create the styles helper.
      *
-     * @param Breadcrumb $breadcrumb Breadcrumb instance to style.
+     * @param BreadCrumb $breadcrumb BreadCrumb instance to style.
      */
-    public function __construct(Breadcrumb $breadcrumb)
+    public function __construct(BreadCrumb $breadcrumb)
     {
         $this->breadcrumb = $breadcrumb;
     }

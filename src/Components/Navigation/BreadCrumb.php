@@ -9,7 +9,7 @@ use Juksgraphic\BladeComponents\Components\Component;
 /**
  * Navigation breadcrumb configuration and item normalization helper.
  */
-class Breadcrumb extends Component
+class BreadCrumb extends Component
 {
     /**
      * Supported breadcrumb visual style variants.
