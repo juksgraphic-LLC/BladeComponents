@@ -7,7 +7,7 @@ namespace Juksgraphic\BladeComponents\Components\Forms;
 /**
  * Tailwind classes for the checkbox switch and multi-checkbox component.
  */
-class CheckboxStyles
+class CheckBoxStyles
 {
     /**
      * Checkbox instance providing state and options.

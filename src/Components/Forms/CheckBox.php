@@ -7,7 +7,7 @@ namespace Juksgraphic\BladeComponents\Components\Forms;
 /**
  * Checkbox switch and multi-checkbox group configuration helper.
  */
-class Checkbox extends FormField
+class CheckBox extends FormField
 {
     /**
      * Default configuration values.

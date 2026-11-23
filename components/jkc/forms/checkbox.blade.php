@@ -1,10 +1,10 @@
 @php
   
-    use Juksgraphic\BladeComponents\Components\Forms\Checkbox;
-    use Juksgraphic\BladeComponents\Components\Forms\CheckboxStyles;
+    use Juksgraphic\BladeComponents\Components\Forms\CheckBox;
+    use Juksgraphic\BladeComponents\Components\Forms\CheckBoxStyles;
 
     
-    $checkbox = new Checkbox([
+    $checkbox = new CheckBox([
         'label'       => $label ?? '',
         'name'        => $name ?? 'checkbox',
         'multiple'    => $multiple ?? false,
@@ -15,7 +15,7 @@
     ]);
 
     
-    $styles = new CheckboxStyles($checkbox);
+    $styles = new CheckBoxStyles($checkbox);
 @endphp
 
 <!-- Root checkbox field container -->
