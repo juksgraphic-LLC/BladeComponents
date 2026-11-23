@@ -15,14 +15,14 @@ class DropdownStyles
      * @var array<string, string>
      */
     private const BUTTON_THEMES = [
-        'primary'   => 'bg-primary text-on-primary hover:bg-primary/90 focus:ring-primary/30 dark:bg-primary-dark dark:text-on-primary-dark',
+        'primary' => 'bg-primary text-on-primary hover:bg-primary/90 focus:ring-primary/30 dark:bg-primary-dark dark:text-on-primary-dark',
         'secondary' => 'bg-secondary text-on-secondary hover:bg-secondary/90 focus:ring-secondary/30 dark:bg-secondary-dark dark:text-on-secondary-dark',
-        'success'   => 'bg-success text-on-success hover:bg-success/90 focus:ring-success/30',
-        'danger'    => 'bg-danger text-on-danger hover:bg-danger/90 focus:ring-danger/30',
-        'warning'   => 'bg-warning text-on-warning hover:bg-warning/90 focus:ring-warning/30',
-        'info'      => 'bg-info text-on-info hover:bg-info/90 focus:ring-info/30',
-        'light'     => 'bg-surface-alt text-on-surface border border-outline hover:bg-surface focus:ring-outline/30 dark:bg-surface-dark-alt dark:text-on-surface-dark dark:border-outline-dark dark:hover:bg-surface-dark',
-        'dark'      => 'bg-surface-dark-alt text-on-surface-dark border border-outline-dark hover:bg-surface-dark focus:ring-outline-dark/30 dark:bg-surface-alt dark:text-on-surface dark:border-outline dark:hover:bg-surface',
+        'success' => 'bg-success text-on-success hover:bg-success/90 focus:ring-success/30',
+        'danger' => 'bg-danger text-on-danger hover:bg-danger/90 focus:ring-danger/30',
+        'warning' => 'bg-warning text-on-warning hover:bg-warning/90 focus:ring-warning/30',
+        'info' => 'bg-info text-on-info hover:bg-info/90 focus:ring-info/30',
+        'light' => 'bg-surface-alt text-on-surface border border-outline hover:bg-surface focus:ring-outline/30 dark:bg-surface-dark-alt dark:text-on-surface-dark dark:border-outline-dark dark:hover:bg-surface-dark',
+        'dark' => 'bg-surface-dark-alt text-on-surface-dark border border-outline-dark hover:bg-surface-dark focus:ring-outline-dark/30 dark:bg-surface-alt dark:text-on-surface dark:border-outline dark:hover:bg-surface',
     ];
 
     /**
@@ -31,8 +31,8 @@ class DropdownStyles
      * @var array<string, string>
      */
     private const BUTTON_SIZES = [
-        'lg'      => 'px-5 py-3 text-base',
-        'sm'      => 'px-3 py-1.5 text-xs',
+        'lg' => 'px-5 py-3 text-base',
+        'sm' => 'px-3 py-1.5 text-xs',
         'default' => 'px-4 py-2 text-sm',
     ];
 
@@ -42,14 +42,14 @@ class DropdownStyles
      * @var array<string, string>
      */
     private const MENU_ALIGNS = [
-        'start'     => 'left-0',
-        'end'       => 'right-0',
-        'start-lg'  => 'right-0 lg:left-0 lg:right-auto',
-        'end-lg'    => 'left-0 lg:right-0 lg:left-auto',
+        'start' => 'left-0',
+        'end' => 'right-0',
+        'start-lg' => 'right-0 lg:left-0 lg:right-auto',
+        'end-lg' => 'left-0 lg:right-0 lg:left-auto',
         'dropstart' => 'right-full top-0 mr-2',
-        'dropend'   => 'left-full top-0 ml-2',
-        'dropup'    => 'bottom-full mb-2 left-0',
-        'default'   => 'left-0',
+        'dropend' => 'left-full top-0 ml-2',
+        'dropup' => 'bottom-full mb-2 left-0',
+        'default' => 'left-0',
     ];
 
     /**
@@ -58,12 +58,12 @@ class DropdownStyles
      * @var array<string, string>
      */
     private const ITEM_COLORS = [
-        'primary'   => 'text-primary hover:bg-primary/10',
+        'primary' => 'text-primary hover:bg-primary/10',
         'secondary' => 'text-secondary hover:bg-secondary/10',
-        'success'   => 'text-success hover:bg-success/10',
-        'danger'    => 'text-danger hover:bg-danger/10',
-        'warning'   => 'text-warning hover:bg-warning/10',
-        'info'      => 'text-info hover:bg-info/10',
+        'success' => 'text-success hover:bg-success/10',
+        'danger' => 'text-danger hover:bg-danger/10',
+        'warning' => 'text-warning hover:bg-warning/10',
+        'info' => 'text-info hover:bg-info/10',
     ];
 
     /**
@@ -101,7 +101,7 @@ class DropdownStyles
     public function button(): string
     {
         $theme = self::BUTTON_THEMES[$this->dropdown->color()];
-        $size  = self::BUTTON_SIZES[$this->dropdown->size() ?? 'default'];
+        $size = self::BUTTON_SIZES[$this->dropdown->size() ?? 'default'];
 
         return $theme . ' ' . $size . ' inline-flex items-center justify-center font-medium rounded-radius transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 dark:focus:ring-offset-surface-dark';
     }
@@ -236,7 +236,7 @@ class DropdownStyles
      */
     public function itemLink(int $index): string
     {
-        $item    = $this->dropdown->items()[$index];
+        $item = $this->dropdown->items()[$index];
         $classes = 'block w-full px-4 py-2 text-sm font-paragraph transition-colors duration-150';
 
         if ($item['color'] !== null) {

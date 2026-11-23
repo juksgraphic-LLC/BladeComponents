@@ -26,11 +26,11 @@ class Form extends Component
      * @var array<string, string>
      */
     public const FIELD_VIEWS = [
-        'select'   => 'jkc.forms.select',
+        'select' => 'jkc.forms.select',
         'textarea' => 'jkc.forms.textarea',
-        'file'     => 'jkc.forms.file',
+        'file' => 'jkc.forms.file',
         'checkbox' => 'jkc.forms.checkbox',
-        'radio'    => 'jkc.forms.radio',
+        'radio' => 'jkc.forms.radio',
     ];
 
     /**
@@ -39,14 +39,14 @@ class Form extends Component
      * @var array<string, mixed>
      */
     protected array $defaults = [
-        'fields'      => [],
+        'fields' => [],
         'initialData' => [],
-        'action'      => '',
-        'method'      => 'POST',
+        'action' => '',
+        'method' => 'POST',
         'submitAttrs' => '',
-        'submitText'  => null,
-        'class'       => '',
-        'attrs'       => '',
+        'submitText' => null,
+        'class' => '',
+        'attrs' => '',
     ];
 
     /**
@@ -60,16 +60,16 @@ class Form extends Component
 
         $method = strtoupper(is_scalar($this->config['method']) ? (string) $this->config['method'] : 'POST');
 
-        $this->config['fields']      = is_array($this->config['fields']) ? array_values($this->config['fields']) : [];
+        $this->config['fields'] = is_array($this->config['fields']) ? array_values($this->config['fields']) : [];
         $this->config['initialData'] = is_array($this->config['initialData']) ? $this->config['initialData'] : [];
-        $this->config['action']      = is_scalar($this->config['action']) ? (string) $this->config['action'] : '';
-        $this->config['method']      = in_array($method, self::METHODS, true) ? $method : 'POST';
+        $this->config['action'] = is_scalar($this->config['action']) ? (string) $this->config['action'] : '';
+        $this->config['method'] = in_array($method, self::METHODS, true) ? $method : 'POST';
         $this->config['submitAttrs'] = is_scalar($this->config['submitAttrs']) ? trim((string) $this->config['submitAttrs']) : '';
-        $this->config['submitText']  = isset($this->config['submitText']) && is_scalar($this->config['submitText']) && (string) $this->config['submitText'] !== ''
+        $this->config['submitText'] = isset($this->config['submitText']) && is_scalar($this->config['submitText']) && (string) $this->config['submitText'] !== ''
             ? (string) $this->config['submitText']
             : null;
-        $this->config['class']       = is_scalar($this->config['class']) ? trim((string) $this->config['class']) : '';
-        $this->config['attrs']       = is_scalar($this->config['attrs']) ? trim((string) $this->config['attrs']) : '';
+        $this->config['class'] = is_scalar($this->config['class']) ? trim((string) $this->config['class']) : '';
+        $this->config['attrs'] = is_scalar($this->config['attrs']) ? trim((string) $this->config['attrs']) : '';
     }
 
     /**
@@ -99,7 +99,7 @@ class Form extends Component
      */
     public function isEdit(): bool
     {
-        return !empty($this->config['initialData']['id']);
+        return ! empty($this->config['initialData']['id']);
     }
 
     /**
@@ -139,7 +139,7 @@ class Form extends Component
      */
     public function needsMethodSpoofing(): bool
     {
-        return !in_array($this->config['method'], ['GET', 'POST'], true);
+        return ! in_array($this->config['method'], ['GET', 'POST'], true);
     }
 
     /**
@@ -208,20 +208,20 @@ class Form extends Component
         $type = (string) ($field['type'] ?? 'text');
 
         return [
-            'label'       => $field['label'] ?? '',
-            'name'        => $field['name'] ?? 'field',
-            'type'        => $type,
-            'options'     => $field['options'] ?? [],
-            'model'       => 'formData',
-            'multiple'    => $field['multiple'] ?? false,
-            'required'    => $field['required'] ?? false,
-            'useQuill'    => $field['useQuill'] ?? false,
-            'isSimple'    => $field['isSimple'] ?? false,
-            'accept'      => $field['accept'] ?? '',
+            'label' => $field['label'] ?? '',
+            'name' => $field['name'] ?? 'field',
+            'type' => $type,
+            'options' => $field['options'] ?? [],
+            'model' => 'formData',
+            'multiple' => $field['multiple'] ?? false,
+            'required' => $field['required'] ?? false,
+            'useQuill' => $field['useQuill'] ?? false,
+            'isSimple' => $field['isSimple'] ?? false,
+            'accept' => $field['accept'] ?? '',
             'recommended' => $field['recommended'] ?? '',
             'placeholder' => $field['placeholder'] ?? '',
-            'rows'        => $field['rows'] ?? 4,
-            'class'       => $field['class'] ?? '',
+            'rows' => $field['rows'] ?? 4,
+            'class' => $field['class'] ?? '',
             'initialData' => $this->config['initialData'],
         ];
     }
@@ -235,8 +235,8 @@ class Form extends Component
     {
         return [
             'formData' => $this->config['initialData'],
-            'isEdit'   => $this->isEdit(),
-            'loading'  => false,
+            'isEdit' => $this->isEdit(),
+            'loading' => false,
         ];
     }
 }

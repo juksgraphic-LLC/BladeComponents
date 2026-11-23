@@ -15,14 +15,14 @@ class FileInput extends FormField
      * @var array<string, mixed>
      */
     protected array $defaults = [
-        'label'       => '',
-        'name'        => 'file',
-        'required'    => false,
-        'accept'      => '',
+        'label' => '',
+        'name' => 'file',
+        'required' => false,
+        'accept' => '',
         'recommended' => '',
-        'model'       => 'formData',
+        'model' => 'formData',
         'initialData' => [],
-        'class'       => '',
+        'class' => '',
     ];
 
     /**
@@ -34,18 +34,18 @@ class FileInput extends FormField
     {
         parent::__construct($config);
 
-        $name        = $this->sanitizeFieldName($this->config['name'], 'file');
+        $name = $this->sanitizeFieldName($this->config['name'], 'file');
         $initialData = is_array($this->config['initialData']) ? $this->config['initialData'] : [];
-        $rawUrl      = is_scalar($initialData[$name] ?? null) ? trim((string) $initialData[$name]) : '';
+        $rawUrl = is_scalar($initialData[$name] ?? null) ? trim((string) $initialData[$name]) : '';
 
-        $this->config['label']          = is_scalar($this->config['label']) ? (string) $this->config['label'] : '';
-        $this->config['name']           = $name;
-        $this->config['required']       = (bool) $this->config['required'];
-        $this->config['accept']         = is_scalar($this->config['accept']) ? trim((string) $this->config['accept']) : '';
-        $this->config['recommended']    = is_scalar($this->config['recommended']) ? (string) $this->config['recommended'] : '';
-        $this->config['model']          = $this->sanitizeModelPath($this->config['model']);
-        $this->config['initialData']    = $initialData;
-        $this->config['class']          = is_scalar($this->config['class']) ? trim((string) $this->config['class']) : '';
+        $this->config['label'] = is_scalar($this->config['label']) ? (string) $this->config['label'] : '';
+        $this->config['name'] = $name;
+        $this->config['required'] = (bool) $this->config['required'];
+        $this->config['accept'] = is_scalar($this->config['accept']) ? trim((string) $this->config['accept']) : '';
+        $this->config['recommended'] = is_scalar($this->config['recommended']) ? (string) $this->config['recommended'] : '';
+        $this->config['model'] = $this->sanitizeModelPath($this->config['model']);
+        $this->config['initialData'] = $initialData;
+        $this->config['class'] = is_scalar($this->config['class']) ? trim((string) $this->config['class']) : '';
         $this->config['initialFileUrl'] = $this->sanitizeFileUrl($rawUrl);
     }
 

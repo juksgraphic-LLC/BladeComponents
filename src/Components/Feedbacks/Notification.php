@@ -54,13 +54,13 @@ class Notification extends Component
      * @var array<string, mixed>
      */
     protected array $defaults = [
-        'id'              => 'global-notifications',
-        'position'        => 'top-right',
-        'max'             => 20,
+        'id' => 'global-notifications',
+        'position' => 'top-right',
+        'max' => 20,
         'displayDuration' => 8000,
-        'leaveDuration'   => 400,
-        'soundEffect'     => false,
-        'soundUrl'        => self::DEFAULT_SOUND_URL,
+        'leaveDuration' => 400,
+        'soundEffect' => false,
+        'soundUrl' => self::DEFAULT_SOUND_URL,
     ];
 
     /**
@@ -72,18 +72,18 @@ class Notification extends Component
     {
         parent::__construct($config);
 
-        $position        = (string) $this->config['position'];
-        $max             = $this->config['max'];
+        $position = (string) $this->config['position'];
+        $max = $this->config['max'];
         $displayDuration = $this->config['displayDuration'];
-        $leaveDuration   = $this->config['leaveDuration'];
+        $leaveDuration = $this->config['leaveDuration'];
 
-        $this->config['id']              = $this->safeId($this->config['id']);
-        $this->config['position']        = in_array($position, self::POSITIONS, true) ? $position : 'top-right';
-        $this->config['max']             = is_numeric($max) && (int) $max > 0 ? (int) $max : 20;
+        $this->config['id'] = $this->safeId($this->config['id']);
+        $this->config['position'] = in_array($position, self::POSITIONS, true) ? $position : 'top-right';
+        $this->config['max'] = is_numeric($max) && (int) $max > 0 ? (int) $max : 20;
         $this->config['displayDuration'] = is_numeric($displayDuration) && (int) $displayDuration >= 0 ? (int) $displayDuration : 8000;
-        $this->config['leaveDuration']   = is_numeric($leaveDuration) && (int) $leaveDuration >= 0 ? (int) $leaveDuration : 400;
-        $this->config['soundEffect']     = (bool) $this->config['soundEffect'];
-        $this->config['soundUrl']        = $this->sanitizeSoundUrl($this->config['soundUrl']);
+        $this->config['leaveDuration'] = is_numeric($leaveDuration) && (int) $leaveDuration >= 0 ? (int) $leaveDuration : 400;
+        $this->config['soundEffect'] = (bool) $this->config['soundEffect'];
+        $this->config['soundUrl'] = $this->sanitizeSoundUrl($this->config['soundUrl']);
     }
 
     /**
@@ -164,12 +164,12 @@ class Notification extends Component
     public function toArray(): array
     {
         return [
-            'notifications'   => [],
-            'max'             => $this->config['max'],
+            'notifications' => [],
+            'max' => $this->config['max'],
             'displayDuration' => $this->config['displayDuration'],
-            'leaveDuration'   => $this->config['leaveDuration'],
-            'soundEffect'     => $this->config['soundEffect'],
-            'soundUrl'        => $this->config['soundUrl'],
+            'leaveDuration' => $this->config['leaveDuration'],
+            'soundEffect' => $this->config['soundEffect'],
+            'soundUrl' => $this->config['soundUrl'],
         ];
     }
 
@@ -196,7 +196,7 @@ class Notification extends Component
      */
     private function sanitizeSoundUrl(mixed $url): string
     {
-        if (!is_string($url)) {
+        if (! is_string($url)) {
             return self::DEFAULT_SOUND_URL;
         }
 

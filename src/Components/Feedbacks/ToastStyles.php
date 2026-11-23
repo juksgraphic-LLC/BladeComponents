@@ -16,39 +16,39 @@ class ToastStyles
      */
     private const THEMES = [
         'info' => [
-            'border'  => 'border-info',
-            'text'    => 'text-info',
-            'bgSoft'  => 'bg-info/10',
+            'border' => 'border-info',
+            'text' => 'text-info',
+            'bgSoft' => 'bg-info/10',
             'bgBadge' => 'bg-info/15',
         ],
         'success' => [
-            'border'  => 'border-success',
-            'text'    => 'text-success',
-            'bgSoft'  => 'bg-success/10',
+            'border' => 'border-success',
+            'text' => 'text-success',
+            'bgSoft' => 'bg-success/10',
             'bgBadge' => 'bg-success/15',
         ],
         'warning' => [
-            'border'  => 'border-warning',
-            'text'    => 'text-warning',
-            'bgSoft'  => 'bg-warning/10',
+            'border' => 'border-warning',
+            'text' => 'text-warning',
+            'bgSoft' => 'bg-warning/10',
             'bgBadge' => 'bg-warning/15',
         ],
         'danger' => [
-            'border'  => 'border-danger',
-            'text'    => 'text-danger',
-            'bgSoft'  => 'bg-danger/10',
+            'border' => 'border-danger',
+            'text' => 'text-danger',
+            'bgSoft' => 'bg-danger/10',
             'bgBadge' => 'bg-danger/15',
         ],
         'message' => [
-            'border'  => 'border-outline',
-            'text'    => 'text-on-surface',
-            'bgSoft'  => 'bg-surface-alt',
+            'border' => 'border-outline',
+            'text' => 'text-on-surface',
+            'bgSoft' => 'bg-surface-alt',
             'bgBadge' => 'bg-primary/15',
         ],
         'default' => [
-            'border'  => 'border-outline',
-            'text'    => 'text-on-surface',
-            'bgSoft'  => 'bg-surface-alt',
+            'border' => 'border-outline',
+            'text' => 'text-on-surface',
+            'bgSoft' => 'bg-surface-alt',
             'bgBadge' => 'bg-primary/15',
         ],
     ];
@@ -80,9 +80,9 @@ class ToastStyles
         $theme = $this->theme();
 
         $classes = match ($this->toast->type()) {
-            'bordered'    => "pointer-events-auto relative rounded-radius border {$theme['border']} bg-surface text-on-surface dark:bg-surface-dark dark:text-on-surface-dark",
+            'bordered' => "pointer-events-auto relative rounded-radius border {$theme['border']} bg-surface text-on-surface dark:bg-surface-dark dark:text-on-surface-dark",
             'translucent' => 'pointer-events-auto relative rounded-radius border border-outline bg-white/80 text-on-surface backdrop-blur-sm dark:border-outline-dark dark:bg-surface-dark/80 dark:text-on-surface-dark',
-            default       => 'pointer-events-auto relative rounded-radius border border-outline bg-surface text-on-surface dark:border-outline-dark dark:bg-surface-dark dark:text-on-surface-dark',
+            default => 'pointer-events-auto relative rounded-radius border border-outline bg-surface text-on-surface dark:border-outline-dark dark:bg-surface-dark dark:text-on-surface-dark',
         };
 
         if ($this->toast->isStacked()) {
@@ -106,10 +106,10 @@ class ToastStyles
         $theme = $this->theme();
 
         return match ($this->toast->type()) {
-            'bordered'    => "flex w-full items-center gap-2.5 {$theme['bgSoft']} rounded-radius p-4 transition-all duration-300",
+            'bordered' => "flex w-full items-center gap-2.5 {$theme['bgSoft']} rounded-radius p-4 transition-all duration-300",
             'translucent' => 'flex w-full items-center gap-2.5 rounded-radius p-4 transition-all duration-300',
-            'message'     => 'flex w-full items-start gap-3 rounded-radius p-4 transition-all duration-300',
-            default       => 'flex w-full flex-col rounded-radius transition-all duration-300',
+            'message' => 'flex w-full items-start gap-3 rounded-radius p-4 transition-all duration-300',
+            default => 'flex w-full flex-col rounded-radius transition-all duration-300',
         };
     }
 

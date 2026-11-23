@@ -35,10 +35,10 @@ class Toast extends Component
      * @var array<string, string>
      */
     public const ICONS = [
-        'info'    => '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="size-5" aria-hidden="true"><path fill-rule="evenodd" d="M18 10a8 8 0 1 1-16 0 8 8 0 0 1 16 0Zm-7-4a1 1 0 1 1-2 0 1 1 0 0 1 2 0ZM9 9a.75.75 0 0 0 0 1.5h.253a.25.25 0 0 1 .244.304l-.459 2.066A1.75 1.75 0 0 0 10.747 15H11a.75.75 0 0 0 0-1.5h-.253a.25.25 0 0 1-.244-.304l.459-2.066A1.75 1.75 0 0 0 9.253 9H9Z" clip-rule="evenodd" /></svg>',
+        'info' => '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="size-5" aria-hidden="true"><path fill-rule="evenodd" d="M18 10a8 8 0 1 1-16 0 8 8 0 0 1 16 0Zm-7-4a1 1 0 1 1-2 0 1 1 0 0 1 2 0ZM9 9a.75.75 0 0 0 0 1.5h.253a.25.25 0 0 1 .244.304l-.459 2.066A1.75 1.75 0 0 0 10.747 15H11a.75.75 0 0 0 0-1.5h-.253a.25.25 0 0 1-.244-.304l.459-2.066A1.75 1.75 0 0 0 9.253 9H9Z" clip-rule="evenodd" /></svg>',
         'success' => '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="size-5" aria-hidden="true"><path fill-rule="evenodd" d="M10 18a8 8 0 1 0 0-16 8 8 0 0 0 0 16Zm3.857-9.809a.75.75 0 0 0-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 1 0-1.06 1.061l2.5 2.5a.75.75 0 0 0 1.137-.089l4-5.5Z" clip-rule="evenodd" /></svg>',
         'warning' => '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="size-5" aria-hidden="true"><path fill-rule="evenodd" d="M8.485 2.495c.673-1.167 2.357-1.167 3.03 0l6.28 10.875c.673 1.167-.17 2.625-1.516 2.625H3.72c-1.347 0-2.189-1.458-1.515-2.625L8.485 2.495ZM10 5a.75.75 0 0 1 .75.75v3.5a.75.75 0 0 1-1.5 0v-3.5A.75.75 0 0 1 10 5Zm0 9a1 1 0 1 0 0-2 1 1 0 0 0 0 2Z" clip-rule="evenodd" /></svg>',
-        'danger'  => '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="size-5" aria-hidden="true"><path fill-rule="evenodd" d="M10 18a8 8 0 1 0 0-16 8 8 0 0 0 0 16ZM8.28 7.22a.75.75 0 0 0-1.06 1.06L8.94 10l-1.72 1.72a.75.75 0 1 0 1.06 1.06L10 11.06l1.72 1.72a.75.75 0 1 0 1.06-1.06L11.06 10l1.72-1.72a.75.75 0 0 0-1.06-1.06L10 8.94 8.28 7.22Z" clip-rule="evenodd" /></svg>',
+        'danger' => '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="size-5" aria-hidden="true"><path fill-rule="evenodd" d="M10 18a8 8 0 1 0 0-16 8 8 0 0 0 0 16ZM8.28 7.22a.75.75 0 0 0-1.06 1.06L8.94 10l-1.72 1.72a.75.75 0 1 0 1.06 1.06L10 11.06l1.72 1.72a.75.75 0 1 0 1.06-1.06L11.06 10l1.72-1.72a.75.75 0 0 0-1.06-1.06L10 8.94 8.28 7.22Z" clip-rule="evenodd" /></svg>',
         'message' => '',
         'default' => '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="size-5" aria-hidden="true"><path fill-rule="evenodd" d="M18 10a8 8 0 1 1-16 0 8 8 0 0 1 16 0Zm-7-4a1 1 0 1 1-2 0 1 1 0 0 1 2 0ZM9 9a.75.75 0 0 0 0 1.5h.253a.25.25 0 0 1 .244.304l-.459 2.066A1.75 1.75 0 0 0 10.747 15H11a.75.75 0 0 0 0-1.5h-.253a.25.25 0 0 1-.244-.304l.459-2.066A1.75 1.75 0 0 0 9.253 9H9Z" clip-rule="evenodd" /></svg>',
     ];
@@ -49,19 +49,19 @@ class Toast extends Component
      * @var array<string, mixed>
      */
     protected array $defaults = [
-        'id'           => null,
-        'variant'      => 'info',
-        'type'         => 'default',
-        'title'        => 'Notification',
-        'message'      => 'Hello, world! This is a toast message.',
-        'time'         => 'Just now',
-        'senderName'   => null,
+        'id' => null,
+        'variant' => 'info',
+        'type' => 'default',
+        'title' => 'Notification',
+        'message' => 'Hello, world! This is a toast message.',
+        'time' => 'Just now',
+        'senderName' => null,
         'senderAvatar' => null,
-        'dismissible'  => true,
-        'translucent'  => false,
-        'duration'     => null,
-        'live'         => false,
-        'stacked'      => false,
+        'dismissible' => true,
+        'translucent' => false,
+        'duration' => null,
+        'live' => false,
+        'stacked' => false,
     ];
 
     /**
@@ -73,23 +73,23 @@ class Toast extends Component
     {
         parent::__construct($config);
 
-        $variant  = (string) $this->config['variant'];
-        $type     = (string) $this->config['type'];
+        $variant = (string) $this->config['variant'];
+        $type = (string) $this->config['type'];
         $duration = $this->config['duration'];
 
-        $this->config['id']           = $this->safeId($this->config['id']);
-        $this->config['variant']      = in_array($variant, self::VARIANTS, true) ? $variant : 'info';
-        $this->config['type']         = in_array($type, self::TYPES, true) ? $type : 'default';
-        $this->config['title']        = is_scalar($this->config['title']) ? (string) $this->config['title'] : 'Notification';
-        $this->config['message']      = is_scalar($this->config['message']) ? (string) $this->config['message'] : '';
-        $this->config['time']         = is_scalar($this->config['time']) ? (string) $this->config['time'] : 'Just now';
-        $this->config['senderName']   = $this->sanitizeNullableString($this->config['senderName']);
+        $this->config['id'] = $this->safeId($this->config['id']);
+        $this->config['variant'] = in_array($variant, self::VARIANTS, true) ? $variant : 'info';
+        $this->config['type'] = in_array($type, self::TYPES, true) ? $type : 'default';
+        $this->config['title'] = is_scalar($this->config['title']) ? (string) $this->config['title'] : 'Notification';
+        $this->config['message'] = is_scalar($this->config['message']) ? (string) $this->config['message'] : '';
+        $this->config['time'] = is_scalar($this->config['time']) ? (string) $this->config['time'] : 'Just now';
+        $this->config['senderName'] = $this->sanitizeNullableString($this->config['senderName']);
         $this->config['senderAvatar'] = $this->sanitizeUrl($this->config['senderAvatar']);
-        $this->config['dismissible']  = (bool) $this->config['dismissible'];
-        $this->config['translucent']  = (bool) $this->config['translucent'];
-        $this->config['duration']     = is_numeric($duration) && (int) $duration > 0 ? (int) $duration : null;
-        $this->config['live']         = (bool) $this->config['live'];
-        $this->config['stacked']      = (bool) $this->config['stacked'];
+        $this->config['dismissible'] = (bool) $this->config['dismissible'];
+        $this->config['translucent'] = (bool) $this->config['translucent'];
+        $this->config['duration'] = is_numeric($duration) && (int) $duration > 0 ? (int) $duration : null;
+        $this->config['live'] = (bool) $this->config['live'];
+        $this->config['stacked'] = (bool) $this->config['stacked'];
     }
 
     /**
@@ -252,8 +252,8 @@ class Toast extends Component
     public function toArray(): array
     {
         return [
-            'id'       => $this->config['id'],
-            'show'     => !$this->config['live'],
+            'id' => $this->config['id'],
+            'show' => ! $this->config['live'],
             'duration' => $this->config['duration'],
         ];
     }
@@ -281,7 +281,7 @@ class Toast extends Component
      */
     private function sanitizeNullableString(mixed $value): ?string
     {
-        if (!is_scalar($value)) {
+        if (! is_scalar($value)) {
             return null;
         }
 
@@ -299,7 +299,7 @@ class Toast extends Component
      */
     private function sanitizeUrl(mixed $url): ?string
     {
-        if (!is_string($url)) {
+        if (! is_string($url)) {
             return null;
         }
 

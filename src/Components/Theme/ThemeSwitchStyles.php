@@ -17,21 +17,21 @@ class ThemeSwitchStyles
     private const SIZE_MAP = [
         'sm' => [
             'track' => 'h-7 w-14',
-            'knob'  => 'size-5',
+            'knob' => 'size-5',
             'shift' => 'group-aria-checked:translate-x-7',
-            'icon'  => 'size-3.5',
+            'icon' => 'size-3.5',
         ],
         'md' => [
             'track' => 'h-8 w-16',
-            'knob'  => 'size-6',
+            'knob' => 'size-6',
             'shift' => 'group-aria-checked:translate-x-8',
-            'icon'  => 'size-4',
+            'icon' => 'size-4',
         ],
         'lg' => [
             'track' => 'h-10 w-20',
-            'knob'  => 'size-8',
+            'knob' => 'size-8',
             'shift' => 'group-aria-checked:translate-x-10',
-            'icon'  => 'size-5',
+            'icon' => 'size-5',
         ],
     ];
 
@@ -115,7 +115,7 @@ class ThemeSwitchStyles
      */
     public function knobSunIcon(): string
     {
-        $base  = 'absolute duration-300 group-data-[ready=true]:transition-all motion-reduce:transition-none';
+        $base = 'absolute duration-300 group-data-[ready=true]:transition-all motion-reduce:transition-none';
         $state = 'rotate-0 scale-100 opacity-100 group-aria-checked:-rotate-90 group-aria-checked:scale-50 group-aria-checked:opacity-0';
 
         return "{$base} {$this->tokens['icon']} {$state}";
@@ -128,7 +128,7 @@ class ThemeSwitchStyles
      */
     public function knobMoonIcon(): string
     {
-        $base  = 'absolute duration-300 group-data-[ready=true]:transition-all motion-reduce:transition-none';
+        $base = 'absolute duration-300 group-data-[ready=true]:transition-all motion-reduce:transition-none';
         $state = 'rotate-90 scale-50 opacity-0 group-aria-checked:rotate-0 group-aria-checked:scale-100 group-aria-checked:opacity-100';
 
         return "{$base} {$this->tokens['icon']} {$state}";

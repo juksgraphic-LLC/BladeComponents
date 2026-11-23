@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Juksgraphic\BladeComponents\Components\Filters\Bars; 
+namespace Juksgraphic\BladeComponents\Components\Filters\Bars;
 
 /**
  * Blade view names, single source.
@@ -16,15 +16,15 @@ final class BarViews
 
     /** Partial view names by key. */
     public const ITEMS = [
-        'SEARCH'  => self::BASE . '.partials.search',
+        'SEARCH' => self::BASE . '.partials.search',
         'FILTERS' => self::BASE . '.partials.filters',
-        'SELECT'  => self::BASE . '.partials.select',
-        'RESET'   => self::BASE . '.partials.reset',
+        'SELECT' => self::BASE . '.partials.select',
+        'RESET' => self::BASE . '.partials.reset',
     ];
 
     /** Layout view names by layout value. */
     public const LAYOUTS = [
-        BarStyles::LAYOUTS['ROW']   => self::BASE . '.layouts.row',
+        BarStyles::LAYOUTS['ROW'] => self::BASE . '.layouts.row',
         BarStyles::LAYOUTS['PANEL'] => self::BASE . '.layouts.panel',
     ];
 

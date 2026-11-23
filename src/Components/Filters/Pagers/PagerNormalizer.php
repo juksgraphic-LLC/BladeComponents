@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Juksgraphic\BladeComponents\Components\Filters\Pagers;
 
-
 use InvalidArgumentException;
 
 /**
@@ -60,14 +59,14 @@ final class PagerNormalizer
             return PagerDefaults::ITEMS['PER_PAGE_OPTIONS'];
         }
 
-        if (!is_array($options)) {
+        if (! is_array($options)) {
             throw new InvalidArgumentException(PagerErrors::ITEMS['PER_PAGE_OPTIONS_INVALID']);
         }
 
         $sizes = [];
 
         foreach ($options as $option) {
-            if (!is_int($option) && !(is_string($option) && ctype_digit($option))) {
+            if (! is_int($option) && ! (is_string($option) && ctype_digit($option))) {
                 throw new InvalidArgumentException(PagerErrors::ITEMS['PER_PAGE_OPTIONS_INVALID']);
             }
 
@@ -116,7 +115,7 @@ final class PagerNormalizer
     {
         $merged = PagerDefaults::TEXTS;
 
-        if (!is_array($texts)) {
+        if (! is_array($texts)) {
             return $merged;
         }
 

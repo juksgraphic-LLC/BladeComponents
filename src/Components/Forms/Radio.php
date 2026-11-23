@@ -15,13 +15,13 @@ class Radio extends FormField
      * @var array<string, mixed>
      */
     protected array $defaults = [
-        'label'       => '',
-        'name'        => 'radio',
-        'options'     => [],
-        'model'       => 'formData',
-        'required'    => false,
+        'label' => '',
+        'name' => 'radio',
+        'options' => [],
+        'model' => 'formData',
+        'required' => false,
         'initialData' => [],
-        'class'       => '',
+        'class' => '',
     ];
 
     /**
@@ -33,18 +33,18 @@ class Radio extends FormField
     {
         parent::__construct($config);
 
-        $name        = $this->sanitizeFieldName($this->config['name'], 'radio');
-        $options     = $this->normalizeOptions((array) $this->config['options']);
+        $name = $this->sanitizeFieldName($this->config['name'], 'radio');
+        $options = $this->normalizeOptions((array) $this->config['options']);
         $initialData = is_array($this->config['initialData']) ? $this->config['initialData'] : [];
-        $fallbackId  = $options[0]['id'] ?? '';
+        $fallbackId = $options[0]['id'] ?? '';
 
-        $this->config['label']        = is_scalar($this->config['label']) ? (string) $this->config['label'] : '';
-        $this->config['name']         = $name;
-        $this->config['options']      = $options;
-        $this->config['model']        = $this->sanitizeModelPath($this->config['model']);
-        $this->config['required']     = (bool) $this->config['required'];
-        $this->config['initialData']  = $initialData;
-        $this->config['class']        = is_scalar($this->config['class']) ? trim((string) $this->config['class']) : '';
+        $this->config['label'] = is_scalar($this->config['label']) ? (string) $this->config['label'] : '';
+        $this->config['name'] = $name;
+        $this->config['options'] = $options;
+        $this->config['model'] = $this->sanitizeModelPath($this->config['model']);
+        $this->config['required'] = (bool) $this->config['required'];
+        $this->config['initialData'] = $initialData;
+        $this->config['class'] = is_scalar($this->config['class']) ? trim((string) $this->config['class']) : '';
         $this->config['initialValue'] = (string) ($initialData[$name] ?? $fallbackId);
     }
 

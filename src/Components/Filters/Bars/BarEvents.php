@@ -11,10 +11,10 @@ final class BarEvents
 {
     /** Event names by key. */
     public const ITEMS = [
-        'CHANGE'   => 'filterbar:change',
-        'LOADING'  => 'filterbar:loading',
-        'LOADED'   => 'filterbar:loaded',
-        'ERROR'    => 'filterbar:error',
-        'RESET'    => 'filterbar:reset',
+        'CHANGE' => 'filterbar:change',
+        'LOADING' => 'filterbar:loading',
+        'LOADED' => 'filterbar:loaded',
+        'ERROR' => 'filterbar:error',
+        'RESET' => 'filterbar:reset',
     ];
 }

@@ -11,9 +11,9 @@ final class BarCommands
 {
     /** Command names by key. */
     public const ITEMS = [
-        'SET_PAGE'     => 'filterbar:set-page',
+        'SET_PAGE' => 'filterbar:set-page',
         'SET_PER_PAGE' => 'filterbar:set-per-page',
-        'SET_SORT'     => 'filterbar:set-sort',
-        'REFRESH'      => 'filterbar:refresh',
+        'SET_SORT' => 'filterbar:set-sort',
+        'REFRESH' => 'filterbar:refresh',
     ];
 }

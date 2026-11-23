@@ -15,10 +15,10 @@ class OffcanvasStyles
      * @var array<string, string>
      */
     private const SIZE_MAP = [
-        'sm'         => 'w-80',
-        'md'         => 'w-96',
-        'lg'         => 'w-[32rem]',
-        'xl'         => 'w-[40rem]',
+        'sm' => 'w-80',
+        'md' => 'w-96',
+        'lg' => 'w-[32rem]',
+        'xl' => 'w-[40rem]',
         'fullscreen' => 'w-full',
     ];
 
@@ -68,17 +68,17 @@ class OffcanvasStyles
      */
     public function panel(): string
     {
-        $sizeKey   = $this->offcanvas->size() ?? 'md';
+        $sizeKey = $this->offcanvas->size() ?? 'md';
         $sizeClass = self::SIZE_MAP[$sizeKey] ?? self::SIZE_MAP['md'];
 
         $placementClass = match ($this->offcanvas->placement()) {
-            'end'    => "top-0 right-0 h-full {$sizeClass}",
-            'top'    => 'top-0 left-0 right-0 w-full h-auto max-h-[50vh]',
+            'end' => "top-0 right-0 h-full {$sizeClass}",
+            'top' => 'top-0 left-0 right-0 w-full h-auto max-h-[50vh]',
             'bottom' => 'bottom-0 left-0 right-0 w-full h-auto max-h-[50vh]',
-            default  => "top-0 left-0 h-full {$sizeClass}",
+            default => "top-0 left-0 h-full {$sizeClass}",
         };
 
-        $extra   = $this->offcanvas->extraClass() !== '' ? ' ' . $this->offcanvas->extraClass() : '';
+        $extra = $this->offcanvas->extraClass() !== '' ? ' ' . $this->offcanvas->extraClass() : '';
         $classes = "fixed {$placementClass} bg-surface dark:bg-surface-dark shadow-2xl border border-outline dark:border-outline-dark overflow-y-auto{$extra}";
 
         $normalized = preg_replace('/\s+/', ' ', trim($classes));

@@ -37,17 +37,17 @@ class Carousel extends Component
      * @var array<string, string>
      */
     private const EFFECT_MAP = [
-        'slides-only'         => 'slide',
-        'controls'            => 'slide',
-        'indicators'          => 'slide',
-        'captions'            => 'slide',
-        'crossfade'           => 'fade',
+        'slides-only' => 'slide',
+        'controls' => 'slide',
+        'indicators' => 'slide',
+        'captions' => 'slide',
+        'crossfade' => 'fade',
         'individual-interval' => 'slide',
-        'no-touch'            => 'slide',
-        'dark'                => 'slide',
-        'coverflow'           => 'coverflow',
-        'cards'               => 'cards',
-        'creative'            => 'creative',
+        'no-touch' => 'slide',
+        'dark' => 'slide',
+        'coverflow' => 'coverflow',
+        'cards' => 'cards',
+        'creative' => 'creative',
     ];
 
     /**
@@ -89,16 +89,16 @@ class Carousel extends Component
      * @var array<string, mixed>
      */
     protected array $defaults = [
-        'id'            => null,
-        'variant'       => 'slides-only',
-        'slides'        => [],
-        'autoplay'      => false,
+        'id' => null,
+        'variant' => 'slides-only',
+        'slides' => [],
+        'autoplay' => false,
         'autoplayDelay' => 3000,
-        'loop'          => true,
-        'height'        => 'h-72',
-        'wrapClass'     => '',
-        'dark'          => false,
-        'effect'        => null,
+        'loop' => true,
+        'height' => 'h-72',
+        'wrapClass' => '',
+        'dark' => false,
+        'effect' => null,
     ];
 
     /**
@@ -116,24 +116,24 @@ class Carousel extends Component
         $requestedEffect = is_string($this->config['effect'] ?? null) && in_array($this->config['effect'], self::EFFECTS, true)
             ? $this->config['effect']
             : null;
-        $swiperEffect    = $requestedEffect ?? (self::EFFECT_MAP[$variant] ?? 'slide');
+        $swiperEffect = $requestedEffect ?? (self::EFFECT_MAP[$variant] ?? 'slide');
 
         $isDark = (bool) $this->config['dark'] || $variant === 'dark';
-        $delay  = is_numeric($this->config['autoplayDelay']) ? max(0, (int) $this->config['autoplayDelay']) : 3000;
+        $delay = is_numeric($this->config['autoplayDelay']) ? max(0, (int) $this->config['autoplayDelay']) : 3000;
         $height = is_scalar($this->config['height']) && trim((string) $this->config['height']) !== ''
             ? trim((string) $this->config['height'])
             : 'h-72';
 
-        $this->config['id']            = $this->safeId($this->config['id']);
-        $this->config['variant']       = $variant;
-        $this->config['effect']        = $swiperEffect;
-        $this->config['autoplay']      = (bool) $this->config['autoplay'];
+        $this->config['id'] = $this->safeId($this->config['id']);
+        $this->config['variant'] = $variant;
+        $this->config['effect'] = $swiperEffect;
+        $this->config['autoplay'] = (bool) $this->config['autoplay'];
         $this->config['autoplayDelay'] = $delay;
-        $this->config['loop']          = (bool) $this->config['loop'];
-        $this->config['height']        = $height;
-        $this->config['wrapClass']     = is_scalar($this->config['wrapClass']) ? trim((string) $this->config['wrapClass']) : '';
-        $this->config['dark']          = $isDark;
-        $this->config['slides']        = $this->normalizeSlides((array) $this->config['slides'], $variant);
+        $this->config['loop'] = (bool) $this->config['loop'];
+        $this->config['height'] = $height;
+        $this->config['wrapClass'] = is_scalar($this->config['wrapClass']) ? trim((string) $this->config['wrapClass']) : '';
+        $this->config['dark'] = $isDark;
+        $this->config['slides'] = $this->normalizeSlides((array) $this->config['slides'], $variant);
     }
 
     /**
@@ -316,39 +316,39 @@ class Carousel extends Component
     public function swiperOptions(): array
     {
         $options = [
-            'effect'         => $this->effect(),
-            'loop'           => $this->isLoop(),
-            'allowTouchMove' => !$this->isNoTouch(),
-            'grabCursor'     => !$this->isNoTouch(),
-            'speed'          => $this->transitionSpeed(),
-            'observer'       => true,
+            'effect' => $this->effect(),
+            'loop' => $this->isLoop(),
+            'allowTouchMove' => ! $this->isNoTouch(),
+            'grabCursor' => ! $this->isNoTouch(),
+            'speed' => $this->transitionSpeed(),
+            'observer' => true,
             'observeParents' => true,
         ];
 
         if ($this->hasAutoplay()) {
             $options['autoplay'] = [
-                'delay'                => $this->autoplayDelay(),
+                'delay' => $this->autoplayDelay(),
                 'disableOnInteraction' => false,
-                'pauseOnMouseEnter'    => true,
+                'pauseOnMouseEnter' => true,
             ];
         }
 
         match ($this->effect()) {
             'coverflow' => $options += [
-                'centeredSlides'  => true,
-                'slidesPerView'   => 'auto',
+                'centeredSlides' => true,
+                'slidesPerView' => 'auto',
                 'coverflowEffect' => [
-                    'rotate'       => 40,
-                    'stretch'      => 0,
-                    'depth'        => 120,
-                    'modifier'     => 1,
+                    'rotate' => 40,
+                    'stretch' => 0,
+                    'depth' => 120,
+                    'modifier' => 1,
                     'slideShadows' => true,
                 ],
             ],
             'cards' => $options += [
                 'centeredSlides' => true,
-                'slidesPerView'  => 'auto',
-                'cardsEffect'    => [
+                'slidesPerView' => 'auto',
+                'cardsEffect' => [
                     'slideShadows' => true,
                     'perSlideOffset' => 8,
                     'perSlideRotate' => 2,
@@ -356,7 +356,7 @@ class Carousel extends Component
             ],
             'creative' => $options += [
                 'centeredSlides' => true,
-                'slidesPerView'  => 1,
+                'slidesPerView' => 1,
                 'creativeEffect' => [
                     'prev' => ['shadow' => true, 'translate' => ['-120%', 0, -500]],
                     'next' => ['translate' => ['120%', 0, 0]],
@@ -379,9 +379,9 @@ class Carousel extends Component
     public function toArray(): array
     {
         return [
-            'swiper'        => null,
-            'activeIndex'   => 0,
-            'totalSlides'   => $this->totalSlides(),
+            'swiper' => null,
+            'activeIndex' => 0,
+            'totalSlides' => $this->totalSlides(),
             'swiperOptions' => $this->swiperOptions(),
         ];
     }
@@ -409,7 +409,7 @@ class Carousel extends Component
      */
     private function sanitizeImageUrl(mixed $src): ?string
     {
-        if (!is_string($src)) {
+        if (! is_string($src)) {
             return null;
         }
 
@@ -435,25 +435,25 @@ class Carousel extends Component
         $normalized = [];
 
         foreach (array_values($slides) as $index => $slide) {
-            $slide        = (array) $slide;
-            $safeImg      = $this->sanitizeImageUrl($slide['img'] ?? null);
+            $slide = (array) $slide;
+            $safeImg = $this->sanitizeImageUrl($slide['img'] ?? null);
             $captionTitle = isset($slide['caption_title']) && is_scalar($slide['caption_title']) && (string) $slide['caption_title'] !== ''
                 ? (string) $slide['caption_title']
                 : null;
-            $captionText  = isset($slide['caption_text']) && is_scalar($slide['caption_text']) && (string) $slide['caption_text'] !== ''
+            $captionText = isset($slide['caption_text']) && is_scalar($slide['caption_text']) && (string) $slide['caption_text'] !== ''
                 ? (string) $slide['caption_text']
                 : null;
-            $interval     = ($variant === 'individual-interval' && isset($slide['interval']) && is_numeric($slide['interval']))
+            $interval = ($variant === 'individual-interval' && isset($slide['interval']) && is_numeric($slide['interval']))
                 ? max(0, (int) $slide['interval'])
                 : null;
 
             $normalized[] = [
-                'img'           => $safeImg,
-                'alt'           => isset($slide['alt']) && is_scalar($slide['alt']) ? (string) $slide['alt'] : '',
+                'img' => $safeImg,
+                'alt' => isset($slide['alt']) && is_scalar($slide['alt']) ? (string) $slide['alt'] : '',
                 'caption_title' => $captionTitle,
-                'caption_text'  => $captionText,
-                'has_caption'   => $captionTitle !== null || $captionText !== null,
-                'interval'      => $interval,
+                'caption_text' => $captionText,
+                'has_caption' => $captionTitle !== null || $captionText !== null,
+                'interval' => $interval,
                 'placeholderBg' => self::PLACEHOLDER_BACKGROUNDS[$index % count(self::PLACEHOLDER_BACKGROUNDS)],
             ];
         }

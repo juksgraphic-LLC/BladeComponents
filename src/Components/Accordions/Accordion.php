@@ -37,11 +37,11 @@ class Accordion extends Component
      * @var array<string, mixed>
      */
     protected array $defaults = [
-        'id'       => null,
-        'type'     => 'default',
-        'color'    => 'primary',
+        'id' => null,
+        'type' => 'default',
+        'color' => 'primary',
         'multiple' => false,
-        'items'    => [],
+        'items' => [],
     ];
 
     /**
@@ -55,11 +55,11 @@ class Accordion extends Component
 
         $type = (string) $this->config['type'];
 
-        $this->config['type']     = in_array($type, self::TYPES, true) ? $type : 'default';
-        $this->config['color']    = $this->validColor($this->config['color']) ?? 'primary';
+        $this->config['type'] = in_array($type, self::TYPES, true) ? $type : 'default';
+        $this->config['color'] = $this->validColor($this->config['color']) ?? 'primary';
         $this->config['multiple'] = (bool) $this->config['multiple'] || $this->config['type'] === 'always-open';
-        $this->config['id']       = $this->safeId($this->config['id']);
-        $this->config['items']    = $this->normalizeItems((array) $this->config['items']);
+        $this->config['id'] = $this->safeId($this->config['id']);
+        $this->config['items'] = $this->normalizeItems((array) $this->config['items']);
     }
 
     /**
@@ -173,7 +173,7 @@ class Accordion extends Component
         $open = [];
 
         foreach ($this->config['items'] as $index => $item) {
-            if ($item['expanded'] && !$item['disabled']) {
+            if ($item['expanded'] && ! $item['disabled']) {
                 $open[] = $index;
             }
         }
@@ -207,7 +207,7 @@ class Accordion extends Component
     public function toArray(): array
     {
         return [
-            'id'       => $this->config['id'],
+            'id' => $this->config['id'],
             'multiple' => $this->config['multiple'],
             'expanded' => $this->expanded(),
             'disabled' => $this->disabled(),
@@ -255,13 +255,13 @@ class Accordion extends Component
             $item = (array) $item;
 
             $normalized[] = [
-                'title'    => (string) ($item['title'] ?? 'Item ' . ($index + 1)),
-                'content'  => (string) ($item['content'] ?? ''),
-                'icon'     => $item['icon'] ?? null,
+                'title' => (string) ($item['title'] ?? 'Item ' . ($index + 1)),
+                'content' => (string) ($item['content'] ?? ''),
+                'icon' => $item['icon'] ?? null,
                 'disabled' => (bool) ($item['disabled'] ?? false),
                 'expanded' => (bool) ($item['expanded'] ?? false),
-                'color'    => $this->validColor($item['color'] ?? null),
-                'nested'   => is_array($item['nested'] ?? null) ? array_values($item['nested']) : [],
+                'color' => $this->validColor($item['color'] ?? null),
+                'nested' => is_array($item['nested'] ?? null) ? array_values($item['nested']) : [],
             ];
         }
 

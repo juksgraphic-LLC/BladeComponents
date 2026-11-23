@@ -17,11 +17,11 @@ class Card extends Component
      * @var array<string, mixed>
      */
     protected array $defaults = [
-        'title'     => null,
-        'subtitle'  => null,
+        'title' => null,
+        'subtitle' => null,
         'noPadding' => false,
-        'class'     => '',
-        'body'      => '',
+        'class' => '',
+        'body' => '',
     ];
 
     /**
@@ -33,11 +33,11 @@ class Card extends Component
     {
         parent::__construct($config);
 
-        $this->config['title']     = $this->sanitizeNullableString($this->config['title']);
-        $this->config['subtitle']  = $this->sanitizeNullableString($this->config['subtitle']);
+        $this->config['title'] = $this->sanitizeNullableString($this->config['title']);
+        $this->config['subtitle'] = $this->sanitizeNullableString($this->config['subtitle']);
         $this->config['noPadding'] = (bool) $this->config['noPadding'];
-        $this->config['class']     = is_scalar($this->config['class']) ? trim((string) $this->config['class']) : '';
-        $this->config['body']      = is_scalar($this->config['body']) ? (string) $this->config['body'] : '';
+        $this->config['class'] = is_scalar($this->config['class']) ? trim((string) $this->config['class']) : '';
+        $this->config['body'] = is_scalar($this->config['body']) ? (string) $this->config['body'] : '';
     }
 
     /**
@@ -133,7 +133,7 @@ class Card extends Component
      */
     private function sanitizeNullableString(mixed $value): ?string
     {
-        if (!is_scalar($value)) {
+        if (! is_scalar($value)) {
             return null;
         }
 

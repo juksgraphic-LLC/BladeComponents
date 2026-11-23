@@ -123,7 +123,7 @@ class Breadcrumb extends Component
      */
     private function sanitizeUrl(mixed $url): string
     {
-        if (!is_string($url)) {
+        if (! is_string($url)) {
             return '#';
         }
 
@@ -146,17 +146,17 @@ class Breadcrumb extends Component
     private function normalizeItems(array $items): array
     {
         $reindexed = array_values($items);
-        $count     = count($reindexed);
-        $result    = [];
+        $count = count($reindexed);
+        $result = [];
 
         foreach ($reindexed as $index => $item) {
-            $row    = (array) $item;
+            $row = (array) $item;
             $isLast = $index === ($count - 1);
 
             $result[] = [
-                'label'   => isset($row['label']) && is_scalar($row['label']) ? (string) $row['label'] : '',
-                'url'     => $this->sanitizeUrl($row['url'] ?? null),
-                'icon'    => isset($row['icon']) && is_scalar($row['icon']) && (string) $row['icon'] !== ''
+                'label' => isset($row['label']) && is_scalar($row['label']) ? (string) $row['label'] : '',
+                'url' => $this->sanitizeUrl($row['url'] ?? null),
+                'icon' => isset($row['icon']) && is_scalar($row['icon']) && (string) $row['icon'] !== ''
                     ? (string) $row['icon']
                     : null,
                 'is_last' => $isLast,

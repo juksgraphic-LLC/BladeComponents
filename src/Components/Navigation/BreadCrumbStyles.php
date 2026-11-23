@@ -35,7 +35,7 @@ class BreadcrumbStyles
     {
         $base = match ($this->breadcrumb->style()) {
             'background' => 'rounded-radius bg-surface-alt dark:bg-surface-dark-alt px-4 py-2.5 text-xs font-medium text-on-surface dark:text-on-surface-dark',
-            default      => 'text-xs font-medium text-on-surface dark:text-on-surface-dark',
+            default => 'text-xs font-medium text-on-surface dark:text-on-surface-dark',
         };
 
         $classes = $base;

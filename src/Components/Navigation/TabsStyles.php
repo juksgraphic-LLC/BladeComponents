@@ -30,7 +30,7 @@ class TabsStyles
      */
     public function __construct(Tabs $tabs)
     {
-        $this->tabs  = $tabs;
+        $this->tabs = $tabs;
         $this->color = $tabs->color();
     }
 
@@ -41,7 +41,7 @@ class TabsStyles
      */
     public function root(): string
     {
-        $layout  = $this->tabs->isVertical() ? 'flex gap-4' : 'flex flex-col';
+        $layout = $this->tabs->isVertical() ? 'flex gap-4' : 'flex flex-col';
         $classes = $layout;
 
         if ($this->tabs->tabClass() !== '') {
@@ -68,14 +68,14 @@ class TabsStyles
 
         return match ($this->tabs->variant()) {
             'pills', 'custom', 'colored', 'outline' => 'flex flex-wrap gap-1',
-            'pills-justified'                      => 'flex w-full gap-1',
-            'card-header'                          => 'flex flex-wrap border-b border-outline dark:border-outline-dark',
-            'card-footer'                          => 'flex flex-wrap border-t border-outline dark:border-outline-dark',
-            'custom-tabs'                          => "flex flex-wrap gap-x-1 border-b border-{$c}",
-            'animation'                            => 'flex flex-wrap border-b border-outline dark:border-outline-dark gap-x-2',
-            'border-top', 'border-top-justified'   => 'flex flex-wrap',
-            'custom-hover'                         => 'flex flex-wrap border-b border-outline dark:border-outline-dark',
-            default                                => 'flex flex-wrap border-b border-outline dark:border-outline-dark',
+            'pills-justified' => 'flex w-full gap-1',
+            'card-header' => 'flex flex-wrap border-b border-outline dark:border-outline-dark',
+            'card-footer' => 'flex flex-wrap border-t border-outline dark:border-outline-dark',
+            'custom-tabs' => "flex flex-wrap gap-x-1 border-b border-{$c}",
+            'animation' => 'flex flex-wrap border-b border-outline dark:border-outline-dark gap-x-2',
+            'border-top', 'border-top-justified' => 'flex flex-wrap',
+            'custom-hover' => 'flex flex-wrap border-b border-outline dark:border-outline-dark',
+            default => 'flex flex-wrap border-b border-outline dark:border-outline-dark',
         };
     }
 
@@ -89,10 +89,10 @@ class TabsStyles
      */
     public function button(bool $isActive, bool $isDisabled): string
     {
-        $base     = 'inline-flex items-center gap-1.5 text-sm font-medium font-paragraph transition-all duration-200 focus:outline-none ';
+        $base = 'inline-flex items-center gap-1.5 text-sm font-medium font-paragraph transition-all duration-200 focus:outline-none ';
         $disabled = $isDisabled ? 'opacity-40 pointer-events-none cursor-not-allowed ' : '';
-        $shape    = $this->shapeClasses();
-        $state    = $isActive ? $this->activeClasses() : $this->inactiveClasses();
+        $shape = $this->shapeClasses();
+        $state = $isActive ? $this->activeClasses() : $this->inactiveClasses();
 
         return trim($base . $shape . $disabled . $state);
     }
@@ -175,24 +175,24 @@ class TabsStyles
     private function shapeClasses(): string
     {
         return match ($this->tabs->variant()) {
-            'justified'            => 'px-4 py-2.5 border-b-2 flex-1 justify-center ',
-            'pills'                => 'px-4 py-1.5 rounded-full ',
-            'pills-justified'      => 'px-4 py-1.5 rounded-full flex-1 justify-center ',
-            'vertical'             => 'px-4 py-2.5 rounded-radius w-full justify-start ',
-            'card-header'          => 'px-4 py-2.5 border-b-2 ',
-            'card-footer'          => 'px-4 py-2.5 border-t-2 ',
-            'arrow'                => 'px-4 py-2.5 rounded-radius ',
-            'custom-tabs'          => 'px-4 py-2.5 border-2 rounded-t-radius ',
-            'custom-hover'         => 'px-5 py-3 border-b-2 ',
-            'custom-vertical'      => 'px-4 py-3 border-l-4 w-full justify-start ',
-            'animation'            => 'px-4 py-2.5 relative ',
-            'border-top'           => 'px-4 py-2.5 border-t-2 ',
+            'justified' => 'px-4 py-2.5 border-b-2 flex-1 justify-center ',
+            'pills' => 'px-4 py-1.5 rounded-full ',
+            'pills-justified' => 'px-4 py-1.5 rounded-full flex-1 justify-center ',
+            'vertical' => 'px-4 py-2.5 rounded-radius w-full justify-start ',
+            'card-header' => 'px-4 py-2.5 border-b-2 ',
+            'card-footer' => 'px-4 py-2.5 border-t-2 ',
+            'arrow' => 'px-4 py-2.5 rounded-radius ',
+            'custom-tabs' => 'px-4 py-2.5 border-2 rounded-t-radius ',
+            'custom-hover' => 'px-5 py-3 border-b-2 ',
+            'custom-vertical' => 'px-4 py-3 border-l-4 w-full justify-start ',
+            'animation' => 'px-4 py-2.5 relative ',
+            'border-top' => 'px-4 py-2.5 border-t-2 ',
             'border-top-justified' => 'px-4 py-2.5 border-t-2 flex-1 justify-center ',
-            'outline'              => 'px-4 py-1.5 rounded-full border ',
-            'custom'               => 'px-4 py-1.5 rounded-full ',
-            'colored'              => 'px-4 py-1.5 rounded-full ',
-            'light'                => 'px-4 py-2.5 border-b-2 ',
-            default                => 'px-4 py-2.5 border-b-2 ',
+            'outline' => 'px-4 py-1.5 rounded-full border ',
+            'custom' => 'px-4 py-1.5 rounded-full ',
+            'colored' => 'px-4 py-1.5 rounded-full ',
+            'light' => 'px-4 py-2.5 border-b-2 ',
+            default => 'px-4 py-2.5 border-b-2 ',
         };
     }
 
@@ -207,14 +207,14 @@ class TabsStyles
 
         return match ($this->tabs->variant()) {
             'default', 'justified', 'card-footer', 'border-top', 'border-top-justified' => "border-{$c} text-{$c}",
-            'pills', 'pills-justified', 'vertical', 'arrow', 'colored'                  => "bg-{$c} text-on-{$c}",
-            'card-header'                                                                 => "border-{$c} text-{$c} bg-surface dark:bg-surface-dark -mb-px",
-            'custom-tabs'                                                                 => "border-{$c} border-b-surface dark:border-b-surface-dark text-{$c} bg-surface dark:bg-surface-dark",
-            'custom-hover', 'custom-vertical', 'outline'                                  => "border-{$c} text-{$c} bg-{$c}/5",
-            'animation'                                                                   => "text-{$c}",
-            'custom'                                                                      => "bg-{$c} text-on-{$c} shadow-md shadow-{$c}/30",
-            'light'                                                                       => "border-{$c}/40 text-{$c}/80",
-            default                                                                       => "border-{$c} text-{$c}",
+            'pills', 'pills-justified', 'vertical', 'arrow', 'colored' => "bg-{$c} text-on-{$c}",
+            'card-header' => "border-{$c} text-{$c} bg-surface dark:bg-surface-dark -mb-px",
+            'custom-tabs' => "border-{$c} border-b-surface dark:border-b-surface-dark text-{$c} bg-surface dark:bg-surface-dark",
+            'custom-hover', 'custom-vertical', 'outline' => "border-{$c} text-{$c} bg-{$c}/5",
+            'animation' => "text-{$c}",
+            'custom' => "bg-{$c} text-on-{$c} shadow-md shadow-{$c}/30",
+            'light' => "border-{$c}/40 text-{$c}/80",
+            default => "border-{$c} text-{$c}",
         };
     }
 

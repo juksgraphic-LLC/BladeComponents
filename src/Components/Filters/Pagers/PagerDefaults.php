@@ -12,19 +12,19 @@ final class PagerDefaults
     /** Default values by name. */
     public const ITEMS = [
         'PER_PAGE_OPTIONS' => [10, 25, 50],
-        'SIBLINGS'         => 2,
-        'SUMMARY'          => true,
-        'PER_PAGE'         => true,
-        'PAGES'            => true,
+        'SIBLINGS' => 2,
+        'SUMMARY' => true,
+        'PER_PAGE' => true,
+        'PAGES' => true,
     ];
 
     /** Default texts by key. {name} marks a placeholder. */
     public const TEXTS = [
-        'summary'  => 'Affichage de {from} à {to} sur {total} résultats',
+        'summary' => 'Affichage de {from} à {to} sur {total} résultats',
         'per_page' => 'Lignes par page :',
-        'nav'      => 'Pagination',
+        'nav' => 'Pagination',
         'previous' => 'Précédent',
-        'next'     => 'Suivant',
-        'page'     => 'Page {page}',
+        'next' => 'Suivant',
+        'page' => 'Page {page}',
     ];
 }

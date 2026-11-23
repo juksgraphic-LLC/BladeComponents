@@ -40,13 +40,13 @@ class ThemeSwitch extends Component
      * @var array<string, mixed>
      */
     protected array $defaults = [
-        'id'          => null,
-        'size'        => 'md',
+        'id' => null,
+        'size' => 'md',
         'initialDark' => false,
-        'storageKey'  => null,
-        'label'       => 'Toggle dark mode',
-        'class'       => '',
-        'attrs'       => '',
+        'storageKey' => null,
+        'label' => 'Toggle dark mode',
+        'class' => '',
+        'attrs' => '',
     ];
 
     /**
@@ -62,15 +62,15 @@ class ThemeSwitch extends Component
             ? $this->config['size']
             : 'md';
 
-        $this->config['id']          = $this->sanitizeId($this->config['id']);
-        $this->config['size']        = $size;
+        $this->config['id'] = $this->sanitizeId($this->config['id']);
+        $this->config['size'] = $size;
         $this->config['initialDark'] = (bool) $this->config['initialDark'];
-        $this->config['storageKey']  = $this->sanitizeStorageKey($this->config['storageKey']);
-        $this->config['label']       = is_scalar($this->config['label']) && (string) $this->config['label'] !== ''
+        $this->config['storageKey'] = $this->sanitizeStorageKey($this->config['storageKey']);
+        $this->config['label'] = is_scalar($this->config['label']) && (string) $this->config['label'] !== ''
             ? (string) $this->config['label']
             : 'Toggle dark mode';
-        $this->config['class']       = is_scalar($this->config['class']) ? trim((string) $this->config['class']) : '';
-        $this->config['attrs']       = is_scalar($this->config['attrs']) ? trim((string) $this->config['attrs']) : '';
+        $this->config['class'] = is_scalar($this->config['class']) ? trim((string) $this->config['class']) : '';
+        $this->config['attrs'] = is_scalar($this->config['attrs']) ? trim((string) $this->config['attrs']) : '';
     }
 
     /**
@@ -151,9 +151,9 @@ class ThemeSwitch extends Component
     public function toArray(): array
     {
         return [
-            'isDark'     => $this->initialDark(),
+            'isDark' => $this->initialDark(),
             'storageKey' => $this->storageKey(),
-            'ready'      => false,
+            'ready' => false,
         ];
     }
 
@@ -166,7 +166,7 @@ class ThemeSwitch extends Component
      */
     private function sanitizeId(mixed $id): ?string
     {
-        if (!is_scalar($id)) {
+        if (! is_scalar($id)) {
             return null;
         }
 
@@ -184,7 +184,7 @@ class ThemeSwitch extends Component
      */
     private function sanitizeStorageKey(mixed $key): ?string
     {
-        if (!is_string($key)) {
+        if (! is_string($key)) {
             return null;
         }
 

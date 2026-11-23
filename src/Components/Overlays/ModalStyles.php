@@ -15,10 +15,10 @@ class ModalStyles
      * @var array<string, string>
      */
     private const SIZE_MAP = [
-        'sm'         => 'max-w-sm',
-        'md'         => 'max-w-lg',
-        'lg'         => 'max-w-2xl',
-        'xl'         => 'max-w-4xl',
+        'sm' => 'max-w-sm',
+        'md' => 'max-w-lg',
+        'lg' => 'max-w-2xl',
+        'xl' => 'max-w-4xl',
         'fullscreen' => 'max-w-full m-4 w-full h-[calc(100vh-2rem)]',
     ];
 
@@ -28,13 +28,13 @@ class ModalStyles
      * @var array<string, string>
      */
     private const POSITION_MAP = [
-        'center'        => 'items-center justify-center p-4 sm:p-6',
-        'center-top'    => 'items-start justify-center pt-8 sm:pt-12 px-4 sm:px-6',
+        'center' => 'items-center justify-center p-4 sm:p-6',
+        'center-top' => 'items-start justify-center pt-8 sm:pt-12 px-4 sm:px-6',
         'center-bottom' => 'items-end justify-center pb-8 sm:pb-12 px-4 sm:px-6',
-        'left-top'      => 'items-start justify-start pt-6 sm:pt-8 pl-4 sm:pl-8 pr-4',
-        'right-top'     => 'items-start justify-end pt-6 sm:pt-8 pr-4 sm:pr-8 pl-4',
-        'left-bottom'   => 'items-end justify-start pb-6 sm:pb-8 pl-4 sm:pl-8 pr-4',
-        'right-bottom'  => 'items-end justify-end pb-6 sm:pb-8 pr-4 sm:pr-8 pl-4',
+        'left-top' => 'items-start justify-start pt-6 sm:pt-8 pl-4 sm:pl-8 pr-4',
+        'right-top' => 'items-start justify-end pt-6 sm:pt-8 pr-4 sm:pr-8 pl-4',
+        'left-bottom' => 'items-end justify-start pb-6 sm:pb-8 pl-4 sm:pl-8 pr-4',
+        'right-bottom' => 'items-end justify-end pb-6 sm:pb-8 pr-4 sm:pr-8 pl-4',
     ];
 
     /**
@@ -73,11 +73,11 @@ class ModalStyles
      */
     public function dialog(): string
     {
-        $sizeKey  = $this->modal->size() ?? 'md';
-        $sizeCls  = self::SIZE_MAP[$sizeKey] ?? self::SIZE_MAP['md'];
-        $scroll   = $this->modal->isScrollable() ? ' flex flex-col max-h-[calc(100vh-2rem)]' : '';
-        $extra    = $this->modal->extraClass() !== '' ? ' ' . $this->modal->extraClass() : '';
-        $classes  = "relative w-full {$sizeCls} bg-surface dark:bg-surface-dark rounded-radius shadow-2xl border border-outline dark:border-outline-dark overflow-hidden{$scroll}{$extra}";
+        $sizeKey = $this->modal->size() ?? 'md';
+        $sizeCls = self::SIZE_MAP[$sizeKey] ?? self::SIZE_MAP['md'];
+        $scroll = $this->modal->isScrollable() ? ' flex flex-col max-h-[calc(100vh-2rem)]' : '';
+        $extra = $this->modal->extraClass() !== '' ? ' ' . $this->modal->extraClass() : '';
+        $classes = "relative w-full {$sizeCls} bg-surface dark:bg-surface-dark rounded-radius shadow-2xl border border-outline dark:border-outline-dark overflow-hidden{$scroll}{$extra}";
 
         $normalized = preg_replace('/\s+/', ' ', trim($classes));
 

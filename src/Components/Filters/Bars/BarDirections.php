@@ -11,7 +11,7 @@ final class BarDirections
 {
     /** Directions by name. */
     public const ITEMS = [
-        'ASC'  => 'asc',
+        'ASC' => 'asc',
         'DESC' => 'desc',
     ];
 }

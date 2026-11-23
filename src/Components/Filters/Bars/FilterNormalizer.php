@@ -4,17 +4,13 @@ declare(strict_types=1);
 
 namespace Juksgraphic\BladeComponents\Components\Filters\Bars;
 
-
 use InvalidArgumentException;
-use Juksgraphic\BladeComponents\Components\Filters\Bars\BarErrors;
-use Juksgraphic\BladeComponents\Components\Filters\Bars\BarTypes;
 
 /**
  * Normalizes filter definitions.
  */
 final class FilterNormalizer
 {
-
     /**
      * Allowed filter key pattern.
      * @var string
@@ -45,8 +41,6 @@ final class FilterNormalizer
         return array_values($filters);
     }
 
-
-
     /**
      * Normalizes one filter definition.
      *
@@ -58,11 +52,11 @@ final class FilterNormalizer
         $key = $raw['key'] ?? '';
         $type = $raw['type'] ?? BarTypes::ITEMS['SELECT'];
 
-        if (!is_string($key) || !preg_match(self::KEY_PATTERN, $key)) {
+        if (! is_string($key) || ! preg_match(self::KEY_PATTERN, $key)) {
             throw new InvalidArgumentException(BarErrors::ITEMS['FILTER_KEY_INVALID']);
         }
 
-        if (!in_array($type, BarTypes::ITEMS, true)) {
+        if (! in_array($type, BarTypes::ITEMS, true)) {
             throw new InvalidArgumentException(BarErrors::ITEMS['FILTER_TYPE_INVALID']);
         }
 
@@ -75,7 +69,6 @@ final class FilterNormalizer
         ];
     }
 
-
     /**
      * Accepts a map or pair list.
      *
@@ -84,7 +77,7 @@ final class FilterNormalizer
      */
     private static function normalizeOptions($options): array
     {
-        if (!is_array($options)) {
+        if (! is_array($options)) {
             throw new InvalidArgumentException(BarErrors::ITEMS['OPTIONS_INVALID']);
         }
 
@@ -99,8 +92,6 @@ final class FilterNormalizer
         return $normalized;
     }
 
-     
-
     /**
      * Normalizes one value/label pair.
      *
@@ -109,7 +100,7 @@ final class FilterNormalizer
      */
     private static function normalizeOption(array $option): array
     {
-        if (!array_key_exists('value', $option)) {
+        if (! array_key_exists('value', $option)) {
             throw new InvalidArgumentException(BarErrors::ITEMS['OPTIONS_INVALID']);
         }
 

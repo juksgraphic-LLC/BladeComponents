@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Juksgraphic\BladeComponents\Components\Filters\Pagers;
 
-
 use InvalidArgumentException;
 use Juksgraphic\BladeComponents\Components\Filters\Bars\BarCommands;
 use Juksgraphic\BladeComponents\Components\Filters\Bars\BarEvents;
@@ -47,14 +46,14 @@ final class Pager
      */
     public function __construct(array $props)
     {
-        $this->bar            = PagerNormalizer::bar($props['bar'] ?? null);
-        $this->id             = PagerNormalizer::id($props['id'] ?? null);
+        $this->bar = PagerNormalizer::bar($props['bar'] ?? null);
+        $this->id = PagerNormalizer::id($props['id'] ?? null);
         $this->perPageOptions = PagerNormalizer::perPageOptions($props['perPageOptions'] ?? null);
-        $this->siblings       = PagerNormalizer::siblings($props['siblings'] ?? null);
-        $this->summary        = PagerNormalizer::part($props['summary'] ?? null, PagerDefaults::ITEMS['SUMMARY']);
-        $this->perPage        = PagerNormalizer::part($props['perPage'] ?? null, PagerDefaults::ITEMS['PER_PAGE']);
-        $this->pages          = PagerNormalizer::part($props['pages']   ?? null, PagerDefaults::ITEMS['PAGES']);
-        $this->texts          = PagerNormalizer::texts($props['texts']  ?? null);
+        $this->siblings = PagerNormalizer::siblings($props['siblings'] ?? null);
+        $this->summary = PagerNormalizer::part($props['summary'] ?? null, PagerDefaults::ITEMS['SUMMARY']);
+        $this->perPage = PagerNormalizer::part($props['perPage'] ?? null, PagerDefaults::ITEMS['PER_PAGE']);
+        $this->pages = PagerNormalizer::part($props['pages'] ?? null, PagerDefaults::ITEMS['PAGES']);
+        $this->texts = PagerNormalizer::texts($props['texts'] ?? null);
     }
 
     /**

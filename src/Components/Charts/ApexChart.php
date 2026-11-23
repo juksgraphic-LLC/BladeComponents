@@ -17,12 +17,12 @@ class ApexChart extends Component
      * @var array<string, mixed>
      */
     protected array $defaults = [
-        'title'         => 'Chart',
-        'subtitle'      => null,
-        'chartId'       => null,
-        'options'       => [],
+        'title' => 'Chart',
+        'subtitle' => null,
+        'chartId' => null,
+        'options' => [],
         'mergeDefaults' => true,
-        'wrapClass'     => '',
+        'wrapClass' => '',
     ];
 
     /**
@@ -32,33 +32,33 @@ class ApexChart extends Component
      */
     public const CHART_DEFAULTS = [
         'chart' => [
-            'width'      => '100%',
+            'width' => '100%',
             'background' => 'transparent',
-            'foreColor'  => '#adb5bd',
-            'toolbar'    => ['show' => false],
-            'zoom'       => ['enabled' => false],
+            'foreColor' => '#adb5bd',
+            'toolbar' => ['show' => false],
+            'zoom' => ['enabled' => false],
             'fontFamily' => 'inherit',
             'animations' => ['enabled' => true, 'easing' => 'easeinout', 'speed' => 600],
         ],
-        'theme'      => ['mode' => 'dark'],
-        'colors'     => ['#7367F0', '#28C76F', '#FF9F43', '#00CFE8', '#EA5455', '#9B59B6'],
-        'grid'       => ['borderColor' => 'rgba(255,255,255,0.06)', 'strokeDashArray' => 4],
-        'tooltip'    => ['theme' => 'dark', 'style' => ['fontSize' => '12px']],
-        'legend'     => [
-            'position'        => 'top',
+        'theme' => ['mode' => 'dark'],
+        'colors' => ['#7367F0', '#28C76F', '#FF9F43', '#00CFE8', '#EA5455', '#9B59B6'],
+        'grid' => ['borderColor' => 'rgba(255,255,255,0.06)', 'strokeDashArray' => 4],
+        'tooltip' => ['theme' => 'dark', 'style' => ['fontSize' => '12px']],
+        'legend' => [
+            'position' => 'top',
             'horizontalAlign' => 'left',
-            'labels'          => ['colors' => '#adb5bd'],
-            'markers'         => ['width' => 20, 'height' => 6, 'radius' => 3],
-            'itemMargin'      => ['horizontal' => 10],
+            'labels' => ['colors' => '#adb5bd'],
+            'markers' => ['width' => 20, 'height' => 6, 'radius' => 3],
+            'itemMargin' => ['horizontal' => 10],
         ],
-        'xaxis'      => [
+        'xaxis' => [
             'axisBorder' => ['show' => false],
-            'axisTicks'  => ['show' => false],
-            'labels'     => ['style' => ['colors' => '#adb5bd']],
+            'axisTicks' => ['show' => false],
+            'labels' => ['style' => ['colors' => '#adb5bd']],
         ],
-        'yaxis'      => ['labels' => ['style' => ['colors' => '#adb5bd']]],
+        'yaxis' => ['labels' => ['style' => ['colors' => '#adb5bd']]],
         'dataLabels' => ['enabled' => false],
-        'stroke'     => ['curve' => 'smooth', 'width' => 2],
+        'stroke' => ['curve' => 'smooth', 'width' => 2],
     ];
 
     /**
@@ -70,15 +70,15 @@ class ApexChart extends Component
     {
         parent::__construct($config);
 
-        $title    = is_scalar($this->config['title'])    ? (string) $this->config['title'] : 'Chart';
+        $title = is_scalar($this->config['title']) ? (string) $this->config['title'] : 'Chart';
         $subtitle = is_scalar($this->config['subtitle']) ? (string) $this->config['subtitle'] : null;
 
-        $this->config['title']         = $title !== '' ? $title : 'Chart';
-        $this->config['subtitle']      = ($subtitle !== null && $subtitle !== '') ? $subtitle : null;
-        $this->config['chartId']       = $this->sanitizeChartId($this->config['chartId']);
-        $this->config['options']       = is_array($this->config['options']) ? $this->config['options'] : [];
+        $this->config['title'] = $title !== '' ? $title : 'Chart';
+        $this->config['subtitle'] = ($subtitle !== null && $subtitle !== '') ? $subtitle : null;
+        $this->config['chartId'] = $this->sanitizeChartId($this->config['chartId']);
+        $this->config['options'] = is_array($this->config['options']) ? $this->config['options'] : [];
         $this->config['mergeDefaults'] = (bool) $this->config['mergeDefaults'];
-        $this->config['wrapClass']     = is_scalar($this->config['wrapClass']) ? trim((string) $this->config['wrapClass']) : '';
+        $this->config['wrapClass'] = is_scalar($this->config['wrapClass']) ? trim((string) $this->config['wrapClass']) : '';
     }
 
     /**
