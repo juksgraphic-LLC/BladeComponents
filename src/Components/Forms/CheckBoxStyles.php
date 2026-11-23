@@ -10,18 +10,18 @@ namespace Juksgraphic\BladeComponents\Components\Forms;
 class CheckBoxStyles
 {
     /**
-     * Checkbox instance providing state and options.
+     * CheckBox instance providing state and options.
      *
-     * @var Checkbox
+     * @var CheckBox
      */
-    private Checkbox $checkbox;
+    private CheckBox $checkbox;
 
     /**
      * Create the styles helper.
      *
-     * @param Checkbox $checkbox Checkbox instance to style.
+     * @param CheckBox $checkbox CheckBox instance to style.
      */
-    public function __construct(Checkbox $checkbox)
+    public function __construct(CheckBox $checkbox)
     {
         $this->checkbox = $checkbox;
     }
