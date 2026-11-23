@@ -1,103 +1,103 @@
 @php
-    /**
-     * Custom Radio Group Component with Hidden Input & Alpine Logic — Juksgraphic / Penguin UI
-     */
+    use Juksgraphic\BladeComponents\Components\Forms\Radio;
+    use Juksgraphic\BladeComponents\Components\Forms\RadioStyles;
+        
+    $radio = new Radio([
+        'label'       => $label ?? '',
+        'name'        => $name ?? 'radio',
+        'options'     => $options ?? [],
+        'model'       => $model ?? 'formData',
+        'required'    => $required ?? false,
+        'initialData' => $initialData ?? [],
+        'class'       => $class ?? '',
+    ]);
 
-    /** @var string $label */
-    $label = (string) ($label ?? '');
-
-    /** @var string $name */
-    $name = preg_replace('/[^A-Za-z0-9_-]/', '', (string) ($name ?? 'radio'));
-
-    /** @var array<int, array<string, mixed>> $options */
-    $options = is_array($options ?? null) ? $options : [];
-
-    /** @var string $model */
-    $model = (string) ($model ?? 'formData');
-
-    /** @var bool $required */
-    $required = (bool) ($required ?? false);
-
-    /** @var array<string, mixed> $initialData */
-    $initialData = is_array($initialData ?? null) ? $initialData : [];
-
-    $normalizedOptions = array_map(function ($opt) {
-        return [
-            'id' => (string) ($opt['id'] ?? ($opt['value'] ?? '')),
-            'title' => (string) ($opt['title'] ?? ($opt['name'] ?? ($opt['label'] ?? ''))),
-        ];
-    }, $options);
-
-    $currentVal = (string) ($initialData[$name] ?? ($normalizedOptions[0]['id'] ?? ''));
-
-    $jsonOptions = json_encode(
-        $normalizedOptions,
-        JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP | JSON_UNESCAPED_UNICODE,
-    );
-
-    $jsonInitVal = json_encode(
-        $currentVal,
-        JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP | JSON_UNESCAPED_UNICODE,
-    );
+    
+    $styles = new RadioStyles($radio);
 @endphp
 
-<div class="flex flex-col gap-2 col-span-full text-on-surface dark:text-on-surface-dark">
-    @if ($label !== '')
-        <label class="w-fit text-sm font-semibold text-on-surface-strong dark:text-on-surface-dark-strong">
-            {{ $label }}
-            @if ($required)
-                <span class="text-danger dark:text-danger-dark">*</span>
+<!-- Root radio group container -->
+<div class="{{ $styles->wrapper() }}">
+
+    <!-- Optional group label -->
+    @if ($radio->hasLabel())
+        <label class="{{ $styles->label() }}">
+            {{ $radio->label() }}
+            @if ($radio->isRequired())
+                <span class="{{ $styles->requiredMarker() }}">*</span>
             @endif
         </label>
     @endif
 
-    <div x-data="{
-        fieldName: '{{ $name }}',
-        modelPath: '{{ $model }}',
-        options: {{ $jsonOptions }},
-        init() {
-            try {
-                const currentVal = eval(`${this.modelPath}['${this.fieldName}']`);
-                if (currentVal === undefined) {
-                    eval(`${this.modelPath}['${this.fieldName}'] = {{ $jsonInitVal }}`);
+    <!-- Interactive Alpine.js radio options controller -->
+    <div
+        x-data="{
+            fieldName: '{{ $radio->name() }}',
+            modelPath: '{{ $radio->model() }}',
+            options: {{ $radio->encodeJson($radio->options()) }},
+
+            // Initialize selected value on parent model if undefined
+            init() {
+                try {
+                    const currentVal = eval(`${this.modelPath}['${this.fieldName}']`);
+                    if (currentVal === undefined) {
+                        eval(`${this.modelPath}['${this.fieldName}'] = {{ $radio->encodeJson($radio->initialValue()) }}`);
+                    }
+                } catch (e) {}
+            },
+
+            // Read currently selected option ID
+            getValue() {
+                try {
+                    return eval(`${this.modelPath}['${this.fieldName}']`) || '';
+                } catch (e) {
+                    return '';
                 }
-            } catch (e) {}
-        },
-        getValue() {
-            try {
-                return eval(`${this.modelPath}['${this.fieldName}']`) || '';
-            } catch (e) {
-                return '';
+            },
+
+            // Update selected option ID on parent model
+            select(id) {
+                try {
+                    eval(`${this.modelPath}['${this.fieldName}'] = id`);
+                } catch (e) {}
+            },
+
+            // Check whether a given option ID is active
+            isSelected(id) {
+                return this.getValue() === id;
             }
-        },
-        select(id) {
-            try {
-                eval(`${this.modelPath}['${this.fieldName}'] = id`);
-            } catch (e) {}
-        },
-        isSelected(id) {
-            return this.getValue() === id;
-        }
-    }" x-init="init()" class="flex flex-wrap gap-4 pt-1">
+        }"
+        x-init="init()"
+        class="{{ $styles->optionsContainer() }}"
+    >
 
-        {{-- Input hidden unique qui porte la valeur active pour la soumission --}}
-        <input type="hidden" name="{{ $name }}" :value="getValue()">
+        <!-- Hidden input carrying active radio value for form submission -->
+        <input
+            type="hidden"
+            name="{{ $radio->name() }}"
+            :value="getValue()"
+        >
 
-        @foreach ($normalizedOptions as $option)
-            <div @click="select('{{ $option['id'] }}')"
-                class="group inline-flex items-center gap-2.5 cursor-pointer select-none text-sm text-on-surface dark:text-on-surface-dark">
-
-                {{-- Cercle radio custom piloté par Alpine --}}
-                <div :class="isSelected('{{ $option['id'] }}') ? 'border-primary dark:border-primary-dark' :
-                    'border-outline dark:border-outline-dark'"
-                    class="flex h-5 w-5 shrink-0 items-center justify-center rounded-full border bg-surface-alt transition-all duration-150 group-hover:border-primary dark:bg-surface-dark-alt dark:group-hover:border-primary-dark">
-                    <span :class="isSelected('{{ $option['id'] }}') ? 'scale-100 opacity-100' : 'scale-0 opacity-0'"
-                        class="h-2 w-2 rounded-full bg-primary transition-all duration-150 dark:bg-primary-dark"></span>
+        <!-- Custom radio option items -->
+        @foreach ($radio->options() as $option)
+            <div
+                x-on:click="select('{{ $option['id'] }}')"
+                class="{{ $styles->optionItem() }}"
+            >
+                <div
+                    :class="{!! $styles->circleBinding($option['id']) !!}"
+                    class="{{ $styles->circle() }}"
+                >
+                    <span
+                        :class="{!! $styles->dotBinding($option['id']) !!}"
+                        class="{{ $styles->dot() }}"
+                    ></span>
                 </div>
 
-                <span
-                    class="group-hover:text-on-surface-strong dark:group-hover:text-on-surface-dark-strong transition-colors">{{ $option['title'] }}</span>
+                <span class="{{ $styles->optionTitle() }}">{{ $option['title'] }}</span>
             </div>
         @endforeach
+
     </div>
+
 </div>

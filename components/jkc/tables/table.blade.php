@@ -1,5 +1,5 @@
 @use(Juksgraphic\BladeComponents\BladeComponents)
-@use(Juksgraphic\BladeComponents\Table\Table)
+@use(Juksgraphic\BladeComponents\Components\Tables\Table)
 
 @if (BladeComponents::shouldInline('jkc-table'))
     <script>
@@ -64,6 +64,4 @@
     @if ($jkcTable->hasAction('delete') && $jkcTable->getBaseRoute() !== '')
         @include('jkc-internal.tables.delete-modal')
     @endif
-
-
 </div>

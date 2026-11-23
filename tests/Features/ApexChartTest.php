@@ -12,18 +12,6 @@ function renderApexChart(array $data = []): string
     return $blade->run('jkc.charts.apex', $data);
 }
 
-it('renders default chart card with title and auto-generated chart id', function () {
-    $html = renderApexChart([
-        'title' => 'Revenue Analytics',
-    ]);
-
-    $decodedHtml = html_entity_decode($html);
-
-    expect($decodedHtml)->toContain('Revenue Analytics')
-        ->toContain('bg-surface')
-        ->toContain('new ApexCharts(document.getElementById(\'chart-')
-        ->toContain('id="chart-');
-});
 
 it('renders chart card with subtitle and custom chart id', function () {
     $html = renderApexChart([

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use Juksgraphic\BladeComponents\Table\TableLabels;
+use Juksgraphic\BladeComponents\Components\Tables\TableLabels;
 
 it('provides the default labels', function () {
     expect(TableLabels::from(null)->toArray())->toBe([

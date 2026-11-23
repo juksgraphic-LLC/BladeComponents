@@ -1,68 +1,61 @@
 @php
-/**
- * Card component — Juksgraphic / Penguin UI
- *
- * Reusable container card built with Tailwind CSS.
- * Works with Laravel Blade and BladeOne.
- *
- * Slots:
- * - $body       → Main body content (or default $slot)
- * - $footer     → Footer area content
- * - $headerAction → Actions rendered on the right side of the header
- *
- * @param string|null $title     Card title (escaped). Default: null.
- * @param string|null $subtitle  Card subtitle (escaped). Default: null.
- * @param bool        $noPadding Remove padding from the body. Default: false.
- * @param string      $class     Extra CSS classes. Default: ''.
- */
+    use Juksgraphic\BladeComponents\Components\Cards\Card;
+    use Juksgraphic\BladeComponents\Components\Cards\CardStyles;
 
-/** @var string|null $title */
-$title = $title ?? null;
+   
+    $resolvedBody    = $body ?? ($slot ?? '');
+    $hasHeaderAction = isset($headerAction);
+    $footerContent   = $footer ?? null;
 
-/** @var string|null $subtitle */
-$subtitle = $subtitle ?? null;
+    $card = new Card([
+        'title'     => $title     ?? null,
+        'subtitle'  => $subtitle  ?? null,
+        'noPadding' => $noPadding ?? false,
+        'class'     => $class     ?? '',
+        'body'      => $resolvedBody,
+    ]);
 
-/** @var bool $noPadding */
-$noPadding = (bool) ($noPadding ?? false);
-
-/** @var string $class */
-$class = (string) ($class ?? '');
-
-/** @var string $body */
-$body = $body ?? ($slot ?? '');
+    $styles = new CardStyles($card);
 @endphp
 
-{{-- ═══════════════════════════ Template ═══════════════════════════ --}}
-<div class="bg-surface dark:bg-surface-dark rounded-radius border border-outline dark:border-outline-dark overflow-hidden {{ $class }}">
+<!-- Root card container -->
+<div class="{{ $styles->container() }}">
 
-    {{-- Header --}}
-    @if ($title || isset($headerAction))
-        <div class="flex items-center justify-between gap-4 px-6 py-4 border-b border-outline dark:border-outline-dark">
+    <!-- Card header section -->
+    @if ($card->hasHeader($hasHeaderAction))
+        <div class="{{ $styles->header() }}">
+
+            <!-- Title and optional subtitle -->
             <div class="min-w-0">
-                @if ($title)
-                    <h5 class="font-title text-base font-semibold text-on-surface dark:text-on-surface-dark">
-                        {{ $title }}
+                @if ($card->title() !== null)
+                    <h5 class="{{ $styles->title() }}">
+                        {{ $card->title() }}
                     </h5>
                 @endif
-                @if ($subtitle)
-                    <p class="font-paragraph text-sm text-on-surface/60 dark:text-on-surface-dark/60 mt-0.5">
-                        {{ $subtitle }}
+
+                @if ($card->subtitle() !== null)
+                    <p class="{{ $styles->subtitle() }}">
+                        {{ $card->subtitle() }}
                     </p>
                 @endif
             </div>
-            @if (isset($headerAction))
-                <div class="shrink-0">{!! $headerAction !!}</div>
+
+            <!-- Right-aligned header action slot -->
+            @if ($hasHeaderAction)
+                <div class="{{ $styles->headerAction() }}">{!! $headerAction !!}</div>
             @endif
+
         </div>
     @endif
 
-    {{-- Body --}}
-    @if (trim((string) $body) !== '')
-        <div class="{{ $noPadding ? '' : 'px-6 py-4' }}">{!! $body !!}</div>
+    <!-- Card body section -->
+    @if ($card->hasBody())
+        <div class="{{ $styles->body() }}">{!! $card->body() !!}</div>
     @endif
 
-    {{-- Footer --}}
-    @if (isset($footer) && trim((string) $footer) !== '')
-        <div class="px-6 py-4 border-t border-outline dark:border-outline-dark">{!! $footer !!}</div>
+    <!-- Card footer section -->
+    @if ($card->hasFooter($footerContent))
+        <div class="{{ $styles->footer() }}">{!! $footerContent !!}</div>
     @endif
+
 </div>

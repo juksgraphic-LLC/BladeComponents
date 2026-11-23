@@ -3,7 +3,6 @@
 namespace Docs\controllers;
 
 use flight\Engine;
-use Juksgraphic\BladeComponents\BladeComponents;
 
 class HomeController
 {
