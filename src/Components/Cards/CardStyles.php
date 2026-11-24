@@ -33,7 +33,7 @@ class CardStyles
      */
     public function container(): string
     {
-        $classes = 'bg-surface dark:bg-surface-dark rounded-radius border border-outline dark:border-outline-dark overflow-hidden';
+        $classes = 'bg-surface-alt dark:bg-surface-dark-alt rounded-radius border border-outline dark:border-outline-dark overflow-hidden';
 
         if ($this->card->extraClass() !== '') {
             $classes .= ' ' . $this->card->extraClass();

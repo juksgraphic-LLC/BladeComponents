@@ -132,6 +132,7 @@ $config = [
 		'root'  => PROJECT_ROOT,                        // Repository root (where vendor/ lives).
 		'views' => PROJECT_ROOT . '/docs/views',        // Documentation pages (layout, partials, components).
 		'cache' => PROJECT_ROOT . '/docs/cache',        // BladeOne compiled templates. Must be writable.
+		'logs'  => PROJECT_ROOT . '/docs/logs'
 	],
 
 	/*

@@ -11,7 +11,10 @@
 */
 
 use eftec\bladeone\BladeOne;
+use Tracy\Debugger;
+use flight\debug\tracy\TracyExtensionLoader;
 use Juksgraphic\BladeComponents\BladeComponents;
+
 
 /**
  *  @var \flight\Engine $app 
@@ -19,6 +22,19 @@ use Juksgraphic\BladeComponents\BladeComponents;
  */
 
 $config = $app->get('config');
+
+
+
+
+// Enable Tracy
+Debugger::enable();
+Debugger::$logDirectory = $config['paths']['logs'];
+Debugger::$strictMode  = E_ALL & ~E_DEPRECATED & ~E_USER_DEPRECATED; 
+if (Debugger::$showBar) {
+	$app->set('flight.content_length', false);
+	new TracyExtensionLoader($app);
+}
+
 
 /*
 |--------------------------------------------------------------------------
@@ -51,5 +67,4 @@ $app->map(
  * @var BladeOne $view
  */
 $view = $app->view();
-$view->share("app" , $app);
-
+$view->share("app", $app);
