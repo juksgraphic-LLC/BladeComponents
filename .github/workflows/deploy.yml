@@ -128,8 +128,8 @@ jobs:
             ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} << 'EOF'
             set -e
             cd ${{ secrets.REMOTE_PATH }}/app/docs
-            mkdir -p cache
-            chmod 775 cache
+            mkdir -p cache logs
+            chmod 775 cache logs
             find cache -type f -delete
             echo "Deploy OK: $(date)"
           EOF
